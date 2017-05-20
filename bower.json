@@ -13,7 +13,8 @@
     "angular-resource": "~1.6.4",
     "html5-boilerplate": "^5.3.0",
     "jquery": "^3.2.1",
-    "materialize": "^0.98.2"
+    "materialize": "^0.98.2",
+    "ngstorage": "^0.3.11"
   },
   "resolutions": {
     "angular": "1.6.4"

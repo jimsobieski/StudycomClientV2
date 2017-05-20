@@ -1,0 +1,30 @@
+<md-dialog layout-padding aria-label="Inscription">
+    <form ng-cloak>
+        <h3>Inscription</h3>
+        <md-input-container>
+            <label>Nom</label>
+            <input ng-model="connexion.nom" type="text">
+        </md-input-container>
+        <md-input-container>
+            <label>Prenom</label>
+            <input ng-model="connexion.prenom" type="text">
+        </md-input-container>
+        <md-input-container>
+            <label>Email</label>
+            <input ng-model="connexion.email" type="email">
+        </md-input-container>
+        <md-input-container>
+            <label>Mot de passe</label>
+            <input ng-model="password" type="password">
+        </md-input-container>
+        <md-input-container>
+            <label>Confirmer le mot de passe</label>
+            <input ng-model="confirmPassword" type="password">
+        </md-input-container>
+        <div layout="row">
+            <md-button class="md-raised" ng-click="closeDialog()" aria-label="annuler">annuler</md-button>
+            <md-button class="md-primary md-raised" ng-click="authInscription()" aria-label="connexion">inscription</md-button>
+        </div>
+    </form>
+
+</md-dialog>

@@ -1,14 +1,15 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', [
+var studycom = angular.module('myApp', [
     'ngMaterial',
     'ngRoute',
+    'ngStorage',
     'myApp.welcomeController',
     'myApp.view1',
     'myApp.view2',
     'myApp.version'
-]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+]).config(['$locationProvider', '$routeProvider', '$httpProvider', function ($locationProvider, $routeProvider, $httpProvider) {
     $locationProvider.hashPrefix('');
 
 
@@ -24,4 +25,22 @@ angular.module('myApp', [
         });
 
     $routeProvider.otherwise({redirectTo: '/'});
-}]);
+
+    $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function ($q, $location, $localStorage) {
+        return {
+            'request': function (config) {
+                config.headers = config.headers || {};
+                if ($localStorage.token) {
+                    config.headers.Authorization = 'Bearer ' + $localStorage.token;
+                }
+                return config;
+            },
+            'responseError': function (response) {
+                if (response.status === 401 || response.status === 403) {
+                    $location.path('/signin');
+                }
+                return $q.reject(response);
+            }
+        };
+    }]);
+}])

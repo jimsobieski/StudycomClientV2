@@ -2,25 +2,66 @@
 
 angular.module('myApp.welcomeController', ['ngRoute'])
 
-    .controller('welcomeController', function ($scope, $mdDialog) {
+    .controller('welcomeController', function ($scope, $mdDialog, $http, $rootScope, Auth) {
 
         $scope.name = 'welcome';
+        $scope.email = 'sobieskimail@yopmail.com';
+        $scope.password = 'studycom';
         var modal;
 
-        $scope.showInscription = function () {
-            modal = $mdDialog.alert()
-                .parent(angular.element(document.querySelector('#popupContainer')))
-                .clickOutsideToClose(true)
-                .title('This is an alert title')
-                .textContent('You can specify some description text in here.')
-                .ariaLabel('Alert Dialog Demo')
-                .ok('Got it!')
+        function successAuth(res) {
+            $localStorage.token = res.token;
+            window.location = "/";
+        }
 
-            $mdDialog
-                .show(modal)
-                .finally(function () {
-                    modal = undefined;
-                });
+
+        $scope.signin = function () {
+            var formData = {
+                email: $scope.email,
+                password: $scope.password
+            };
+
+            Auth.signin(formData, successAuth, function () {
+                $rootScope.error = 'Invalid credentials.';
+            })
+        };
+
+        $scope.signup = function () {
+            var formData = {
+                email: $scope.email,
+                password: $scope.password
+            };
+
+            Auth.signup(formData, successAuth, function () {
+                $rootScope.error = 'Failed to signup';
+            })
+        };
+
+        $scope.showInscription = function (ev) {
+            $mdDialog.show({
+                controller: inscriptionController,
+                controllerAs: 'inscription',
+                templateUrl: 'welcome/inscription.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true
+            }).then(function (answer) {
+
+            })
+
+            function inscriptionController($scope, $mdDialog) {
+                $scope.email = '';
+                $scope.password = '';
+                $scope.confirmPassword = '';
+                $scope.name = "connexion";
+                $scope.closeDialog = function () {
+                    $mdDialog.hide();
+                }
+
+                $scope.authInscription = function () {
+                    console.log($scope.email);
+                }
+            }
         };
         $scope.showConnexion = function (ev) {
             $mdDialog.show({
@@ -31,21 +72,33 @@ angular.module('myApp.welcomeController', ['ngRoute'])
                 targetEvent: ev,
                 clickOutsideToClose: true
             }).then(function (answer) {
-                $scope.status = 'You said the information was "' + answer + '".';
-            })
 
-            function connexionController($scope, $mdDialog) {
-                $scope.email = '';
-                $scope.password = '';
+            });
+
+            function connexionController($scope, $mdDialog, $rootScope, Auth) {
+                $scope.email = 'sobieskimail@yopmail.com';
+                $scope.password = 'studycom';
                 $scope.name = "connexion";
                 $scope.closeDialog = function () {
                     $mdDialog.hide();
-                }
+                };
 
                 $scope.authConnexion = function () {
                     console.log($scope.email);
-                }
+                };
             }
+
+        };
+
+        $scope.getMessages = function () {
+            $http.get('http://studycom.dev/api/topic/2/posts').then(function (response) {
+                console.log(response.data);
+            });
+
+        };
+        $scope.getMessages();
+
+        $scope.getUser = function($http) {
 
         }
     })
