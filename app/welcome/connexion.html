@@ -1,0 +1,19 @@
+<md-dialog layout-padding aria-label="Connexion">
+    <form ng-cloak>
+        <h3>Connexion</h3>
+
+        <md-input-container>
+            <label>Email</label>
+            <input ng-model="connexion.email" type="email">
+        </md-input-container>
+        <md-input-container>
+            <label>Mot de passe</label>
+            <input ng-model="password" type="password">
+        </md-input-container>
+        <div layout="row">
+            <md-button class="md-raised" ng-click="closeDialog()" aria-label="annuler">annuler</md-button>
+            <md-button class="md-primary md-raised" ng-click="authConnexion()" aria-label="connexion">connexion</md-button>
+        </div>
+    </form>
+
+</md-dialog>

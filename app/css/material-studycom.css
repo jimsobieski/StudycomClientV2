@@ -5,10 +5,19 @@
 .md-button.md-primary.md-raised {
     background-color: #80CBC4;
 }
+.md-button.md-primary.md-raised.md-focused {
+    background-color: #80CBC4;
+}
 
 .md-button.md-primary.md-raised:not([disabled]):hover {
     background-color: #80CBC4;
 }
+
+md-dialog h3 {
+    text-transform: uppercase;
+    font-family: 'Bahiana', cursive;
+}
+
 
 h1 {
     font-size: 32px;
