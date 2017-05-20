@@ -1,0 +1,27 @@
+.md-button.md-raised {
+    color: #00695c;
+}
+
+.md-button.md-primary.md-raised {
+    background-color: #80CBC4;
+}
+
+.md-button.md-primary.md-raised:not([disabled]):hover {
+    background-color: #80CBC4;
+}
+
+h1 {
+    font-size: 32px;
+    margin: 0;
+    padding: 15px;
+    font-family: 'Bahiana', cursive;
+    letter-spacing: 2.5px;
+}
+h1 > a {
+    color: white;
+}
+
+
+a {
+    text-decoration: none;
+}
