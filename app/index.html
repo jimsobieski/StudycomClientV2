@@ -26,10 +26,10 @@
 <body>
 <md-toolbar ng-controller="navbarController" class="z-depth-3" aria-label="menu" layout="row" layout-align="space-between center">
     <h1><a href="#/">Studycom</a></h1>
-    <div ng-if="isConnected">
+    <div ng-if="true">
         <md-button class="md-raised">logout</md-button>
     </div>
-    <div ng-if="!isConnected">
+    <div ng-if="false">
         <md-button name="inscription" class="md-raised" aria-label="inscription" ng-click="showInscription()">inscription</md-button>
         <md-button name=connexion" class="md-primary md-raised" aria-label="connexion" ng-click="showConnexion()">connexion</md-button>
     </div>
