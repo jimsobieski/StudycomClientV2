@@ -106,6 +106,6 @@ angular.module('myApp.welcomeController', ['ngRoute'])
             Auth.signin(data);
 
         };
-        $scope.getToken();
+        //$scope.getToken();
 
     })

@@ -8,7 +8,8 @@ var studycom = angular.module('myApp', [
     'myApp.welcomeController',
     'myApp.homeController',
     'myApp.view1',
-    'myApp.view2',
+    'myApp.profilController',
+    'myApp.topicController',
     'myApp.version'
 ]).constant('urls', {
     BASE: 'http://studycom.dev',
@@ -20,16 +21,19 @@ var studycom = angular.module('myApp', [
     $routeProvider.when('/', {
         templateUrl: "welcome/welcome.html",
         controller: "welcomeController"
-    }).when('/view2', {
-        templateUrl: 'view2/view2.html',
-        controller: 'View2Ctrl'
+    }).when('/profil', {
+        templateUrl: 'profil/profil.html',
+        controller: 'profilController'
     }).when('/view1', {
             templateUrl: 'view1/view1.html',
             controller: 'View1Ctrl'
     }).when('/home', {
     templateUrl: 'home/home.html',
     controller: 'homeController'
-});;
+    }).when('/topic/:id', {
+        templateUrl: 'topic/topic.html',
+        controller: 'topicController'
+    });
 
     $routeProvider.otherwise({redirectTo: '/'});
 
@@ -37,7 +41,6 @@ var studycom = angular.module('myApp', [
         return {
             'request': function (config) {
                 config.headers = config.headers || {};
-                console.log(config.headers);
                 if ($localStorage.token) {
                     config.headers.Authorization = 'Bearer ' + $localStorage.token.token;
                 }
