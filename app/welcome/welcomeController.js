@@ -7,7 +7,6 @@ angular.module('myApp.welcomeController', ['ngRoute'])
         $scope.name = 'welcome';
         $scope.email = 'sobieskimail@yopmail.com';
         $scope.password = 'studycom';
-        var modal;
 
         function successAuth(res) {
             $localStorage.token = res.token;
@@ -46,7 +45,7 @@ angular.module('myApp.welcomeController', ['ngRoute'])
                 targetEvent: ev,
                 clickOutsideToClose: true
             }).then(function (answer) {
-
+                console.log(answer);
             })
 
             function inscriptionController($scope, $mdDialog) {
@@ -83,22 +82,30 @@ angular.module('myApp.welcomeController', ['ngRoute'])
                     $mdDialog.hide();
                 };
 
-                $scope.authConnexion = function () {
-                    console.log($scope.email);
+                $scope.signin = function () {
+                    var formData = {
+                        email: $scope.email,
+                        password: $scope.password
+                    };
+
+                    Auth.signin(formData, successAuth, function () {
+                        $rootScope.error = 'Invalid credentials.';
+                    })
                 };
             }
 
         };
 
-        $scope.getMessages = function () {
-            $http.get('http://studycom.dev/api/topic/2/posts').then(function (response) {
-                console.log(response.data);
-            });
+        $scope.getToken = function () {
+
+            var data = {
+                email: 'sobieskimail@yopmail.com',
+                password: 'studycom'
+            }
+
+            Auth.signin(data);
 
         };
-        $scope.getMessages();
+        $scope.getToken();
 
-        $scope.getUser = function($http) {
-
-        }
     })

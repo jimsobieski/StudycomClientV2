@@ -6,10 +6,14 @@ var studycom = angular.module('myApp', [
     'ngRoute',
     'ngStorage',
     'myApp.welcomeController',
+    'myApp.homeController',
     'myApp.view1',
     'myApp.view2',
     'myApp.version'
-]).config(['$locationProvider', '$routeProvider', '$httpProvider', function ($locationProvider, $routeProvider, $httpProvider) {
+]).constant('urls', {
+    BASE: 'http://studycom.dev',
+    BASE_API: 'http://http://studycom.dev/api'
+}).config(['$locationProvider', '$routeProvider', '$httpProvider', function ($locationProvider, $routeProvider, $httpProvider) {
     $locationProvider.hashPrefix('');
 
 
@@ -22,7 +26,10 @@ var studycom = angular.module('myApp', [
     }).when('/view1', {
             templateUrl: 'view1/view1.html',
             controller: 'View1Ctrl'
-        });
+    }).when('/home', {
+    templateUrl: 'home/home.html',
+    controller: 'homeController'
+});;
 
     $routeProvider.otherwise({redirectTo: '/'});
 
@@ -30,8 +37,9 @@ var studycom = angular.module('myApp', [
         return {
             'request': function (config) {
                 config.headers = config.headers || {};
+                console.log(config.headers);
                 if ($localStorage.token) {
-                    config.headers.Authorization = 'Bearer ' + $localStorage.token;
+                    config.headers.Authorization = 'Bearer ' + $localStorage.token.token;
                 }
                 return config;
             },
