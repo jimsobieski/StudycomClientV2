@@ -6,6 +6,7 @@ var studycom = angular.module('myApp', [
     'ngRoute',
     'ngStorage',
     'myApp.welcomeController',
+    'myApp.navbarController',
     'myApp.homeController',
     'myApp.view1',
     'myApp.profilController',

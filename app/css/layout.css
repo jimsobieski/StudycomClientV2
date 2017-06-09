@@ -10,5 +10,44 @@ html, body {
 md-toolbar {
     z-index: 998;
     background-color: #00695c !important;
+    height: 10%;
 
+}
+
+.global-view {
+    height: 90%;
+}
+
+.sidenav-menu {
+    witdh: 300px;
+}
+
+.topic-section {
+    max-height: 100%;
+}
+.topic-section > section {
+    max-height: 100%;
+}
+.topic-name {
+    height: 10%;
+}
+.topic-feed {
+    height: 70%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.topic-message-card > md-card-header {
+    //padding: 4px;
+    height: 50px;
+}
+.topic-message-card > md-card-content {
+    //padding: 12px;
+    min-height: 50px;
+    height: auto;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.topic-response-bar {
+    height:20%;
 }

@@ -24,18 +24,19 @@
     <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
-<md-toolbar class="z-depth-3" aria-label="menu" layout="row" layout-align="space-between center">
+<md-toolbar ng-controller="navbarController" class="z-depth-3" aria-label="menu" layout="row" layout-align="space-between center">
     <h1><a href="#/">Studycom</a></h1>
-    <div>
-        <md-button name="inscription" class="md-raised" aria-label="inscription">inscription</md-button>
-        <md-button name=connexion" class="md-primary md-raised" aria-label="connexion">connexion</md-button>
+    <div ng-if="isConnected">
+        <md-button class="md-raised">logout</md-button>
+    </div>
+    <div ng-if="!isConnected">
+        <md-button name="inscription" class="md-raised" aria-label="inscription" ng-click="showInscription()">inscription</md-button>
+        <md-button name=connexion" class="md-primary md-raised" aria-label="connexion" ng-click="showConnexion()">connexion</md-button>
     </div>
 
 </md-toolbar>
 
-<div ng-view></div>
-
-<div>Angular seed app: v<span app-version></span></div>
+<div class="global-view" ng-view></div>
 
 <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
@@ -57,6 +58,7 @@
 <script src="topic/topicController.js"></script>
 <script src="home/homeController.js"></script>
 <script src="util/sidenav-directive.js"></script>
+<script src="util/navbarController.js"></script>
 <script src="components/version/version.js"></script>
 <script src="components/version/version-directive.js"></script>
 <script src="components/version/interpolate-filter.js"></script>

@@ -3,42 +3,43 @@
         md-component-id="left"
         md-is-locked-open="$mdMedia('gt-md')"
         md-whiteframe="4">
-    <div layout="row" layout-align="space-between center">
-        <span><a href="#/profil">Jim Sobieski</a></span>
-        <md-menu md-offset="120 30">
-            <md-button ng-click="$mdMenu.open($event)">
-                <md-icon md-svg-src="icons/add.svg"></md-icon>
-            </md-button>
-            <md-menu-content class="md-padding">
-                <md-menu-item>
-                    <md-icon md-svg-src="icons/chat.svg"></md-icon>
-                    <span>Nouveau topic</span>
-                </md-menu-item>
-                <md-menu-item>
-                    <md-icon md-svg-src="icons/face.svg"></md-icon>
-                    <span>Nouveau contact</span>
-                </md-menu-item>
-            </md-menu-content>
-        </md-menu>
-    </div>
-    <md-tabs md-dynamic-height md-border-bottom>
-        <md-tab label="Topics">
-            <md-content class="md-padding">
-                <md-list>
-                    <md-list-item><a href="#/topic/1">Histoire</a></md-list-item>
-                    <md-list-item>Maths</md-list-item>
-                    <md-list-item>SVT</md-list-item>
-                </md-list>
-            </md-content>
-        </md-tab>
-        <md-tab label="Contacts">
-            <md-content class="md-padding">
-                <md-list>
-                    <md-list-item>Sakho</md-list-item>
-                    <md-list-item>John</md-list-item>
-                </md-list>
-            </md-content>
-        </md-tab>
-    </md-tabs>
-
+    <md-content>
+        <div layout="row" layout-align="space-between center">
+            <span><a href="#/profil">Jim Sobieski</a></span>
+            <md-menu md-offset="120 30">
+                <md-button ng-click="$mdMenu.open($event)">
+                    <md-icon md-svg-src="icons/add.svg"></md-icon>
+                </md-button>
+                <md-menu-content class="md-padding sidenav-menu">
+                    <md-menu-item>
+                        <md-icon flex="20" md-svg-src="icons/forum.svg"></md-icon>
+                        <span flex="80">Nouveau topic</span>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-icon flex="20" md-svg-src="icons/face.svg"></md-icon>
+                        <span flex="80">Nouveau contact</span>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </div>
+        <md-tabs md-align-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="Topics">
+                <md-content class="md-padding">
+                    <md-list>
+                        <md-list-item><a href="#/topic/1">Histoire</a></md-list-item>
+                        <md-list-item><a href="#/topic/2">Maths</a></md-list-item>
+                        <md-list-item><a href="#/topic/3">SVT</a></md-list-item>
+                    </md-list>
+                </md-content>
+            </md-tab>
+            <md-tab label="Contacts">
+                <md-content class="md-padding">
+                    <md-list>
+                        <md-list-item>Sakho</md-list-item>
+                        <md-list-item>John</md-list-item>
+                    </md-list>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+    </md-content>
 </md-sidenav>
