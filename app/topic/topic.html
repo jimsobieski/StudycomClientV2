@@ -15,9 +15,10 @@
                                     <img class="md-user-avatar" src="img/avatar.png">
                                 </md-card-avatar>
                                 <md-card-title>
-                                    <p>{{message.author}}</p>
+                                    <p><a ng-click="openUserProfileModal()">{{message.author}}</a></p>
                                 </md-card-title>
                             </md-card-header>
+                            <md-divider></md-divider>
                             <md-card-content>
                                 <p>{{message.text}}</p>
                             </md-card-content>

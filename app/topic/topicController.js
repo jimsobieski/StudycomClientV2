@@ -62,6 +62,33 @@ angular.module('myApp.topicController', ['ngRoute'])
             }
         }
 
+        $scope.openUserProfileModal = function (ev) {
+            $mdDialog.show({
+                controller: userProfileModalController,
+                controllerAs: 'userProfileModal',
+                templateUrl: 'util/userProfileModal.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true
+            }).then(function (answer) {
+
+            });
+
+            function userProfileModalController($scope, $mdDialog, $rootScope, Auth) {
+                $scope.email = 'sobieskimail@yopmail.com';
+                $scope.name = "jim";
+                $scope.closeDialog = function () {
+                    $mdDialog.hide();
+                };
+
+                $scope.addContact = function () {
+                    console.log('contact ajouté');
+                }
+
+            }
+
+        };
+
         var scrollBottom = function () {
             var messages = document.getElementsByClassName('topic-message-card');
             console.log(messages[messages.length-1]);

@@ -1,0 +1,15 @@
+<md-dialog layout-padding aria-label="Créer un topic">
+    <form ng-cloak>
+        <h3>Créer un topic</h3>
+
+        <md-input-container>
+            <label>Nom du topic</label>
+            <input ng-model="name" type="text">
+        </md-input-container>
+        <div layout="row">
+            <md-button class="md-raised" ng-click="closeDialog()" aria-label="annuler">annuler</md-button>
+            <md-button class="md-primary md-raised" ng-click="createTopic()" aria-label="valider">valider</md-button>
+        </div>
+    </form>
+
+</md-dialog>

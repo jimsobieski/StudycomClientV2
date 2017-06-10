@@ -1,0 +1,26 @@
+<md-dialog layout-padding aria-label="Profil de">
+        <md-dialog-content>
+            <div layout="row" layout-align="space-between">
+                <h3>Jim Sobieski</h3>
+                <md-button class="md-raised" ng-click="closeDialog()" aria-label="annuler">
+                    <md-icon md-svg-src="icons/clear.svg"></md-icon>
+                </md-button>
+
+            </div>
+            <div layout="row">
+                <img src="img/avatar.png" flex="50">
+                <md-list flex="50">
+                    <md-list-item>test</md-list-item>
+                    <md-list-item>test</md-list-item>
+                    <md-list-item>test</md-list-item>
+                    <md-list-item>test</md-list-item>
+                </md-list>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button aria-label="ajouter" ng-click="addContact()">
+                <md-icon md-svg-src="icons/person_add.svg"></md-icon>
+            </md-button>
+        </md-dialog-actions>
+
+</md-dialog>

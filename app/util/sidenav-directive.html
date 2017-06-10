@@ -13,17 +13,17 @@
                 <md-menu-content class="md-padding sidenav-menu">
                     <md-menu-item>
                         <md-icon flex="20" md-svg-src="icons/forum.svg"></md-icon>
-                        <span flex="80">Nouveau topic</span>
+                        <md-button flex="80" ng-click="openAddTopicDialog()">Nouveau topic</md-button>
                     </md-menu-item>
                     <md-menu-item>
                         <md-icon flex="20" md-svg-src="icons/face.svg"></md-icon>
-                        <span flex="80">Nouveau contact</span>
+                        <md-button flex="80" ng-click="openAddContactDialog()">Nouveau contact</md-button>
                     </md-menu-item>
                 </md-menu-content>
             </md-menu>
         </div>
         <md-tabs md-align-tabs md-dynamic-height md-border-bottom>
-            <md-tab label="Topics">
+            <md-tab flex label="Topics">
                 <md-content class="md-padding">
                     <md-list>
                         <md-list-item><a href="#/topic/1">Histoire</a></md-list-item>
@@ -32,7 +32,7 @@
                     </md-list>
                 </md-content>
             </md-tab>
-            <md-tab label="Contacts">
+            <md-tab flex label="Contacts">
                 <md-content class="md-padding">
                     <md-list>
                         <md-list-item>Sakho</md-list-item>
