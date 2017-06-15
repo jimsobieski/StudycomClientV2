@@ -77,7 +77,7 @@ angular.module('myApp.navbarController', ['ngRoute'])
 
         $scope.logout = function () {
             Auth.logout();
-        }
+        };
 
         $scope.isConnected = function () {
             return Auth.isConnected();

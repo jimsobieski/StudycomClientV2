@@ -8,7 +8,24 @@ studycom.directive("studycomSidenav", function ($http) {
         },
         controller: function ($scope, $mdDialog, Auth) {
 
-            $scope.user = Auth.user();
+            $scope.user = null;
+
+            Auth.user().then(function(response) {
+                console.log(response);
+                $scope.user = response;
+                $scope.getTopics();
+            });
+
+            $scope.getTopics = function () {
+                console.log('test');
+                $http.get('http://localhost/Studycom/public/api/user/'+user.id+'/topic').then(function(response) {
+                    console.log(response);
+                    $scope.topics = response.data;
+
+                })
+                console.log('yolo');
+            };
+
 
             $scope.openAddTopicDialog = function (ev) {
                 $mdDialog.show({
