@@ -74,4 +74,8 @@ angular.module('myApp.navbarController', ['ngRoute'])
             }
 
         };
+
+        $scope.logout = function () {
+            Auth.logout(successAuth);
+        }
     });

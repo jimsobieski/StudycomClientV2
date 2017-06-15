@@ -96,4 +96,11 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         }
 
+        $scope.testHttpRequest = function () {
+            $http.get('http://localhost/Studycom/public/api/test').then(function(response) {
+                console.log(response.data);
+            })
+        }
+        $scope.testHttpRequest();
+
     });

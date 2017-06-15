@@ -1,5 +1,3 @@
-'use strict';
-
 // Declare app level module which depends on views, and components
 var studycom = angular.module('myApp', [
     'ngMaterial',
@@ -14,8 +12,11 @@ var studycom = angular.module('myApp', [
     'myApp.version'
 ]).constant('urls', {
     BASE: 'http://studycom.dev',
-    BASE_API: 'http://http://studycom.dev/api'
-}).config(['$locationProvider', '$routeProvider', '$httpProvider', function ($locationProvider, $routeProvider, $httpProvider) {
+    BASE_API: 'http://localhost/Studycom/public/api'
+}).config(['$locationProvider', '$routeProvider', '$httpProvider', '$qProvider', function ($locationProvider, $routeProvider, $httpProvider, $qProvider) {
+
+    $qProvider.errorOnUnhandledRejections(false);
+
     $locationProvider.hashPrefix('');
 
 
@@ -43,7 +44,7 @@ var studycom = angular.module('myApp', [
             'request': function (config) {
                 config.headers = config.headers || {};
                 if ($localStorage.token) {
-                    config.headers.Authorization = 'Bearer ' + $localStorage.token.token;
+                    config.headers.Authorization = 'Bearer ' + $localStorage.token;
                 }
                 return config;
             },

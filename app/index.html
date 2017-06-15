@@ -10,8 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>My AngularJS App</title>
-    <meta name="description" content="">
+    <title>Studycom</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
@@ -31,7 +30,7 @@
     </md-button>
     <div ng-if="true">
 
-        <md-button class="md-raised">logout</md-button>
+        <md-button class="md-raised" ng-click="logout()">logout</md-button>
     </div>
     <div ng-if="false">
         <md-button name="inscription" class="md-raised" aria-label="inscription" ng-click="showInscription()">inscription</md-button>

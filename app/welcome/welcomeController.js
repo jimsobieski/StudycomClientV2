@@ -10,7 +10,7 @@ angular.module('myApp.welcomeController', ['ngRoute'])
 
         function successAuth(res) {
             $localStorage.token = res.token;
-            window.location = "/";
+            window.location = "/home";
         }
 
 
@@ -22,6 +22,9 @@ angular.module('myApp.welcomeController', ['ngRoute'])
 
             Auth.signin(formData, successAuth, function () {
                 $rootScope.error = 'Invalid credentials.';
+            }).then(function(response) {
+                console.log(response);
+                $window.location = '/home';
             })
         };
 

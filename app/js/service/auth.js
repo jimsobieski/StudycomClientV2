@@ -20,7 +20,7 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
         var token = $localStorage.token;
         var user = {};
         if (typeof token !== 'undefined') {
-            var encoded = token.token.split('.')[1];
+            var encoded = token.split('.')[1];
             user = JSON.parse(urlBase64Decode(encoded));
         }
         return user;
@@ -37,15 +37,15 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
             });
         },
         signin: function (data, success, error) {
-            $http.post('http://studycom.dev/api/signin', data).then(function(response){
+            $http.post('http://localhost/Studycom/public/api/signin', data).then(function(response){
                 $localStorage.token = response.data.token;
                 console.log(response.data);
-                $window.location = '/home';
             });
         },
         logout: function (success) {
             tokenClaims = {};
             delete $localStorage.token;
+            console.log($localStorage.token);
             success();
         },
         getTokenClaims: function () {
