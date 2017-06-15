@@ -26,7 +26,11 @@
 <body>
 <md-toolbar ng-controller="navbarController" class="z-depth-3" aria-label="menu" layout="row" layout-align="space-between center">
     <h1><a href="#/">Studycom</a></h1>
+    <md-button ng-click="openSideNav()">
+        <md-icon md-svg-src="icons/school.svg"></md-icon>
+    </md-button>
     <div ng-if="true">
+
         <md-button class="md-raised">logout</md-button>
     </div>
     <div ng-if="false">

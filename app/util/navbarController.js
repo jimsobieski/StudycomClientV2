@@ -11,6 +11,10 @@ angular.module('myApp.navbarController', ['ngRoute'])
             window.location = "/";
         }
 
+        $scope.openSideNav = function (){
+            $mdSidenav('left').toggle();
+        }
+
         $scope.showInscription = function (ev) {
             $mdDialog.show({
                 controller: inscriptionController,

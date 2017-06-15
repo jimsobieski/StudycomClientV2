@@ -1,26 +1,60 @@
-<md-dialog layout-padding aria-label="Profil de">
-        <md-dialog-content>
-            <div layout="row" layout-align="space-between">
-                <h3>Jim Sobieski</h3>
-                <md-button class="md-raised" ng-click="closeDialog()" aria-label="annuler">
-                    <md-icon md-svg-src="icons/clear.svg"></md-icon>
-                </md-button>
+<md-dialog layout-padding aria-label="Profil de" flex="40" class="user-profile-modal">
+    <md-dialog-title layout="row" layout-align="space-between">
 
-            </div>
-            <div layout="row">
-                <img src="img/avatar.png" flex="50">
-                <md-list flex="50">
-                    <md-list-item>test</md-list-item>
-                    <md-list-item>test</md-list-item>
-                    <md-list-item>test</md-list-item>
-                    <md-list-item>test</md-list-item>
+            <h3>Jim Sobieski</h3>
+            <md-button class="md-raised" ng-click="closeDialog()" aria-label="annuler">
+                <md-icon md-svg-src="icons/clear.svg"></md-icon>
+            </md-button>
+
+    </md-dialog-title>
+    <md-dialog-content>
+        <div>
+            <div layout="row" class="user-profile-modal-first-part">
+                <img src="img/avatar.png" flex="40">
+                <md-list flex="60">
+                    <md-list-item>
+                        <md-input-container>
+                            <label>Prenom</label>
+                            <input ng-value="'Jim'" type="text" ng-disabled="true">
+                        </md-input-container>
+                    </md-list-item>
+                    <md-list-item>
+                        <md-input-container>
+                            <label>Nom</label>
+                            <input ng-value="'Sobieski'" type="text" ng-disabled="true">
+                        </md-input-container>
+                    </md-list-item>
+                    <md-list-item>
+                        <md-input-container>
+                            <label>Mail</label>
+                            <input ng-value="'sobieskimail@yopmail.com'" type="email" ng-disabled="true">
+                        </md-input-container>
+                    </md-list-item>
+                    <md-list-item>
+                        <md-input-container>
+                            <label>Téléphone</label>
+                            <input ng-value="0664859856" type="tel" ng-disabled="true">
+                        </md-input-container>
+                    </md-list-item>
                 </md-list>
             </div>
-        </md-dialog-content>
-        <md-dialog-actions>
-            <md-button aria-label="ajouter" ng-click="addContact()">
-                <md-icon md-svg-src="icons/person_add.svg"></md-icon>
-            </md-button>
-        </md-dialog-actions>
+            <div layout="row" layout-align="space-around center" class="user-profile-modal-second-part">
+                <md-menu-item flex="30">
+                    <p>Nombre de contacts : 60</p>
+                </md-menu-item>
+                <md-menu-item flex="30">
+                    <p>12 contacts en communs</p>
+                </md-menu-item>
+                <md-menu-item flex="30">
+                    <p>4 topics en communs</p>
+                </md-menu-item>
+            </div>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button aria-label="ajouter" ng-click="addContact()">
+            <md-icon md-svg-src="icons/person_add.svg"></md-icon>
+        </md-button>
+    </md-dialog-actions>
 
 </md-dialog>

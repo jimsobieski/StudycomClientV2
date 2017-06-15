@@ -110,3 +110,13 @@ md-sidenav {
     overflow-y: auto;
 }
 
+.user-profile-modal {
+
+}
+.user-profile-moda-first-part md-input-container .md-input[disabled] {
+    color: black !important;
+}
+
+.user-profile-modal-second-part {
+
+}

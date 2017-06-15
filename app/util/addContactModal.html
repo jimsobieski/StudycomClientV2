@@ -1,15 +1,16 @@
-<md-dialog layout-padding aria-label="Ajouter un contact">
+<md-dialog layout-padding aria-label="Ajouter un contact" flex="30">
     <form ng-cloak>
         <h3>Ajouter un contact</h3>
-
-        <md-input-container>
-            <label>Pseudo ou Nom du contact</label>
-            <input ng-model="name" type="text">
-        </md-input-container>
-        <div layout="row">
+        <md-dialog-content>
+            <md-input-container>
+                <label>Pseudo ou Nom du contact</label>
+                <input ng-model="name" type="text">
+            </md-input-container>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
             <md-button class="md-raised" ng-click="closeDialog()" aria-label="annuler">annuler</md-button>
             <md-button class="md-primary md-raised" ng-click="createTopic()" aria-label="valider">valider</md-button>
-        </div>
+        </md-dialog-actions>
     </form>
 
 </md-dialog>
