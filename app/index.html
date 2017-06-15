@@ -28,11 +28,11 @@
     <md-button ng-click="openSideNav()">
         <md-icon md-svg-src="icons/school.svg"></md-icon>
     </md-button>
-    <div ng-if="true">
+    <div ng-if="isConnected()">
 
         <md-button class="md-raised" ng-click="logout()">logout</md-button>
     </div>
-    <div ng-if="false">
+    <div ng-if="!isConnected()">
         <md-button name="inscription" class="md-raised" aria-label="inscription" ng-click="showInscription()">inscription</md-button>
         <md-button name=connexion" class="md-primary md-raised" aria-label="connexion" ng-click="showConnexion()">connexion</md-button>
     </div>

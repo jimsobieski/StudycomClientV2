@@ -6,7 +6,9 @@ studycom.directive("studycomSidenav", function ($http) {
         link: function(scope) {
 
         },
-        controller: function ($scope, $mdDialog) {
+        controller: function ($scope, $mdDialog, Auth) {
+
+            $scope.user = Auth.user();
 
             $scope.openAddTopicDialog = function (ev) {
                 $mdDialog.show({

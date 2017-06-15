@@ -28,6 +28,19 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
 
     var tokenClaims = getClaimsFromToken();
 
+    function getUser() {
+        var tokenClaim = getClaimsFromToken();
+
+        var test = $http.get('http://localhost/Studycom/public/api/user/'+tokenClaim.sub).then(function (response) {
+            console.log(response.data);
+            return response.data;
+        });
+        console.log(test);
+        return test;
+    }
+
+    var user = getUser();
+
     return {
         signup: function (data, success, error) {
             $http.post('http://studycom.dev/api/signup', data).then(function(response) {
@@ -40,16 +53,29 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
             $http.post('http://localhost/Studycom/public/api/signin', data).then(function(response){
                 $localStorage.token = response.data.token;
                 console.log(response.data);
+                window.location = 'http://localhost/StudycomClient/app/#/home';
             });
         },
-        logout: function (success) {
+        logout: function () {
             tokenClaims = {};
             delete $localStorage.token;
-            console.log($localStorage.token);
-            success();
+            window.location = 'http://localhost/StudycomClient/app/#/';
+
         },
         getTokenClaims: function () {
             return tokenClaims;
+        },
+
+        user: function () {
+            console.log(user);
+            return user;
+        },
+
+        isConnected : function () {
+            if($localStorage.token) {
+                return true;
+            }
+            return false;
         }
     };
 }

@@ -7,8 +7,8 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         $scope.getTopicMessages = function () {
             var messages = [];
-            for(var i = 1; i< 15; i++) {
-                if(i%2==0) {
+            for (var i = 1; i < 15; i++) {
+                if (i % 2 == 0) {
                     var message = {
                         'idAuthor': 1,
                         'author': 'Jim Sobieski',
@@ -46,7 +46,7 @@ angular.module('myApp.topicController', ['ngRoute'])
         }
 
         $scope.leftOrRight = function (message) {
-            if (message.idAuthor==1) {
+            if (message.idAuthor == 1) {
                 return 'end center';
             }
             else {
@@ -54,7 +54,7 @@ angular.module('myApp.topicController', ['ngRoute'])
             }
         }
         $scope.authMessage = function (message) {
-            if (message.idAuthor==1) {
+            if (message.idAuthor == 1) {
                 return 'topic-auth-message';
             }
             else {
@@ -91,16 +91,14 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         var scrollBottom = function () {
             var messages = document.getElementsByClassName('topic-message-card');
-            console.log(messages[messages.length-1]);
-            messages[messages.length-1].scrollTop = messages[messages.length-1].scrollHeight;
+            console.log(messages[messages.length - 1]);
+            messages[messages.length - 1].scrollTop = messages[messages.length - 1].scrollHeight;
 
         }
 
-        $scope.testHttpRequest = function () {
-            $http.get('http://localhost/Studycom/public/api/test').then(function(response) {
-                console.log(response.data);
-            })
+        $scope.toggleTopicSidenav = function () {
+
+            $mdSidenav('topic-right').toggle();
         }
-        $scope.testHttpRequest();
 
     });

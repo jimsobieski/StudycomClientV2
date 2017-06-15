@@ -54,8 +54,8 @@ angular.module('myApp.navbarController', ['ngRoute'])
             });
 
             function connexionController($scope, $mdDialog, $rootScope, Auth) {
-                $scope.email = 'sobieskimail@yopmail.com';
-                $scope.password = 'studycom';
+                $scope.email = '';
+                $scope.password = '';
                 $scope.name = "connexion";
                 $scope.closeDialog = function () {
                     $mdDialog.hide();
@@ -76,6 +76,10 @@ angular.module('myApp.navbarController', ['ngRoute'])
         };
 
         $scope.logout = function () {
-            Auth.logout(successAuth);
+            Auth.logout();
+        }
+
+        $scope.isConnected = function () {
+            return Auth.isConnected();
         }
     });
