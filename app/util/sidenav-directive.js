@@ -34,6 +34,11 @@ studycom.directive("studycomSidenav", function ($http) {
                             name: $scope.name,
                         };
                         console.log(formData);
+                        $http.post('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/topic', formData)
+                            .then(function(response) {
+                                console.log(response.data);
+                        })
+
 
                     };
                 }
