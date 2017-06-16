@@ -1,10 +1,10 @@
 angular.module('myApp.topicController', ['ngRoute'])
 
-    .controller('topicController', function ($scope, $mdDialog, $http, $rootScope, Auth, $mdSidenav) {
+    .controller('topicController', function ($scope, $mdDialog, $http, $rootScope, Auth, $mdSidenav, topic) {
 
         $scope.messages = [];
         $scope.message = '';
-
+        $scope.showTopicMenu = false;
         $scope.getTopicMessages = function () {
             var messages = [];
             for (var i = 1; i < 15; i++) {
@@ -29,9 +29,12 @@ angular.module('myApp.topicController', ['ngRoute'])
 
             }
             $scope.messages = messages;
-        }
+        };
         $scope.getTopicMessages();
-
+        console.log(topic);
+        $scope.toggleTopicMenu = function () {
+            $scope.showTopicMenu = !$scope.showTopicMenu;
+        };
 
         $scope.addMessage = function () {
             var message = {
@@ -43,7 +46,7 @@ angular.module('myApp.topicController', ['ngRoute'])
             $scope.messages.push(message);
             $scope.message = '';
             scrollBottom();
-        }
+        };
 
         $scope.leftOrRight = function (message) {
             if (message.idAuthor == 1) {
@@ -52,7 +55,7 @@ angular.module('myApp.topicController', ['ngRoute'])
             else {
                 return 'start center';
             }
-        }
+        };
         $scope.authMessage = function (message) {
             if (message.idAuthor == 1) {
                 return 'topic-auth-message';
@@ -60,7 +63,7 @@ angular.module('myApp.topicController', ['ngRoute'])
             else {
                 return '';
             }
-        }
+        };
 
         $scope.openUserProfileModal = function (ev) {
             $mdDialog.show({
@@ -94,11 +97,6 @@ angular.module('myApp.topicController', ['ngRoute'])
             console.log(messages[messages.length - 1]);
             messages[messages.length - 1].scrollTop = messages[messages.length - 1].scrollHeight;
 
-        }
-
-        $scope.toggleTopicSidenav = function () {
-
-            $mdSidenav('topic-right').toggle();
         }
 
     });

@@ -3,10 +3,12 @@
         md-component-id="left"
         md-is-locked-open="$mdMedia('gt-md')"
         md-whiteframe="4">
+    <md-toolbar hide-gt-md>
+        <h1>Studycom</h1>
+    </md-toolbar>
     <md-content>
         <div layout="row" layout-align="space-between center">
             <md-menu-item>
-                <md-icon flex="10" md-svg-src="icons/school.svg"></md-icon>
                 <a href="#/profil">{{user.name}}</a>
             </md-menu-item>
             <md-menu md-offset="120 30">
@@ -17,11 +19,11 @@
                 <md-menu-content class="md-padding sidenav-menu">
                     <md-menu-item>
                         <md-icon flex="20" md-svg-src="icons/forum.svg"></md-icon>
-                        <md-button flex="80" ng-click="openAddTopicDialog()">Nouveau topic</md-button>
+                        <md-button ng-click="openAddTopicDialog()">Nouveau topic</md-button>
                     </md-menu-item>
                     <md-menu-item>
                         <md-icon flex="20" md-svg-src="icons/person_add.svg"></md-icon>
-                        <md-button flex="80" ng-click="openAddContactDialog()">Nouveau contact</md-button>
+                        <md-button ng-click="openAddContactDialog()">Nouveau contact</md-button>
                     </md-menu-item>
                 </md-menu-content>
             </md-menu>
@@ -30,9 +32,9 @@
             <md-tab flex label="Topics">
                 <md-content class="md-padding">
                     <md-list>
-                        <md-list-item><a href="#/topic/1">Histoire</a></md-list-item>
-                        <md-list-item><a href="#/topic/2">Maths</a></md-list-item>
-                        <md-list-item><a href="#/topic/3">SVT</a></md-list-item>
+                        <md-list-item ng-repeat="topic in topics">
+                            <a href="#/topic/{{topic.id}}">{{topic.nom}}</a>
+                        </md-list-item>
                     </md-list>
                 </md-content>
             </md-tab>

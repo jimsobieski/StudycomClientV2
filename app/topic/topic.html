@@ -3,12 +3,13 @@
     <section layout="column" flex="100">
         <div class="topic-name" layout="row" layout-align="space-between center">
             <h1>topic</h1>
-            <md-button ng-click="toggleTopicSidenav()">
+            <md-button ng-click="toggleTopicMenu()">
                 <md-icon md-svg-src="icons/group_work.svg"></md-icon>
                 <md-tooltip>Topic infos</md-tooltip>
             </md-button>
         </div>
-        <div class="topic-feed">
+        <div class="topic-view" layout="row">
+            <div class="topic-feed" flex="grow">
 
                 <md-grid-list md-cols="1" md-row-height="200px">
                     <md-grid-tile ng-repeat="message in messages">
@@ -31,21 +32,22 @@
                     </md-grid-tile>
                 </md-grid-list>
 
-            <md-sidenav class="md-sidenav-right md-whiteframe-4dp"
-                        md-component-id="topic-right">
-                <md-toolbar>
 
+            </div>
+            <div class="topic-sidenav" flex="20" ng-show="showTopicMenu">
+                <md-toolbar>
+                    Topic Options
                 </md-toolbar>
                 <md-content>
                     <p>hello topic menu</p>
                 </md-content>
 
-            </md-sidenav>
+            </div>
         </div>
         <md-divider></md-divider>
         <div layout="row" layout-align="center center" class="topic-response-bar md-padding">
             <md-input-container flex="80">
-                <textarea ng-model="message"></textarea>
+                <textarea aria-label="message" ng-model="message"></textarea>
             </md-input-container>
             <md-button class="md-primary md-raised" ng-click="addMessage()" flex="20" ng-disabled="message==''">
                 <md-icon md-svg-src="icons/message.svg"></md-icon>

@@ -1,4 +1,4 @@
-studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStorage) {
+studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStorage, $q) {
     function urlBase64Decode(str) {
         var output = str.replace('-', '+').replace('_', '/');
         switch (output.length % 4) {
@@ -30,13 +30,10 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
 
     function getUser() {
         var tokenClaim = getClaimsFromToken();
-
-        var test = $http.get('http://localhost/Studycom/public/api/user/'+tokenClaim.sub).then(function (response) {
-            console.log(response.data);
+        var userPromise = $http.get('http://localhost/Studycom/public/api/user/'+tokenClaim.sub).then(function (response) {
             return response.data;
         });
-        console.log(test);
-        return test;
+        return userPromise;
     }
 
     var user = getUser();
@@ -52,7 +49,6 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
         signin: function (data, success, error) {
             $http.post('http://localhost/Studycom/public/api/signin', data).then(function(response){
                 $localStorage.token = response.data.token;
-                console.log(response.data);
                 window.location = 'http://localhost/StudycomClient/app/#/home';
             });
         },
@@ -67,7 +63,6 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
         },
 
         user: function () {
-            console.log(user);
             return user;
         },
 
