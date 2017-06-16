@@ -24,11 +24,11 @@
 </head>
 <body>
 <md-toolbar ng-controller="navbarController" class="z-depth-3" aria-label="menu" layout="row" layout-align="space-between center">
-    <h1>
+    <h1 hide-md hide-sm hide-xs>
         <a ng-if="isConnected()" href="#/home">Studycom</a>
         <a ng-if="!isConnected()" href="#/">Studycom</a>
     </h1>
-    <md-button ng-click="openSideNav()" aria-label="open menu">
+    <md-button hide-gt-md ng-click="openSideNav()" aria-label="open menu" class="sidenav-menu-open-button">
         <md-icon md-svg-src="icons/school.svg"></md-icon>
     </md-button>
     <div ng-if="isConnected()">

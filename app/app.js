@@ -13,7 +13,7 @@ var studycom = angular.module('myApp', [
 ]).constant('urls', {
     BASE: 'http://studycom.dev',
     BASE_API: 'http://localhost/Studycom/public/api'
-}).config(['$locationProvider', '$routeProvider', '$httpProvider', '$qProvider', function ($locationProvider, $routeProvider, $httpProvider, $qProvider) {
+}).config(['$locationProvider', '$routeProvider', '$httpProvider', '$qProvider', function ($locationProvider, $routeProvider, $httpProvider, $qProvider, $http) {
 
     $qProvider.errorOnUnhandledRejections(false);
 
@@ -34,7 +34,12 @@ var studycom = angular.module('myApp', [
     controller: 'homeController'
     }).when('/topic/:id', {
         templateUrl: 'topic/topic.html',
-        controller: 'topicController'
+        controller: 'topicController',
+        resolve: {
+            topic: function ($http, $routeParams) {
+                return $routeParams;
+            }
+        }
     });
 
     $routeProvider.otherwise({redirectTo: '/'});

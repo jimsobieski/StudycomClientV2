@@ -3,6 +3,9 @@
         md-component-id="left"
         md-is-locked-open="$mdMedia('gt-md')"
         md-whiteframe="4">
+    <md-toolbar hide-gt-md>
+        <h1>Studycom</h1>
+    </md-toolbar>
     <md-content>
         <div layout="row" layout-align="space-between center">
             <md-menu-item>
@@ -29,9 +32,9 @@
             <md-tab flex label="Topics">
                 <md-content class="md-padding">
                     <md-list>
-                        <md-list-item><a href="#/topic/1">Histoire</a></md-list-item>
-                        <md-list-item><a href="#/topic/2">Maths</a></md-list-item>
-                        <md-list-item><a href="#/topic/3">SVT</a></md-list-item>
+                        <md-list-item ng-repeat="topic in topics">
+                            <a href="#/topic/{{topic.id}}">{{topic.nom}}</a>
+                        </md-list-item>
                     </md-list>
                 </md-content>
             </md-tab>

@@ -1,4 +1,4 @@
-studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStorage) {
+studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStorage, $q) {
     function urlBase64Decode(str) {
         var output = str.replace('-', '+').replace('_', '/');
         switch (output.length % 4) {
