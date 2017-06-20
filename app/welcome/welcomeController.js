@@ -22,9 +22,11 @@ angular.module('myApp.welcomeController', ['ngRoute'])
 
             Auth.signin(formData, successAuth, function () {
                 $rootScope.error = 'Invalid credentials.';
+                $mdDialog.hide();
             }).then(function(response) {
                 console.log(response);
                 $window.location = '/home';
+
             })
         };
 
@@ -93,6 +95,9 @@ angular.module('myApp.welcomeController', ['ngRoute'])
 
                     Auth.signin(formData, successAuth, function () {
                         $rootScope.error = 'Invalid credentials.';
+                        if(successAuth){
+                        }
+
                     })
                 };
             }

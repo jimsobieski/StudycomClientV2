@@ -1,37 +1,56 @@
 angular.module('myApp.topicController', ['ngRoute'])
 
-    .controller('topicController', function ($scope, $mdDialog, $http, $rootScope, Auth, $mdSidenav, topic) {
+    .controller('topicController', function ($scope, $mdDialog, $http,$location, $rootScope, Auth, $mdSidenav, topic) {
 
-        $scope.messages = [];
-        $scope.message = '';
+        $scope.url = $location.absUrl();
         $scope.showTopicMenu = false;
-        $scope.getTopicMessages = function () {
-            var messages = [];
-            for (var i = 1; i < 15; i++) {
-                if (i % 2 == 0) {
-                    var message = {
-                        'idAuthor': 1,
-                        'author': 'Jim Sobieski',
-                        'text': 'lorem ipsum dolor sit amet'
+        /* $scope.getTopicMessages = function () {
+         var messages = [];
+         for (var i = 1; i < 15; i++) {
+         if (i % 2 == 0) {
+         var message = {
+         'idAuthor': 1,
+         'author': 'Jim Sobieski',
+         'text': 'lorem ipsum dolor sit amet'
 
-                    }
-                    messages.push(message);
-                }
-                else {
-                    var message = {
-                        'idAuthor': 2,
-                        'author': 'John Doe',
-                        'text': 'lorem ipsum dolor sit amet bla bla blabla ...'
+         }
+         messages.push(message);
+         }
+         else {
+         var message = {
+         'idAuthor': 2,
+         'author': 'John Doe',
+         'text': 'lorem ipsum dolor sit amet bla bla blabla ...'
 
-                    }
-                    messages.push(message);
-                }
+         }
+         messages.push(message);
+         }
 
-            }
-            $scope.messages = messages;
+         }
+         $scope.messages = messages;
+         };
+         $scope.getTopicMessages();
+         console.log(topic);*/
+
+        $scope.getTopicByUrl = function () {
+            var splitUrl = $scope.url.split('/');
+            var idTopic = splitUrl[7];
+            $http.get('http://localhost/Studycom/public/api/topic/'+idTopic+'/get').then(function(response) {
+                $scope.topic = response.data[0];
+                $scope.getTopicMessages(topic.id);
+
+            });
         };
-        $scope.getTopicMessages();
-        console.log(topic);
+        $scope.topic = $scope.getTopicByUrl();
+
+
+        $scope.getTopicMessages = function (idTopic) {
+            $http.get('http://localhost/Studycom/public/api/topic/'+idTopic+'/posts').
+            then(function (response) {
+                console.log(response.data);
+                $scope.messages = response.data;
+            });
+        };
         $scope.toggleTopicMenu = function () {
             $scope.showTopicMenu = !$scope.showTopicMenu;
         };

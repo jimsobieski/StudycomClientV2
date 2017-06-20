@@ -13,6 +13,7 @@ studycom.directive("studycomSidenav", function ($http) {
             Auth.user().then(function(response) {
                 $scope.user = response;
                 $scope.getTopics();
+
             });
 
             $scope.getTopics = function () {
@@ -37,20 +38,27 @@ studycom.directive("studycomSidenav", function ($http) {
                 });
 
                 function addTopicModalController($scope, $mdDialog, $rootScope, Auth) {
+
+                    Auth.user().then(function(response) {
+                        $scope.user = response;
+                    });
+
                     $scope.name = '';
 
                     $scope.closeDialog = function () {
                         $mdDialog.hide();
                     };
 
+
                     $scope.createTopic = function () {
                         var formData = {
                             name: $scope.name,
                         };
-                        console.log(formData);
-                        $http.post('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/topic', formData)
+                        console.log($scope.user.id);
+                        $http.post('http://localhost/Studycom/public/api/user/'+ $scope.user.id+'/topic', formData)
                             .then(function(response) {
                                 console.log(response.data);
+                                $mdDialog.hide();
                         })
 
 

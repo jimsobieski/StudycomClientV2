@@ -1,14 +1,15 @@
 <md-dialog layout-padding aria-label="Créer un topic" flex="20">
-    <form ng-cloak>
+    <form ng-cloak name="form">
         <h3>Créer un topic</h3>
 
         <md-input-container>
             <label>Nom du topic</label>
-            <input ng-model="name" type="text">
+            <input ng-model="name" type="text" required>
+
         </md-input-container>
         <div layout="row">
             <md-button class="md-raised" ng-click="closeDialog()" aria-label="annuler">annuler</md-button>
-            <md-button class="md-primary md-raised" ng-click="createTopic()" aria-label="valider">valider</md-button>
+            <md-button class="md-primary md-raised" ng-disabled="form.$invalid" ng-click="createTopic()" aria-label="valider">valider</md-button>
         </div>
     </form>
 
