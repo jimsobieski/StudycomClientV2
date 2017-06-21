@@ -59,6 +59,10 @@ angular.module('myApp.topicController', ['ngRoute'])
             scrollBottom();
         };
 
+        $scope.userMessage = function (message) {
+          return message.idAuthor == $scope.user.id;
+        };
+
         $scope.leftOrRight = function (message) {
             if (message.idAuthor == $scope.user.id) {
                 return 'end center';

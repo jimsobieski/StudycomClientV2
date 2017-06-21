@@ -20,7 +20,8 @@
                                         <img class="md-user-avatar" src="img/avatar.png">
                                     </md-card-avatar>
                                     <md-card-title>
-                                        <p><a ng-click="openUserProfileModal()">{{message.author}}</a></p>
+                                        <p><a ng-if="userMessage(message)" ng-click="openUserProfileModal()">{{user.name}}</a></p>
+                                        <p><a ng-if="!userMessage(message)" ng-click="openUserProfileModal()">{{message.author}}</a></p>
                                     </md-card-title>
                                 </md-card-header>
                                 <md-divider></md-divider>
