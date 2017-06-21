@@ -7,6 +7,8 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         Auth.user().then(function(response) {
             $scope.user = response;
+            $scope.getTopicByUrl();
+
         });
 
         $scope.getTopicByUrl = function () {
@@ -14,12 +16,22 @@ angular.module('myApp.topicController', ['ngRoute'])
             var idTopic = splitUrl[7];
             $http.get('http://localhost/Studycom/public/api/topic/'+idTopic+'/get').then(function(response) {
                 $scope.topic = response.data[0];
-                $scope.getTopicMessages(topic.id);
+                $scope.getTopicMessages($scope.topic.id);
+                $scope.getTopicUsers($scope.topic.id);
 
             });
         };
-        $scope.topic = $scope.getTopicByUrl();
+        //$scope.topic = $scope.getTopicByUrl();
 
+
+
+        $scope.getTopicUsers = function (idTopic) {
+
+            $http.get('http://localhost/Studycom/public/api/topic/' + idTopic + '/users')
+                .then(function(response) {
+                $scope.users = response.data;
+            });
+        };
 
         $scope.getTopicMessages = function (idTopic) {
             $http.get('http://localhost/Studycom/public/api/topic/'+idTopic+'/posts').

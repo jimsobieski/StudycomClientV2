@@ -36,10 +36,14 @@
             </div>
             <div class="topic-sidenav" flex="20" ng-show="showTopicMenu">
                 <md-toolbar>
-                    Topic Options
+                    Informations sur le topic
                 </md-toolbar>
                 <md-content>
-                    <p>hello topic menu</p>
+                    <p>Liste des utilisateurs : </p>
+                    <md-list-item ng-repeat="user in users">
+                        <p>{{user.name}}</p>
+                    </md-list-item>
+
                 </md-content>
 
             </div>
