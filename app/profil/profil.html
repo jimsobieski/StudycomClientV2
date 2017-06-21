@@ -8,20 +8,20 @@
             <md-button class="md-raised" ng-click="editProfile()">Editer</md-button>
             <md-input-container>
                 <label></label>
-                <input type="text" ng-model="userToEdit.name" ng-disabled="!userEdit">
+                <input type="text" ng-model="userToEdit.name" ng-disabled="!userEdit" required>
             </md-input-container>
             <md-input-container>
                 <label></label>
-                <input type="text" ng-model="userToEdit.login" ng-disabled="!userEdit">
+                <input type="text" ng-model="userToEdit.login" ng-disabled="!userEdit" required>
             </md-input-container>
             <md-input-container>
                 <label></label>
-                <input type="email" ng-model="userToEdit.email" ng-disabled="!userEdit">
+                <input type="email" ng-model="userToEdit.email" ng-disabled="!userEdit" required>
             </md-input-container>
         </md-card-content>
         <md-card-actions layout="row" layout-align="space-between center">
-            <md-button class="md-raised">Annuler</md-button>
-            <md-button class="md-primary">Valider</md-button>
+            <md-button class="md-raised" ng-click="cancelEdition()" ng-disabled="!userEdit">Annuler</md-button>
+            <md-button class="md-primary" ng-click="updateUser()" ng-disabled="!userEdit">Valider</md-button>
         </md-card-actions>
     </md-card>
 </div>
