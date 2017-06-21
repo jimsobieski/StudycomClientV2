@@ -19,7 +19,6 @@ studycom.directive("studycomSidenav", function ($http) {
 
             $scope.getTopics = function () {
                 $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/topic').then(function(response) {
-                    console.log(response.data);
                     $scope.topics = response.data;
 
                 })
@@ -27,7 +26,6 @@ studycom.directive("studycomSidenav", function ($http) {
 
             $scope.getContacts = function () {
                 $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contacts/get').then(function(response) {
-                    console.log(response.data);
                     $scope.contacts = response.data;
 
                 })

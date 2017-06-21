@@ -4,33 +4,10 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         $scope.url = $location.absUrl();
         $scope.showTopicMenu = false;
-        /* $scope.getTopicMessages = function () {
-         var messages = [];
-         for (var i = 1; i < 15; i++) {
-         if (i % 2 == 0) {
-         var message = {
-         'idAuthor': 1,
-         'author': 'Jim Sobieski',
-         'text': 'lorem ipsum dolor sit amet'
 
-         }
-         messages.push(message);
-         }
-         else {
-         var message = {
-         'idAuthor': 2,
-         'author': 'John Doe',
-         'text': 'lorem ipsum dolor sit amet bla bla blabla ...'
-
-         }
-         messages.push(message);
-         }
-
-         }
-         $scope.messages = messages;
-         };
-         $scope.getTopicMessages();
-         console.log(topic);*/
+        Auth.user().then(function(response) {
+            $scope.user = response;
+        });
 
         $scope.getTopicByUrl = function () {
             var splitUrl = $scope.url.split('/');
@@ -56,19 +33,22 @@ angular.module('myApp.topicController', ['ngRoute'])
         };
 
         $scope.addMessage = function () {
-            var message = {
-                'idAuthor': 1,
-                'author': 'Jim Sobieski',
-                'text': $scope.message
 
-            }
-            $scope.messages.push(message);
+            var data = {'idAuthor': $scope.user.id,
+                'idTopic': $scope.topic.id,
+                'text': $scope.message
+            };
+            $http.post('http://localhost/Studycom/public/api/topic/sendMessage', data).
+            then(function (response) {
+                $scope.messages.push(response.data);
+            });
             $scope.message = '';
+
             scrollBottom();
         };
 
         $scope.leftOrRight = function (message) {
-            if (message.idAuthor == 1) {
+            if (message.idAuthor == $scope.user.id) {
                 return 'end center';
             }
             else {
@@ -76,7 +56,7 @@ angular.module('myApp.topicController', ['ngRoute'])
             }
         };
         $scope.authMessage = function (message) {
-            if (message.idAuthor == 1) {
+            if (message.idAuthor == $scope.user.id) {
                 return 'topic-auth-message';
             }
             else {
