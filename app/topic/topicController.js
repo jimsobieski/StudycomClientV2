@@ -1,6 +1,6 @@
 angular.module('myApp.topicController', ['ngRoute'])
 
-    .controller('topicController', function ($scope, $mdDialog, $http, $rootScope, Auth, $mdSidenav, topic) {
+    .controller('topicController', function ($scope, $mdDialog, $http, $rootScope, Auth, $mdSidenav, topicParams) {
 
         $scope.messages = [];
         $scope.message = '';
@@ -31,7 +31,6 @@ angular.module('myApp.topicController', ['ngRoute'])
             $scope.messages = messages;
         };
         $scope.getTopicMessages();
-        console.log(topic);
         $scope.toggleTopicMenu = function () {
             $scope.showTopicMenu = !$scope.showTopicMenu;
         };

@@ -36,7 +36,7 @@ var studycom = angular.module('myApp', [
         templateUrl: 'topic/topic.html',
         controller: 'topicController',
         resolve: {
-            topic: function ($http, $routeParams) {
+            topicParams: function ($http, $routeParams) {
                 return $routeParams;
             }
         }
