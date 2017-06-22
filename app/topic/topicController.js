@@ -62,6 +62,13 @@ angular.module('myApp.topicController', ['ngRoute'])
           return message.idAuthor == $scope.user.id;
         };
 
+        $scope.leaveTopic = function () {
+            $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/topic/'+$scope.topic.id + '/leave').
+            then(function(response) {
+                $location.url('http://localhost/StudycomClient/app/#/home');
+            });
+        };
+
         $scope.leftOrRight = function (message) {
             if (message.idAuthor == $scope.user.id) {
                 return 'end center';
