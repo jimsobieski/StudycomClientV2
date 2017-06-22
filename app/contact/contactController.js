@@ -4,13 +4,16 @@ angular.module('myApp.contactController', ['ngRoute'])
 
         Auth.user().then(function(response) {
             $scope.user = response;
+
             $scope.getContact();
 
         });
 
+
+
         $scope.getContact = function () {
 
-            $http.get('/contact/'+contact+'/get').then(function(response) {
+            $http.get('http://localhost/Studycom/public/api/contact/'+contact.id+'/get').then(function(response) {
                 $scope.contact = response.data[0];
                 $scope.getTopic();
             });
@@ -18,7 +21,9 @@ angular.module('myApp.contactController', ['ngRoute'])
 
         $scope.getTopic = function () {
 
-            $http.get('/contact/topic/' + $scope.contact.id +'/get').then(function(response) {
+
+
+            $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contact/topic/' + $scope.contact.id +'/get').then(function(response) {
                 $scope.topic = response.data[0];
                 $scope.getTopicMessages($scope.topic.id);
             });
