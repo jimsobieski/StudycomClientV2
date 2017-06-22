@@ -21,7 +21,6 @@ angular.module('myApp.topicController', ['ngRoute'])
 
             });
         };
-        //$scope.topic = $scope.getTopicByUrl();
 
 
 

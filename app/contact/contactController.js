@@ -2,34 +2,26 @@ angular.module('myApp.contactController', ['ngRoute'])
 
     .controller('contactController', function ($scope, $mdDialog, $http,$location, $rootScope, Auth, contact) {
 
-        $scope.showTopicMenu = false;
-
         Auth.user().then(function(response) {
             $scope.user = response;
-            $scope.getTopicByUrl();
+            $scope.getContact();
 
         });
 
-        $scope.getTopicByUrl = function () {
-            var splitUrl = $scope.url.split('/');
-            var idTopic = splitUrl[7];
-            $http.get('http://localhost/Studycom/public/api/topic/'+idTopic+'/get').then(function(response) {
-                $scope.topic = response.data[0];
-                $scope.getTopicMessages($scope.topic.id);
-                $scope.getTopicUsers($scope.topic.id);
+        $scope.getContact = function () {
 
+            $http.get('/contact/'+contact+'/get').then(function(response) {
+                $scope.contact = response.data[0];
+                $scope.getTopic();
             });
         };
-        //$scope.topic = $scope.getTopicByUrl();
 
+        $scope.getTopic = function () {
 
-
-        $scope.getTopicUsers = function (idTopic) {
-
-            $http.get('http://localhost/Studycom/public/api/topic/' + idTopic + '/users')
-                .then(function(response) {
-                    $scope.users = response.data;
-                });
+            $http.get('/contact/topic/' + $scope.contact.id +'/get').then(function(response) {
+                $scope.topic = response.data[0];
+                $scope.getTopicMessages($scope.topic.id);
+            });
         };
 
         $scope.getTopicMessages = function (idTopic) {
@@ -38,9 +30,6 @@ angular.module('myApp.contactController', ['ngRoute'])
                 console.log(response.data);
                 $scope.messages = response.data;
             });
-        };
-        $scope.toggleTopicMenu = function () {
-            $scope.showTopicMenu = !$scope.showTopicMenu;
         };
 
         $scope.addMessage = function () {
