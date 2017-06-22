@@ -21,8 +21,6 @@ angular.module('myApp.contactController', ['ngRoute'])
 
         $scope.getTopic = function () {
 
-
-
             $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contact/topic/' + $scope.contact.id +'/get').then(function(response) {
                 $scope.topic = response.data[0];
                 $scope.getTopicMessages($scope.topic.id);
@@ -50,6 +48,10 @@ angular.module('myApp.contactController', ['ngRoute'])
             $scope.message = '';
 
             scrollBottom();
+        };
+
+        $scope.userMessage = function (message) {
+            return message.idAuthor == $scope.user.id;
         };
 
         $scope.leftOrRight = function (message) {

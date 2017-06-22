@@ -10,24 +10,29 @@
                 <md-grid-list md-cols="1" md-row-height="200px">
                     <md-grid-tile ng-repeat="message in messages">
                         <div layout="row" flex="100" layout-align="{{leftOrRight(message)}}">
-                            <md-card class="topic-message-card {{authMessage(message)}}">
+                            <md-card class="topic-message-card {{authMessage(message)}}" flex="40">
                                 <md-card-header layout="row" layout-align="space-around center">
                                     <md-card-avatar>
                                         <img class="md-user-avatar" src="img/avatar.png">
                                     </md-card-avatar>
                                     <md-card-title>
-                                        <p><a ng-click="openUserProfileModal()">{{message.author}}</a></p>
+                                        <p><a ng-if="userMessage(message)" ng-click="openUserProfileModal()">{{user.name}}</a></p>
+                                        <p><a ng-if="!userMessage(message)" ng-click="openUserProfileModal()">{{message.name}}</a></p>
                                     </md-card-title>
                                 </md-card-header>
                                 <md-divider></md-divider>
                                 <md-card-content>
-                                    <p>{{message.text}}</p>
+                                    <p class="message-text">{{message.text}}</p>
+                                </md-card-content>
+                                <md-divider></md-divider>
+                                <md-card-content class="message-infos" layout="row" layout-align="space-between center">
+                                    <p class="message-date">{{message.dateCreation | date : format : timezone}}</p>
+                                    <md-icon class="message-valid-send" md-svg-src="icons/done.svg"></md-icon>
                                 </md-card-content>
                             </md-card>
                         </div>
                     </md-grid-tile>
                 </md-grid-list>
-
 
             </div>
         </div>
