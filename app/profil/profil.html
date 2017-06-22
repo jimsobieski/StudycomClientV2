@@ -1,1 +1,27 @@
 <h1>Profile</h1>
+<div layout="row" layout-align="center center">
+    <md-card flex="40">
+        <md-card-header>
+            <h3>{{user.name}}</h3>
+        </md-card-header>
+        <md-card-content layout="column">
+            <md-button class="md-raised" ng-click="editProfile()">Editer</md-button>
+            <md-input-container>
+                <label></label>
+                <input type="text" ng-model="userToEdit.name" ng-disabled="!userEdit" required>
+            </md-input-container>
+            <md-input-container>
+                <label></label>
+                <input type="text" ng-model="userToEdit.login" ng-disabled="!userEdit" required>
+            </md-input-container>
+            <md-input-container>
+                <label></label>
+                <input type="email" ng-model="userToEdit.email" ng-disabled="!userEdit" required>
+            </md-input-container>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="space-between center">
+            <md-button class="md-raised" ng-click="cancelEdition()" ng-disabled="!userEdit">Annuler</md-button>
+            <md-button class="md-primary" ng-click="updateUser()" ng-disabled="!userEdit">Valider</md-button>
+        </md-card-actions>
+    </md-card>
+</div>
