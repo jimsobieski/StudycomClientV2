@@ -48,6 +48,10 @@
                     <p>Liste des utilisateurs : </p>
                     <md-list-item ng-repeat="user in users">
                         <p>{{user.name}}</p>
+                        <md-button aria-label="Supprimer" ng-click="deleteUserFromTopic(user.id)">
+                            <md-icon md-svg-src="icons/clear.svg"></md-icon>
+                        </md-button>
+
                     </md-list-item>
                     <a class='btn' ng-click="leaveTopic()">Quitter le topic</a>
                 </md-content>

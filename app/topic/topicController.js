@@ -69,6 +69,14 @@ angular.module('myApp.topicController', ['ngRoute'])
             });
         };
 
+        $scope.deleteUserFromTopic = function (idUser) {
+            $http.get('http://localhost/Studycom/public/api/topic/'+$scope.topic.id +'/user/'+idUser+'/delete').
+            then(function(response) {
+                console.log(response.data);
+                $scope.users.splice($scope.users.indexOf(response.data),1);
+            });
+        };
+
         $scope.leftOrRight = function (message) {
             if (message.idAuthor == $scope.user.id) {
                 return 'end center';
