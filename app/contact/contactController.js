@@ -1,34 +1,31 @@
-angular.module('myApp.topicController', ['ngRoute'])
+angular.module('myApp.contactController', ['ngRoute'])
 
-    .controller('topicController', function ($scope, $mdDialog, $http,$location, $rootScope, Auth, $mdSidenav, topicParams) {
-
-        $scope.url = $location.absUrl();
-        $scope.showTopicMenu = false;
+    .controller('contactController', function ($scope, $mdDialog, $http,$location, $rootScope, Auth, contact) {
 
         Auth.user().then(function(response) {
             $scope.user = response;
-            $scope.getTopicByUrl();
+
+            $scope.getContact();
 
         });
 
-        $scope.getTopicByUrl = function () {
-            var splitUrl = $scope.url.split('/');
-            var idTopic = splitUrl[7];
-            $http.get('http://localhost/Studycom/public/api/topic/'+idTopic+'/get').then(function(response) {
-                $scope.topic = response.data[0];
-                $scope.getTopicMessages($scope.topic.id);
-                $scope.getTopicUsers($scope.topic.id);
 
+
+        $scope.getContact = function () {
+
+            $http.get('http://localhost/Studycom/public/api/contact/'+contact.id+'/get').then(function(response) {
+                $scope.contact = response.data[0];
+                $scope.getTopic();
             });
         };
 
+        $scope.getTopic = function () {
 
 
-        $scope.getTopicUsers = function (idTopic) {
 
-            $http.get('http://localhost/Studycom/public/api/topic/' + idTopic + '/users')
-                .then(function(response) {
-                $scope.users = response.data;
+            $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contact/topic/' + $scope.contact.id +'/get').then(function(response) {
+                $scope.topic = response.data[0];
+                $scope.getTopicMessages($scope.topic.id);
             });
         };
 
@@ -38,9 +35,6 @@ angular.module('myApp.topicController', ['ngRoute'])
                 console.log(response.data);
                 $scope.messages = response.data;
             });
-        };
-        $scope.toggleTopicMenu = function () {
-            $scope.showTopicMenu = !$scope.showTopicMenu;
         };
 
         $scope.addMessage = function () {
@@ -56,10 +50,6 @@ angular.module('myApp.topicController', ['ngRoute'])
             $scope.message = '';
 
             scrollBottom();
-        };
-
-        $scope.userMessage = function (message) {
-          return message.idAuthor == $scope.user.id;
         };
 
         $scope.leftOrRight = function (message) {

@@ -6,23 +6,47 @@ studycom.directive("studycomSidenav", function ($http) {
         link: function(scope) {
 
         },
-        controller: function ($scope, $mdDialog, Auth) {
+        controller: function ($scope,$location, $mdDialog, Auth) {
 
             $scope.user = null;
+            $scope.url = $location.absUrl();
+
+
 
             Auth.user().then(function(response) {
                 $scope.user = response;
                 $scope.getTopics();
+                $scope.getContacts();
+                $scope.selectTab();
+
             });
+
+            $scope.selectTab = function(){
+                var splitUrl = $scope.url.split('/');
+                var typeTab = splitUrl[6];
+
+                if(typeTab == 'contact'){
+                    return 1;
+                } else if(typeTab == 'topic'){
+                    return 0;
+                }
+
+            }
+            $scope.selectedTab = $scope.selectTab();
 
             $scope.getTopics = function () {
                 $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/topic').then(function(response) {
-                    console.log(response.data);
                     $scope.topics = response.data;
 
                 })
             };
 
+            $scope.getContacts = function () {
+                $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contacts/get').then(function(response) {
+                    $scope.contacts = response.data;
+                    console.log($scope.contacts);
+                })
+            };
 
             $scope.openAddTopicDialog = function (ev) {
                 $mdDialog.show({
@@ -37,17 +61,29 @@ studycom.directive("studycomSidenav", function ($http) {
                 });
 
                 function addTopicModalController($scope, $mdDialog, $rootScope, Auth) {
+
+                    Auth.user().then(function(response) {
+                        $scope.user = response;
+                    });
+
                     $scope.name = '';
 
                     $scope.closeDialog = function () {
                         $mdDialog.hide();
                     };
 
+
                     $scope.createTopic = function () {
                         var formData = {
                             name: $scope.name,
                         };
-                        console.log(formData);
+                        console.log($scope.user.id);
+                        $http.post('http://localhost/Studycom/public/api/user/'+ $scope.user.id+'/topic', formData)
+                            .then(function(response) {
+                                console.log(response.data);
+                                $mdDialog.hide();
+                        })
+
 
                     };
                 }

@@ -28,7 +28,7 @@
                 </md-menu-content>
             </md-menu>
         </div>
-        <md-tabs md-align-tabs md-dynamic-height md-border-bottom>
+        <md-tabs md-align-tabs md-dynamic-height md-border-bottom md-selected="selectedTab">
             <md-tab flex label="Topics">
                 <md-content class="md-padding">
                     <md-list>
@@ -41,8 +41,9 @@
             <md-tab flex label="Contacts">
                 <md-content class="md-padding">
                     <md-list>
-                        <md-list-item>Sakho</md-list-item>
-                        <md-list-item>John</md-list-item>
+                        <md-list-item ng-repeat="contact in contacts">
+                            <a href="#/contact/{{contact.id}}">{{contact.name}}</a>
+                        </md-list-item>
                     </md-list>
                 </md-content>
             </md-tab>

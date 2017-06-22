@@ -6,6 +6,7 @@ var studycom = angular.module('myApp', [
     'myApp.welcomeController',
     'myApp.navbarController',
     'myApp.homeController',
+    'myApp.contactController',
     'myApp.view1',
     'myApp.profilController',
     'myApp.topicController',
@@ -37,6 +38,14 @@ var studycom = angular.module('myApp', [
         controller: 'topicController',
         resolve: {
             topicParams: function ($http, $routeParams) {
+                return $routeParams;
+            }
+        }
+    }).when('/contact/:id', {
+        templateUrl: 'contact/contact.html',
+        controller: 'contactController',
+        resolve: {
+            contact: function ($http, $routeParams) {
                 return $routeParams;
             }
         }

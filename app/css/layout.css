@@ -121,6 +121,24 @@ md-sidenav {
     overflow-y: auto;
 }
 
+.message-content > .message-text {
+
+}
+
+.message-infos {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.message-infos > .message-date {
+    font-size: 11px;
+    margin: 0;
+}
+
+.message-infos > .message-valid-send {
+    margin: 0;
+}
+
 .user-profile-modal {
 
 }
