@@ -7,16 +7,23 @@
         <md-card-content layout="column">
             <md-button class="md-raised" ng-click="editProfile()">Editer</md-button>
             <md-input-container>
-                <label></label>
+                <label>Nom</label>
                 <input type="text" ng-model="userToEdit.name" ng-disabled="!userEdit" required>
             </md-input-container>
             <md-input-container>
-                <label></label>
+                <label>Login</label>
                 <input type="text" ng-model="userToEdit.login" ng-disabled="!userEdit" required>
             </md-input-container>
             <md-input-container>
-                <label></label>
+                <label>Adresse e-mail</label>
                 <input type="email" ng-model="userToEdit.email" ng-disabled="!userEdit" required>
+            </md-input-container>
+            <md-input-container>
+                <label>Type de compte</label>
+                <md-select type ="int" ng-model="userToEdit.idtype" ng-disabled="!userEdit" required>
+                    <md-option ng-value="1" selected="user.idtype == 1">Etudiant</md-option>
+                    <md-option ng-value="2" selected="user.idtype == 2">Professeur</md-option>
+                </md-select>
             </md-input-container>
         </md-card-content>
         <md-card-actions layout="row" layout-align="space-between center">
