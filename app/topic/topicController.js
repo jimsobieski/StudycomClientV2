@@ -23,7 +23,6 @@ angular.module('myApp.topicController', ['ngRoute'])
         };
 
 
-
         $scope.getTopicUsers = function (idTopic) {
 
             $http.get('http://localhost/Studycom/public/api/topic/' + idTopic + '/users')
@@ -143,6 +142,50 @@ angular.module('myApp.topicController', ['ngRoute'])
                 $scope.addContact = function () {
                     console.log('contact ajouté');
                 }
+
+            }
+
+        };
+
+        $scope.openModifyTopicNameModal = function (ev) {
+            $mdDialog.show({
+                controller: modifyTopicNameModalController,
+                controllerAs: 'modifyTopicNameModal',
+                templateUrl: 'util/modifyTopicNameModal.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true
+            }).then(function (response) {
+
+            });
+
+            function modifyTopicNameModalController($scope, $mdDialog, $location) {
+
+                $scope.url = $location.absUrl();
+                $scope.name = '';
+
+
+                $scope.closeDialog = function () {
+                    $mdDialog.hide();
+                };
+
+
+                $scope.modifyTopicName = function () {
+
+                    var splitUrl = $scope.url.split('/');
+                    var idTopic = splitUrl[7];
+
+                    var formData = {
+                        name: $scope.name
+                    };
+
+                    $http.post('http://localhost/Studycom/public/api/topic/'+ idTopic+'/modify', formData)
+                        .then(function(response) {
+                            $mdDialog.hide();
+                        })
+
+
+                };
 
             }
 

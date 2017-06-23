@@ -45,15 +45,20 @@
                     Informations sur le topic
                 </md-toolbar>
                 <md-content>
-                    <md-button aria-label="Ajouter" ng-click="openAddUsersModal()">
-                        <md-icon md-svg-src="icons/add.svg"></md-icon>
+                    <p>{{topic.nom}}</p>
+                    <md-button ng-show="topic.idAdmin==user.id" ng-click="openModifyTopicNameModal()">Modifier</md-button>
+                    <md-button ng-show="topic.idAdmin==user.id" aria-label="Ajouter" ng-click="openAddUsersModal()">
+                        <md-icon md-svg-src="icons/person_add.svg"></md-icon>
                     </md-button>
+
                     <p>Liste des utilisateurs : </p>
-                    <md-list-item ng-repeat="user in users">
-                        <p>{{user.name}}</p>
-                        <md-button aria-label="Supprimer" ng-click="deleteUserFromTopic(user.id)">
+                    <md-list-item ng-repeat="topicuser in users">
+
+                        <p>{{topicuser.name}}</p>
+                        <md-button aria-label="Supprimer" ng-show="topic.idAdmin==user.id && topicuser.id!=user.id"  ng-click="deleteUserFromTopic(topicuser.id)">
                             <md-icon md-svg-src="icons/clear.svg"></md-icon>
                         </md-button>
+
 
                     </md-list-item>
                     <a class='btn' ng-click="leaveTopic()">Quitter le topic</a>
