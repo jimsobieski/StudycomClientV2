@@ -47,13 +47,11 @@ angular.module('myApp.topicController', ['ngRoute'])
 
             var data = {'idAuthor': $scope.user.id,
                 'idTopic': $scope.topic.id,
-                'text': $scope.message,
-                'dateCreation' : new Date()
+                'text': $scope.message
             };
             $http.post('http://localhost/Studycom/public/api/topic/sendMessage', data).
             then(function (response) {
                 $scope.messages.push(response.data);
-                console.log(response.data);
             });
             $scope.message = '';
 
@@ -123,7 +121,35 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         };
 
+        $scope.openAddUsersModal = function (ev) {
+            $mdDialog.show({
+                controller: addUsersModalController,
+                controllerAs: 'addUsersModal',
+                templateUrl: 'util/addUsersModal.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true
+            }).then(function (answer) {
+
+            });
+
+            function addUsersModalController($scope, $mdDialog, $rootScope, Auth) {
+                $scope.email = 'sobieskimail@yopmail.com';
+                $scope.name = "jim";
+                $scope.closeDialog = function () {
+                    $mdDialog.hide();
+                };
+
+                $scope.addContact = function () {
+                    console.log('contact ajouté');
+                }
+
+            }
+
+        };
+
         var scrollBottom = function () {
+
 
         }
 

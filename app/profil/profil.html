@@ -1,11 +1,15 @@
 <h1>Profile</h1>
 <div layout="row" layout-align="center center">
     <md-card flex="40">
-        <md-card-header>
+        <md-card-header layout="column">
+            <div layout="row" layout-align="space-between center">
+
+                <md-button class="md-raised">Retour</md-button>
+                <md-button class="md-raised" ng-click="editProfile()">Editer</md-button>
+            </div>
             <h3>{{user.name}}</h3>
         </md-card-header>
         <md-card-content layout="column">
-            <md-button class="md-raised" ng-click="editProfile()">Editer</md-button>
             <md-input-container>
                 <label>Nom</label>
                 <input type="text" ng-model="userToEdit.name" ng-disabled="!userEdit" required>

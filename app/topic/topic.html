@@ -45,6 +45,9 @@
                     Informations sur le topic
                 </md-toolbar>
                 <md-content>
+                    <md-button aria-label="Ajouter" ng-click="openAddUsersModal()">
+                        <md-icon md-svg-src="icons/add.svg"></md-icon>
+                    </md-button>
                     <p>Liste des utilisateurs : </p>
                     <md-list-item ng-repeat="user in users">
                         <p>{{user.name}}</p>
