@@ -68,6 +68,13 @@ angular.module('myApp.topicController', ['ngRoute'])
             });
         };
 
+        $scope.deleteTopic = function () {
+            $http.get('http://localhost/Studycom/public/api/topic/'+$scope.topic.id + '/delete').
+            then(function(response) {
+                $location.url('http://localhost/StudycomClient/app/#/home');
+            });
+        };
+
         $scope.deleteUserFromTopic = function (idUser) {
             $http.get('http://localhost/Studycom/public/api/topic/'+$scope.topic.id +'/user/'+idUser+'/delete').
             then(function(response) {
