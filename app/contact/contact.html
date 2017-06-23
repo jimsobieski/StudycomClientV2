@@ -3,6 +3,10 @@
     <section layout="column" flex="100">
         <div class="topic-name" layout="row" layout-align="space-between center">
             <h1>{{contact.name}}</h1>
+            <md-button ng-click="deleteUser()">
+                <md-icon md-svg-src="icons/clear.svg"></md-icon>
+                <md-tooltip>Supprimer ce contact</md-tooltip>
+            </md-button>
         </div>
         <div class="topic-view" layout="row">
             <div class="topic-feed" flex="grow">

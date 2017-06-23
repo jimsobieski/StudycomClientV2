@@ -35,6 +35,15 @@ angular.module('myApp.contactController', ['ngRoute'])
             });
         };
 
+        $scope.deleteUser = function () {
+            $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contact/'+$scope.contact.id+'/delete').
+            then(function (response) {
+                $location.url('http://localhost/StudycomClient/app/#/home');
+            });
+        };
+
+
+
         $scope.addMessage = function () {
 
             var data = {'idAuthor': $scope.user.id,
@@ -99,9 +108,7 @@ angular.module('myApp.contactController', ['ngRoute'])
         };
 
         var scrollBottom = function () {
-            var messages = document.getElementsByClassName('topic-message-card');
-            console.log(messages[messages.length - 1]);
-            messages[messages.length - 1].scrollTop = messages[messages.length - 1].scrollHeight;
+
 
         }
 
