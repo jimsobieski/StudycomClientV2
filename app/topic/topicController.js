@@ -11,6 +11,8 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         });
 
+        $scope.socket = io.connect('http://localhost:8080');
+
         $scope.getTopicByUrl = function () {
             var splitUrl = $scope.url.split('/');
             var idTopic = splitUrl[7];

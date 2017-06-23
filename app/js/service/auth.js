@@ -1,4 +1,4 @@
-studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStorage, $q) {
+studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStorage, $q, $mdDialog) {
     function urlBase64Decode(str) {
         var output = str.replace('-', '+').replace('_', '/');
         switch (output.length % 4) {
@@ -50,6 +50,7 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
             $http.post('http://localhost/Studycom/public/api/signin', data).then(function(response){
                 $localStorage.token = response.data.token;
                 window.location = 'http://localhost/StudycomClient/app/#/home';
+                $mdDialog.hide();
             });
         },
         logout: function () {
