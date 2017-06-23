@@ -47,11 +47,13 @@ angular.module('myApp.topicController', ['ngRoute'])
 
             var data = {'idAuthor': $scope.user.id,
                 'idTopic': $scope.topic.id,
-                'text': $scope.message
+                'text': $scope.message,
+                'dateCreation' : new Date()
             };
             $http.post('http://localhost/Studycom/public/api/topic/sendMessage', data).
             then(function (response) {
                 $scope.messages.push(response.data);
+                console.log(response.data);
             });
             $scope.message = '';
 
@@ -122,9 +124,6 @@ angular.module('myApp.topicController', ['ngRoute'])
         };
 
         var scrollBottom = function () {
-            var messages = document.getElementsByClassName('topic-message-card');
-            console.log(messages[messages.length - 1]);
-            messages[messages.length - 1].scrollTop = messages[messages.length - 1].scrollHeight;
 
         }
 
