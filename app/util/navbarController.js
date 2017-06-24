@@ -30,13 +30,24 @@ angular.module('myApp.navbarController', ['ngRoute'])
                 $scope.email = '';
                 $scope.password = '';
                 $scope.confirmPassword = '';
-                $scope.name = "connexion";
                 $scope.closeDialog = function () {
                     $mdDialog.hide();
                 }
 
                 $scope.authInscription = function () {
-                    console.log($scope.email);
+
+                    var formData = {
+                        'login': $scope.login,
+                        'name': $scope.name,
+                        'email': $scope.email,
+                        'password': $scope.password,
+                        'idtype': $scope.typeUser
+                    }
+                    console.log(formData);
+                    Auth.signup(formData, successAuth, function () {
+                        $rootScope.error = 'Invalid credentials.';
+                    })
+
                 }
             }
         };
