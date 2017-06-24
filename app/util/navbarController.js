@@ -7,8 +7,7 @@ angular.module('myApp.navbarController', ['ngRoute'])
         $scope.isConnected = false;
 
         function successAuth(res) {
-            $localStorage.token = res.token;
-            window.location = "/";
+            $mdDialog.hide();
         }
 
         $scope.openSideNav = function (){

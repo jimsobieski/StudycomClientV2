@@ -36,12 +36,12 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
         return userPromise;
     }
 
-    var user = getUser();
 
     return {
         signup: function (data, success, error) {
             $http.post('http://studycom.dev/api/signup', data).then(function(response) {
                 console.log(response);
+                window.location = 'http://localhost/StudycomClient/app/#/home';
             }).error(function(error) {
                 console.log(error);
             });
@@ -50,7 +50,8 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
             $http.post('http://localhost/Studycom/public/api/signin', data).then(function(response){
                 $localStorage.token = response.data.token;
                 window.location = 'http://localhost/StudycomClient/app/#/home';
-                $mdDialog.hide();
+                success();
+                return true;
             });
         },
         logout: function () {
@@ -64,7 +65,7 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
         },
 
         user: function () {
-            return user;
+            return getUser();
         },
 
         isConnected : function () {

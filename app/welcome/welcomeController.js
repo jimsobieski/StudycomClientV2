@@ -8,11 +8,6 @@ angular.module('myApp.welcomeController', ['ngRoute'])
         $scope.email = 'sobieskimail@yopmail.com';
         $scope.password = 'studycom';
 
-        function successAuth(res) {
-            $localStorage.token = res.token;
-            window.location = "/home";
-        }
-
 
         $scope.signin = function () {
             var formData = {
@@ -23,7 +18,7 @@ angular.module('myApp.welcomeController', ['ngRoute'])
             Auth.signin(formData, successAuth, function () {
                 $rootScope.error = 'Invalid credentials.';
                 $mdDialog.hide();
-            }).then(function(response) {
+            }).then(function (response) {
                 console.log(response);
                 $window.location = '/home';
 
@@ -95,11 +90,16 @@ angular.module('myApp.welcomeController', ['ngRoute'])
 
                     Auth.signin(formData, successAuth, function () {
                         $rootScope.error = 'Invalid credentials.';
-                        if(successAuth){
-                        }
 
-                    })
+                    });
+
+                    function successAuth() {
+                        console.log('close dialog');
+                        $mdDialog.hide();
+                    }
                 };
+
+
             }
 
         };

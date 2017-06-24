@@ -79,7 +79,9 @@ studycom.directive("studycomSidenav", function ($http) {
 
                         $http.post('http://localhost/Studycom/public/api/user/'+ $scope.user.id+'/topic', formData)
                             .then(function(response) {
+                                var topic = response.data;
                                 $mdDialog.hide();
+                                window.location = 'http://localhost/StudycomClient/app/#/topic/'+topic.id;
                         })
 
 
