@@ -178,8 +178,10 @@ angular.module('myApp.topicController', ['ngRoute'])
 
                 $scope.addTopicUsers = function () {
 
+
                     $http.post('http://localhost/Studycom/public/api/topic/'+ $scope.idtopic+'/addcontacts', $scope.contactsToAdd)
                         .then(function(response) {
+                            console.log(response.data);
                             $mdDialog.hide();
                         })
                 };

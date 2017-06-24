@@ -76,7 +76,7 @@ studycom.directive("studycomSidenav", function ($http) {
                         var formData = {
                             name: $scope.name,
                         };
-                        console.log($scope.user.id);
+
                         $http.post('http://localhost/Studycom/public/api/user/'+ $scope.user.id+'/topic', formData)
                             .then(function(response) {
                                 $mdDialog.hide();
@@ -91,7 +91,7 @@ studycom.directive("studycomSidenav", function ($http) {
                 $mdDialog.show({
                     controller: addContactModalController,
                     controllerAs: 'addTopic',
-                    templateUrl: 'topic/addContactModal.html',
+                    templateUrl: 'util/addContactModal.html',
                     parent: angular.element(document.body),
                     targetEvent: ev,
                     clickOutsideToClose: true
@@ -100,16 +100,43 @@ studycom.directive("studycomSidenav", function ($http) {
                 });
 
                 function addContactModalController($scope, $mdDialog, $rootScope, Auth) {
-                    $scope.name = '';
+
+                    Auth.user().then(function(response) {
+                        $scope.user = response;
+                    });
+
+                    $scope.email = '';
 
                     $scope.closeDialog = function () {
                         $mdDialog.hide();
                     };
 
-                    $scope.createTopic = function () {
+                    $scope.sendContactRequest = function () {
+
                         var formData = {
-                            name: $scope.name,
+                            email: $scope.email
                         };
+
+                        $http.post('http://localhost/Studycom/public/api/user/'+ $scope.user.id+'/contact/request', formData)
+                            .then(function(response) {
+
+                                if(response.data == 'invalid'){
+                                    console.log('Cette adresse mail n\'existe pas !');
+
+
+                                } else if(response.data == 'exists'){
+                                    console.log('Deja dans votre liste de contacts !');
+
+                                }
+                                else if(response.data == 'requested'){
+                                    console.log('Vous avez deja envoyé une requete à ce contact !');
+
+                                }else{
+                                    console.log('demande de contact envoyée');
+                                    $mdDialog.hide();
+
+                                }
+                            })
 
                     };
                 }
