@@ -61,8 +61,8 @@
 
 
                     </md-list-item>
-                    <a class='btn' ng-click="leaveTopic()">Quitter le topic</a>
-                    <a class='btn' ng-click="deleteTopic()">Supprimer le topic</a>
+                    <md-button aria-label="Quitter topic" ng-click="leaveTopic()">Quitter le topic </md-button>
+                    <md-button ng-show="topic.idAdmin==user.id" aria-label="Supprimer topic" ng-click="deleteTopic()">Supprimer le topic </md-button>
                 </md-content>
 
             </div>

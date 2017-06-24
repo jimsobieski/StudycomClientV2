@@ -78,8 +78,14 @@ angular.module('myApp.topicController', ['ngRoute'])
         $scope.deleteUserFromTopic = function (idUser) {
             $http.get('http://localhost/Studycom/public/api/topic/'+$scope.topic.id +'/user/'+idUser+'/delete').
             then(function(response) {
-                console.log(response.data);
-                $scope.users.splice($scope.users.indexOf(response.data),1);
+
+                $scope.users.forEach(function(user) {
+                    if(user.id == response.data[0].id){
+                        $scope.index = $scope.users.indexOf(user);
+                    }
+                });
+
+               $scope.users.splice($scope.index,1);
             });
         };
 
@@ -131,7 +137,7 @@ angular.module('myApp.topicController', ['ngRoute'])
             $mdDialog.show({
                 controller: addUsersModalController,
                 controllerAs: 'addUsersModal',
-                templateUrl: 'util/addUsersModal.html',
+                templateUrl: 'topic/addUsersModal.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true
@@ -139,17 +145,44 @@ angular.module('myApp.topicController', ['ngRoute'])
 
             });
 
-            function addUsersModalController($scope, $mdDialog, $rootScope, Auth) {
-                $scope.email = 'sobieskimail@yopmail.com';
-                $scope.name = "jim";
+            function addUsersModalController($scope, $mdDialog, $location, Auth) {
+
+
+
+                $scope.idtopic =  $location.absUrl().split('/')[7];
+
+                Auth.user().then(function(response) {
+                    $scope.user = response;
+                    $scope.getContacts();
+                    $scope.getTopicUsers();
+
+                });
+
+                $scope.getContacts = function () {
+                    $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contacts/get')
+                        .then(function(response) {
+                        $scope.contacts = response.data;
+                    })
+                };
+
+
+                $scope.contactsToAdd = [];
+
+                $scope.addContact = function ($idContact) {
+                    $scope.contactsToAdd.push($idContact);
+                };
+
                 $scope.closeDialog = function () {
                     $mdDialog.hide();
                 };
 
-                $scope.addContact = function () {
-                    console.log('contact ajouté');
-                }
+                $scope.addTopicUsers = function () {
 
+                    $http.post('http://localhost/Studycom/public/api/topic/'+ $scope.idtopic+'/addcontacts', $scope.contactsToAdd)
+                        .then(function(response) {
+                            $mdDialog.hide();
+                        })
+                };
             }
 
         };
@@ -158,7 +191,7 @@ angular.module('myApp.topicController', ['ngRoute'])
             $mdDialog.show({
                 controller: modifyTopicNameModalController,
                 controllerAs: 'modifyTopicNameModal',
-                templateUrl: 'util/modifyTopicNameModal.html',
+                templateUrl: 'topic/modifyTopicNameModal.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true
@@ -190,8 +223,6 @@ angular.module('myApp.topicController', ['ngRoute'])
                         .then(function(response) {
                             $mdDialog.hide();
                         })
-
-
                 };
 
             }

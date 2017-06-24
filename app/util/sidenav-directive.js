@@ -44,7 +44,6 @@ studycom.directive("studycomSidenav", function ($http) {
             $scope.getContacts = function () {
                 $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contacts/get').then(function(response) {
                     $scope.contacts = response.data;
-                    console.log($scope.contacts);
                 })
             };
 
@@ -80,7 +79,6 @@ studycom.directive("studycomSidenav", function ($http) {
                         console.log($scope.user.id);
                         $http.post('http://localhost/Studycom/public/api/user/'+ $scope.user.id+'/topic', formData)
                             .then(function(response) {
-                                console.log(response.data);
                                 $mdDialog.hide();
                         })
 
@@ -93,7 +91,7 @@ studycom.directive("studycomSidenav", function ($http) {
                 $mdDialog.show({
                     controller: addContactModalController,
                     controllerAs: 'addTopic',
-                    templateUrl: 'util/addContactModal.html',
+                    templateUrl: 'topic/addContactModal.html',
                     parent: angular.element(document.body),
                     targetEvent: ev,
                     clickOutsideToClose: true
@@ -112,7 +110,6 @@ studycom.directive("studycomSidenav", function ($http) {
                         var formData = {
                             name: $scope.name,
                         };
-                        console.log(formData);
 
                     };
                 }
