@@ -9,10 +9,10 @@
             </md-button>
         </div>
         <div class="topic-view" layout="row">
-            <div class="topic-feed" flex="grow">
+            <div class="topic-feed" id="topic-feed" flex="grow">
 
                 <md-grid-list md-cols="1" md-row-height="200px">
-                    <md-grid-tile ng-repeat="message in messages">
+                    <md-grid-tile ng-repeat="message in messages | orderBy: 'dateCreation' ">
                         <div layout="row" flex="100" layout-align="{{leftOrRight(message)}}">
                             <md-card class="topic-message-card {{authMessage(message)}}" flex="40">
                                 <md-card-header layout="row" layout-align="space-around center">
@@ -20,8 +20,10 @@
                                         <img class="md-user-avatar" src="img/avatar.png">
                                     </md-card-avatar>
                                     <md-card-title>
-                                        <p><a ng-if="userMessage(message)" ng-click="openUserProfileModal()">{{user.name}}</a></p>
-                                        <p><a ng-if="!userMessage(message)" ng-click="openUserProfileModal()">{{message.name}}</a></p>
+                                        <p><a ng-if="userMessage(message)" ng-click="openUserProfileModal()">{{user.name}}</a>
+                                        </p>
+                                        <p><a ng-if="!userMessage(message)" ng-click="openUserProfileModal()">{{message.name}}</a>
+                                        </p>
                                     </md-card-title>
                                 </md-card-header>
                                 <md-divider></md-divider>
@@ -37,7 +39,7 @@
                         </div>
                     </md-grid-tile>
                 </md-grid-list>
-
+                <a id="topic-bottom"></a>
 
             </div>
             <div class="topic-sidenav" flex="20" ng-show="showTopicMenu">

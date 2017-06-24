@@ -1,22 +1,38 @@
 angular.module('myApp.topicController', ['ngRoute'])
 
-    .controller('topicController', function ($scope, $mdDialog, $http,$location, $rootScope, Auth, $mdSidenav, topicParams) {
+    .controller('topicController', function ($scope, $mdDialog, $http, $location, $rootScope, Auth, $mdSidenav, topicParams, $anchorScroll) {
 
         $scope.url = $location.absUrl();
         $scope.showTopicMenu = false;
 
-        Auth.user().then(function(response) {
+        Auth.user().then(function (response) {
             $scope.user = response;
             $scope.getTopicByUrl();
 
         });
 
         $scope.socket = io.connect('http://localhost:8080');
+        $scope.socket.on('connect', function () {
+            $scope.socket.emit('joinChannel', 'channel/' + topicParams.id);
+
+            $scope.socket.on('joinChannel', function () {
+
+                $scope.socket.on('newMessage', function (message) {
+                    console.log(message);
+                    $scope.messageFilter(message);
+
+                    $location.hash($scope.messages[$scope.messages.length]);
+                    $anchorScroll();
+                });
+
+            })
+        });
+
 
         $scope.getTopicByUrl = function () {
             var splitUrl = $scope.url.split('/');
             var idTopic = splitUrl[7];
-            $http.get('http://localhost/Studycom/public/api/topic/'+idTopic+'/get').then(function(response) {
+            $http.get('http://localhost/Studycom/public/api/topic/' + idTopic + '/get').then(function (response) {
                 $scope.topic = response.data[0];
                 $scope.getTopicMessages($scope.topic.id);
                 $scope.getTopicUsers($scope.topic.id);
@@ -25,19 +41,16 @@ angular.module('myApp.topicController', ['ngRoute'])
         };
 
 
-
         $scope.getTopicUsers = function (idTopic) {
 
             $http.get('http://localhost/Studycom/public/api/topic/' + idTopic + '/users')
-                .then(function(response) {
-                $scope.users = response.data;
-            });
+                .then(function (response) {
+                    $scope.users = response.data;
+                });
         };
 
         $scope.getTopicMessages = function (idTopic) {
-            $http.get('http://localhost/Studycom/public/api/topic/'+idTopic+'/posts').
-            then(function (response) {
-                console.log(response.data);
+            $http.get('http://localhost/Studycom/public/api/topic/' + idTopic + '/posts').then(function (response) {
                 $scope.messages = response.data;
             });
         };
@@ -47,21 +60,21 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         $scope.addMessage = function () {
 
-            var data = {'idAuthor': $scope.user.id,
+            var data = {
+                'idAuthor': $scope.user.id,
                 'idTopic': $scope.topic.id,
                 'text': $scope.message
             };
-            $http.post('http://localhost/Studycom/public/api/topic/sendMessage', data).
-            then(function (response) {
-                $scope.messages.push(response.data);
+            $http.post('http://localhost/Studycom/public/api/topic/sendMessage', data).then(function (response) {
+                $scope.socket.emit('newMessage', response.data);
             });
             $scope.message = '';
 
-            scrollBottom();
+            //scrollBottom();
         };
 
         $scope.userMessage = function (message) {
-          return message.idAuthor == $scope.user.id;
+            return message.idAuthor == $scope.user.id;
         };
 
         $scope.leftOrRight = function (message) {
@@ -108,11 +121,22 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         };
 
-        var scrollBottom = function () {
-            var messages = document.getElementsByClassName('topic-message-card');
-            console.log(messages[messages.length - 1]);
-            messages[messages.length - 1].scrollTop = messages[messages.length - 1].scrollHeight;
-
+        $scope.scrollBottom = function () {
+            var objDiv = document.getElementById("topic-feed");
+            window.scrollTo(0, objDiv);
         }
 
+        $scope.messageFilter = function (message) {
+            var messageExist = false;
+            for (var i = 0; i < $scope.messages.length; i++) {
+                var topicMessage = $scope.messages[i];
+                if (topicMessage.id == message.id) {
+                    messageExist = true;
+                    i = $scope.messages.length;
+                }
+            }
+            if(!messageExist) {
+                $scope.messages.push(message);
+            }
+        }
     });
