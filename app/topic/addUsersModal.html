@@ -1,0 +1,21 @@
+<md-dialog layout-padding aria-label="Créer un topic" flex="20">
+    <form ng-cloak name="form">
+        <h3>Ajouter des utilisateurs</h3>
+
+        <md-list-item ng-repeat="contact in contacts">
+
+                <md-checkbox ng-visible="true" ng-model="contact.id" aria-label="Checkbox 1">
+ok
+                </md-checkbox>
+
+                <p>{{contact.name}}</p>
+                <md-button ng-click="addContact(contact.id)" aria-label="add">{{contact.name}}</md-button>
+
+        </md-list-item>
+        <div layout="row">
+            <md-button class="md-raised" ng-click="closeDialog()" aria-label="annuler">Annuler</md-button>
+            <md-button class="md-primary md-raised" ng-click="addTopicUsers()" aria-label="valider">Valider</md-button>
+        </div>
+    </form>
+
+</md-dialog>

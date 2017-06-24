@@ -77,6 +77,34 @@ angular.module('myApp.topicController', ['ngRoute'])
             return message.idAuthor == $scope.user.id;
         };
 
+        $scope.leaveTopic = function () {
+            $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/topic/'+$scope.topic.id + '/leave').
+            then(function(response) {
+                $location.url('http://localhost/StudycomClient/app/#/home');
+            });
+        };
+
+        $scope.deleteTopic = function () {
+            $http.get('http://localhost/Studycom/public/api/topic/'+$scope.topic.id + '/delete').
+            then(function(response) {
+                $location.url('http://localhost/StudycomClient/app/#/home');
+            });
+        };
+
+        $scope.deleteUserFromTopic = function (idUser) {
+            $http.get('http://localhost/Studycom/public/api/topic/'+$scope.topic.id +'/user/'+idUser+'/delete').
+            then(function(response) {
+
+                $scope.users.forEach(function(user) {
+                    if(user.id == response.data[0].id){
+                        $scope.index = $scope.users.indexOf(user);
+                    }
+                });
+
+               $scope.users.splice($scope.index,1);
+            });
+        };
+
         $scope.leftOrRight = function (message) {
             if (message.idAuthor == $scope.user.id) {
                 return 'end center';
@@ -93,6 +121,11 @@ angular.module('myApp.topicController', ['ngRoute'])
                 return '';
             }
         };
+
+        $scope.scrollBottom = function () {
+            var objDiv = document.getElementById("topic-feed");
+            window.scrollTo(0, objDiv);
+        }
 
         $scope.openUserProfileModal = function (ev) {
             $mdDialog.show({
@@ -121,9 +154,107 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         };
 
-        $scope.scrollBottom = function () {
-            var objDiv = document.getElementById("topic-feed");
-            window.scrollTo(0, objDiv);
+        $scope.openAddUsersModal = function (ev) {
+            $mdDialog.show({
+                controller: addUsersModalController,
+                controllerAs: 'addUsersModal',
+                templateUrl: 'topic/addUsersModal.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true
+            }).then(function (answer) {
+
+            });
+
+            function addUsersModalController($scope, $mdDialog, $location, Auth) {
+
+
+
+                $scope.idtopic =  $location.absUrl().split('/')[7];
+
+                Auth.user().then(function(response) {
+                    $scope.user = response;
+                    $scope.getContacts();
+                    $scope.getTopicUsers();
+
+                });
+
+                $scope.getContacts = function () {
+                    $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contacts/get')
+                        .then(function(response) {
+                        $scope.contacts = response.data;
+                    })
+                };
+
+
+                $scope.contactsToAdd = [];
+
+                $scope.addContact = function ($idContact) {
+                    $scope.contactsToAdd.push($idContact);
+                };
+
+                $scope.closeDialog = function () {
+                    $mdDialog.hide();
+                };
+
+                $scope.addTopicUsers = function () {
+
+
+                    $http.post('http://localhost/Studycom/public/api/topic/'+ $scope.idtopic+'/addcontacts', $scope.contactsToAdd)
+                        .then(function(response) {
+                            console.log(response.data);
+                            $mdDialog.hide();
+                        })
+                };
+            }
+
+        };
+
+        $scope.openModifyTopicNameModal = function (ev) {
+            $mdDialog.show({
+                controller: modifyTopicNameModalController,
+                controllerAs: 'modifyTopicNameModal',
+                templateUrl: 'topic/modifyTopicNameModal.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true
+            }).then(function (response) {
+
+            });
+
+            function modifyTopicNameModalController($scope, $mdDialog, $location) {
+
+                $scope.url = $location.absUrl();
+                $scope.name = '';
+
+
+                $scope.closeDialog = function () {
+                    $mdDialog.hide();
+                };
+
+
+                $scope.modifyTopicName = function () {
+
+                    var splitUrl = $scope.url.split('/');
+                    var idTopic = splitUrl[7];
+
+                    var formData = {
+                        name: $scope.name
+                    };
+
+                    $http.post('http://localhost/Studycom/public/api/topic/'+ idTopic+'/modify', formData)
+                        .then(function(response) {
+                            $mdDialog.hide();
+                        })
+                };
+
+            }
+
+        };
+
+        var scrollBottom = function () {
+
+
         }
 
         $scope.messageFilter = function (message) {

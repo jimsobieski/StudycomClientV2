@@ -1,0 +1,16 @@
+<md-dialog layout-padding aria-label="Modifier le nom du topic" flex="20">
+    <form ng-cloak name="form">
+        <h3>Modifier le nom du topic</h3>
+
+        <md-input-container>
+            <label>Veuillez entrer le nouveau nom du topic</label>
+            <input ng-model="name" type="text" required>
+
+        </md-input-container>
+        <div layout="row">
+            <md-button class="md-raised" ng-click="closeDialog()" aria-label="annuler">annuler</md-button>
+            <md-button class="md-primary md-raised" ng-disabled="form.$invalid" ng-click="modifyTopicName()" aria-label="valider">valider</md-button>
+        </div>
+    </form>
+
+</md-dialog>
