@@ -30,7 +30,6 @@ angular.module('myApp.contactController', ['ngRoute'])
         $scope.getTopicMessages = function (idTopic) {
             $http.get('http://localhost/Studycom/public/api/topic/'+idTopic+'/posts').
             then(function (response) {
-                console.log(response.data);
                 $scope.messages = response.data;
             });
         };

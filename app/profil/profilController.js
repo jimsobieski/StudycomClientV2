@@ -8,9 +8,7 @@ angular.module('myApp.profilController', ['ngRoute'])
 
     Auth.user().then(function(response) {
         $scope.user = response;
-        console.log($scope.user);
         $scope.userToEdit = angular.copy($scope.user);
-        console.log($scope.userToEdit);
     });
 
     $scope.updateUser = function () {

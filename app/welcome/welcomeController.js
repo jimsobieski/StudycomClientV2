@@ -75,9 +75,9 @@ angular.module('myApp.welcomeController', ['ngRoute'])
             });
 
             function connexionController($scope, $mdDialog, $rootScope, Auth) {
-                $scope.email = 'sobieskimail@yopmail.com';
-                $scope.password = 'studycom';
-                $scope.name = "connexion";
+                $scope.email = '';
+                $scope.password = '';
+                $scope.name = "";
                 $scope.closeDialog = function () {
                     $mdDialog.hide();
                 };

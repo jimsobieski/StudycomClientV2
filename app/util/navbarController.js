@@ -23,7 +23,7 @@ angular.module('myApp.navbarController', ['ngRoute'])
                 targetEvent: ev,
                 clickOutsideToClose: true
             }).then(function (answer) {
-                console.log(answer);
+
             })
 
             function inscriptionController($scope, $mdDialog) {
@@ -43,7 +43,7 @@ angular.module('myApp.navbarController', ['ngRoute'])
                         'password': $scope.password,
                         'idtype': $scope.typeUser
                     }
-                    console.log(formData);
+
                     Auth.signup(formData, successAuth, function () {
                         $rootScope.error = 'Invalid credentials.';
                     })
