@@ -17,6 +17,7 @@ studycom.directive("studycomSidenav", function ($http) {
                 $scope.user = response;
                 $scope.getTopics();
                 $scope.getContacts();
+                $scope.getRequests();
                 $scope.selectTab();
 
             });
@@ -44,6 +45,43 @@ studycom.directive("studycomSidenav", function ($http) {
             $scope.getContacts = function () {
                 $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contacts/get').then(function(response) {
                     $scope.contacts = response.data;
+                })
+            };
+
+            $scope.getRequests = function () {
+                $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/requests').then(function(response) {
+                    $scope.requests = response.data;
+
+                })
+            };
+
+            $scope.acceptRequest = function (idRequest) {
+                $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/request/'+idRequest+'/accept').then(function(response) {
+
+                    $scope.requests.forEach(function(request) {
+                        if(request.id == idRequest){
+                            $scope.indexAccept = $scope.requests.indexOf(request);
+                        }
+                    });
+
+                    $scope.requests.splice($scope.indexAccept,1);
+
+                    $scope.contacts.push(response.data[0]);
+
+                })
+            };
+
+            $scope.refuseRequest = function (idRequest) {
+                $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/request/'+idRequest+'/refuse').then(function(response) {
+
+                    $scope.requests.forEach(function(request) {
+                        if(request.id == idRequest){
+                            $scope.indexRefuse = $scope.requests.indexOf(request);
+                        }
+                    });
+
+                    $scope.requests.splice($scope.indexRefuse,1);
+
                 })
             };
 
