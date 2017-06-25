@@ -48,6 +48,7 @@ md-sidenav {
 }
 
 .topic-section {
+    height: 100%;
     max-height: 100%;
 }
 .topic-section > section {
@@ -57,7 +58,7 @@ md-sidenav {
     height: 10%;
 }
 .topic-view {
-    height:75%;
+    height:78%;
 }
 .topic-feed {
     height: 100%;
@@ -67,9 +68,33 @@ md-sidenav {
     padding-right: 16px;
 }
 .topic-sidenav {
+    background-color: white;
     height:100%;
     position: relative;
 }
+.topic-sidenav md-toolbar {
+    height: 12%;
+}
+.topic-sidenav h3 {
+    font-family: 'Bahiana', cursive;
+    font-size: 24px;
+    margin: 0;
+    padding-left: 8px;
+}
+
+.topic-sidenav .md-tabs {
+    height: 88%;
+    overflow-y: auto;
+}
+
+.topic-sidenav md-tabs-wrapper {
+    background-color: #E0F2F1;
+}
+
+topic-sidenav-menu-button {
+
+}
+
 .topic-feed::-webkit-scrollbar-track
 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -98,13 +123,26 @@ md-sidenav {
 }
 
 .topic-response-bar {
-    height: 15%;
+    height: 12%;
+}
+
+.topic-response-bar .message-container {
+    height: 32px;
+    margin: 0;
+    padding-right: 8px;
 }
 
 .topic-response-bar textarea {
-    position: relative;
+    height: 32px;
+    max-height: 32px !important;
+    overflow-y: auto;
 }
 
+.topic-response-bar .topic-send-message-button {
+    margin: 0;
+    padding-left: 8px;
+    width: 128px;
+}
 .topic-auth-message {
     background-color: #80CBC4;
     color: white;

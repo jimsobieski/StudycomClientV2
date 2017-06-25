@@ -3,17 +3,17 @@
 }
 
 .md-button.md-primary.md-raised {
-    background-color: #80CBC4;
+    background-color: #80CBC4 !important;
 }
 .md-button.md-primary.md-raised.md-focused {
-    background-color: #80CBC4;
+    background-color: #80CBC4 !important;
 }
 
 .md-button.md-primary.md-raised:not([disabled]):hover {
-    background-color: #80CBC4;
+    background-color: #80CBC4 !important;
 }
 
-md-dialog h3 {
+ h3 {
     text-transform: uppercase;
     font-family: 'Bahiana', cursive;
 }
@@ -33,4 +33,19 @@ h1 > a {
 
 a {
     text-decoration: none;
+}
+
+md-menu {
+    margin: 0 !important;
+
+}
+
+.md-button.mini-button {
+    min-width: 36px !important;
+    width: 36px !important;
+}
+
+
+.home-view {
+    height: 100%;
 }

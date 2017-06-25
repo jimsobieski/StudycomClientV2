@@ -3,8 +3,8 @@
     <section layout="column" flex="100">
         <div class="topic-name" layout="row" layout-align="space-between center">
             <h1>{{topic.nom}}</h1>
-            <md-button ng-click="toggleTopicMenu()">
-                <md-icon md-svg-src="icons/group_work.svg"></md-icon>
+            <md-button ng-click="toggleTopicMenu()" class="md-primary md-raised">
+                <md-icon md-svg-src="icons/menu_white.svg"></md-icon>
                 <md-tooltip>Topic infos</md-tooltip>
             </md-button>
         </div>
@@ -42,39 +42,72 @@
                 <a id="topic-bottom"></a>
 
             </div>
-            <div class="topic-sidenav" flex="20" ng-show="showTopicMenu">
-                <md-toolbar>
-                    Informations sur le topic
-                </md-toolbar>
-                <md-content>
-                    <p>{{topic.nom}}</p>
-                    <md-button ng-show="topic.idAdmin==user.id" ng-click="openModifyTopicNameModal()">Modifier</md-button>
-                    <md-button ng-show="topic.idAdmin==user.id" aria-label="Ajouter" ng-click="openAddUsersModal()">
-                        <md-icon md-svg-src="icons/person_add.svg"></md-icon>
-                    </md-button>
 
-                    <p>Liste des utilisateurs : </p>
-                    <md-list-item ng-repeat="topicuser in users">
+            <div class="topic-sidenav" flex="35" flex-gt-md="20" ng-show="showTopicMenu" md-whiteframe="3">
 
-                        <p>{{topicuser.name}}</p>
-                        <md-button aria-label="Supprimer" ng-show="topic.idAdmin==user.id && topicuser.id!=user.id"  ng-click="deleteUserFromTopic(topicuser.id)">
-                            <md-icon md-svg-src="icons/clear.svg"></md-icon>
+                <md-toolbar layout="row" layout-align="space-between center">
+                    <h3>{{topic.nom}}</h3>
+                    <md-menu md-offset="80 80">
+                        <md-button class="topic-sidenav-menu-button mini-button" ng-click="$mdMenu.open($event)">
+                            <md-icon md-svg-src="icons/more_vertical.svg"></md-icon>
                         </md-button>
+                        <md-menu-content class="md-padding topic-sidenav-menu">
+                            <md-menu-item ng-show="topic.idAdmin==user.id">
+                                <md-icon flex="20" md-svg-src="icons/edit_black.svg"></md-icon>
+                                <md-button ng-click="openModifyTopicNameModal()">Editer</md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-icon flex="20" md-svg-src="icons/remove_circle.svg"></md-icon>
+                                <md-button ng-click="leaveTopic()">Quitter</md-button>
+                            </md-menu-item>
+                            <md-menu-item ng-show="topic.idAdmin==user.id">
+                                <md-icon flex="20" md-svg-src="icons/delete.svg"></md-icon>
+                                <md-button ng-click="deleteTopic()">Supprimer</md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </md-toolbar>
 
+                <md-tabs md-align-tabs md-dynamic-height md-border-bottom>
+                    <md-tab aria-label="Membres" md-selected>
+                        <md-tab-label>
+                            <md-icon md-svg-src="icons/group.svg"></md-icon>
+                        </md-tab-label>
+                        <md-tab-body>
+                            <md-list-item ng-repeat="topicuser in users">
+                                <p>{{topicuser.name}}</p>
+                            </md-list-item>
+                        </md-tab-body>
+                    </md-tab>
+                    <md-tab ng-show="topic.idAdmin==user.id" aria-label="Ajouter" ng-click="openAddUsersModal()">
+                        <md-icon md-svg-src="icons/group_add.svg"></md-icon>
+                    </md-tab>
+                    <md-tab ng-show="topic.idAdmin==user.id" aria-label="Membres">
 
-                    </md-list-item>
-                    <md-button aria-label="Quitter topic" ng-click="leaveTopic()">Quitter le topic </md-button>
-                    <md-button ng-show="topic.idAdmin==user.id" aria-label="Supprimer topic" ng-click="deleteTopic()">Supprimer le topic </md-button>
-                </md-content>
+                        <md-tab-label>
+                            <md-icon md-svg-src="icons/remove_circle.svg"></md-icon>
+                        </md-tab-label>
+                        <md-tab-body>
+                            <md-list-item ng-repeat="topicuser in users">
+
+                                <p>{{topicuser.name}}</p>
+                                <md-button aria-label="Supprimer" ng-show="topic.idAdmin==user.id && topicuser.id!=user.id"
+                                           ng-click="deleteUserFromTopic(topicuser.id)" class="mini-button">
+                                    <md-icon md-svg-src="icons/clear.svg"></md-icon>
+                                </md-button>
+                            </md-list-item>
+                        </md-tab-body>
+                    </md-tab>
+                </md-tabs>
 
             </div>
         </div>
-        <md-divider></md-divider>
-        <div layout="row" layout-align="center center" class="topic-response-bar md-padding">
-            <md-input-container flex="80">
+
+        <div layout="row" layout-align="space-between center" class="topic-response-bar md-padding" md-whiteframe="8">
+            <md-input-container class="message-container" flex="grow">
                 <textarea aria-label="message" ng-model="message"></textarea>
             </md-input-container>
-            <md-button class="md-primary md-raised" ng-click="addMessage()" flex="20" ng-disabled="message==''">
+            <md-button class="md-primary md-raised topic-send-message-button" ng-click="addMessage()" ng-disabled="message==''">
                 <md-icon md-svg-src="icons/message.svg"></md-icon>
                 <md-tooltip md-direction="top">Envoyer un message</md-tooltip>
             </md-button>
