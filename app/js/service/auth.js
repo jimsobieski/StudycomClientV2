@@ -29,11 +29,15 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
     var tokenClaims = getClaimsFromToken();
 
     function getUser() {
-        var tokenClaim = getClaimsFromToken();
-        var userPromise = $http.get('http://localhost/Studycom/public/api/user/'+tokenClaim.sub).then(function (response) {
-            return response.data;
-        });
-        return userPromise;
+        if(typeof $localStorage.token !== 'undefined') {
+            var tokenClaim = getClaimsFromToken();
+            var userPromise = $http.get('http://localhost/Studycom/public/api/user/'+tokenClaim.sub).then(function (response) {
+                return response.data;
+            });
+            return userPromise;
+        }
+        return null;
+
     }
 
 

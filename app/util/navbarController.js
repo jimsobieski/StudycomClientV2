@@ -1,14 +1,19 @@
 angular.module('myApp.navbarController', ['ngRoute'])
 
-    .controller('navbarController', function ($scope, $mdDialog, $http, $rootScope, Auth, $mdSidenav) {
+    .controller('navbarController', function ($scope, $mdDialog, $http, $rootScope, Auth, $mdSidenav, $localStorage) {
 
-        Auth.user().then(function(response) {
-            $scope.user = response;
-        });
+        if(typeof $localStorage.token !== 'undefined') {
+            Auth.user().then(function(response) {
+                $scope.user = response;
+            });
+        }
 
         $scope.isConnected = false;
 
         function successAuth(res) {
+            Auth.user().then(function(response) {
+                $scope.user = response;
+            });
             $mdDialog.hide();
         }
 
@@ -70,10 +75,6 @@ angular.module('myApp.navbarController', ['ngRoute'])
                 $scope.password = '';
                 $scope.name = "connexion";
 
-                Auth.user().then(function(response) {
-                    $scope.user = response;
-                });
-
                 $scope.closeDialog = function () {
                     $mdDialog.hide();
                 };
@@ -96,7 +97,6 @@ angular.module('myApp.navbarController', ['ngRoute'])
             var formData = {
                 'id': $scope.user.id
             };
-            console.log(formData);
             Auth.logout(formData);
         };
 
