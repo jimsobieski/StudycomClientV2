@@ -2,7 +2,9 @@ angular.module('myApp.navbarController', ['ngRoute'])
 
     .controller('navbarController', function ($scope, $mdDialog, $http, $rootScope, Auth, $mdSidenav) {
 
-        $scope.test = 'test';
+        Auth.user().then(function(response) {
+            $scope.user = response;
+        });
 
         $scope.isConnected = false;
 
@@ -67,6 +69,11 @@ angular.module('myApp.navbarController', ['ngRoute'])
                 $scope.email = '';
                 $scope.password = '';
                 $scope.name = "connexion";
+
+                Auth.user().then(function(response) {
+                    $scope.user = response;
+                });
+
                 $scope.closeDialog = function () {
                     $mdDialog.hide();
                 };
@@ -86,7 +93,10 @@ angular.module('myApp.navbarController', ['ngRoute'])
         };
 
         $scope.logout = function () {
-            Auth.logout();
+            var formData = {
+                'id': $scope.user.id
+            };
+            Auth.logout(formData);
         };
 
         $scope.isConnected = function () {

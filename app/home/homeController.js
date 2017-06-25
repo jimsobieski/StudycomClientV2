@@ -6,8 +6,6 @@ angular.module('myApp.homeController', ['ngRoute'])
 
     Auth.user().then(function(response) {
         $scope.user = response;
-        console.log($scope.user);
-
     });
 
 
