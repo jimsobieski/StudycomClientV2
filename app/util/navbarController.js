@@ -96,6 +96,7 @@ angular.module('myApp.navbarController', ['ngRoute'])
             var formData = {
                 'id': $scope.user.id
             };
+            console.log(formData);
             Auth.logout(formData);
         };
 
