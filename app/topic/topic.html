@@ -2,14 +2,14 @@
     <studycom-sidenav></studycom-sidenav>
     <section layout="column" flex="100">
         <div class="topic-name" layout="row" layout-align="space-between center">
-            <h1>{{topic.nom}}</h1>
+            <h1>{{topic.nom}}</h1><label><input type="checkbox" value="true"></label>
             <md-button ng-click="toggleTopicMenu()" class="md-primary md-raised">
                 <md-icon md-svg-src="icons/menu_white.svg"></md-icon>
                 <md-tooltip>Topic infos</md-tooltip>
             </md-button>
         </div>
         <div class="topic-view" layout="row">
-            <div class="topic-feed" id="topic-feed" flex="grow">
+            <div class="topic-feed" id="topic-feed" flex="grow" scroll-glue>
 
                 <md-grid-list md-cols="1" md-row-height="200px">
                     <md-grid-tile ng-repeat="message in messages | orderBy: 'dateCreation' ">
@@ -79,23 +79,31 @@
                             </md-list-item>
                         </md-tab-body>
                     </md-tab>
-                    <md-tab ng-show="topic.idAdmin==user.id" aria-label="Ajouter" ng-click="openAddUsersModal()">
-                        <md-icon md-svg-src="icons/group_add.svg"></md-icon>
+                    <md-tab ng-if="topic.idAdmin==user.id" aria-label="Ajouter">
+                        <md-tab-label>
+                            <md-icon md-svg-src="icons/group_add.svg"></md-icon>
+                        </md-tab-label>
+                        <md-tab-body>
+                            <md-list-item ng-repeat="contact in contacts" layout="row">
+                                <p>{{contact.name}}</p>
+                                <input type="checkbox">
+                            </md-list-item>
+                        </md-tab-body>
                     </md-tab>
-                    <md-tab ng-show="topic.idAdmin==user.id" aria-label="Membres">
+                    <md-tab ng-if="topic.idAdmin==user.id" aria-label="Membres">
 
                         <md-tab-label>
                             <md-icon md-svg-src="icons/remove_circle.svg"></md-icon>
                         </md-tab-label>
                         <md-tab-body>
-                            <md-list-item ng-repeat="topicuser in users">
-
-                                <p>{{topicuser.name}}</p>
-                                <md-button aria-label="Supprimer" ng-show="topic.idAdmin==user.id && topicuser.id!=user.id"
-                                           ng-click="deleteUserFromTopic(topicuser.id)" class="mini-button">
-                                    <md-icon md-svg-src="icons/clear.svg"></md-icon>
-                                </md-button>
-                            </md-list-item>
+                            <md-list>
+                                <md-list-item ng-repeat="topicuser in users" layout="row" ng-if="topicuser.id !== user.id">
+                                    <p>{{topicuser.name}}</p>
+                                    <md-button aria-label="Supprimer" ng-click="deleteUserFromTopic(topicuser.id)" class="mini-button">
+                                        <md-icon md-svg-src="icons/delete.svg"></md-icon>
+                                    </md-button>
+                                </md-list-item>
+                            </md-list>
                         </md-tab-body>
                     </md-tab>
                 </md-tabs>
@@ -107,8 +115,8 @@
             <md-input-container class="message-container" flex="grow">
                 <textarea aria-label="message" ng-model="message"></textarea>
             </md-input-container>
-            <md-button class="md-primary md-raised topic-send-message-button" ng-click="addMessage()" ng-disabled="message==''">
-                <md-icon md-svg-src="icons/message.svg"></md-icon>
+            <md-button class="md-raised topic-send-message-button" ng-click="addMessage()" ng-disabled="message==''">
+                <md-icon md-svg-src="icons/chat_bubble_white.svg"></md-icon>
                 <md-tooltip md-direction="top">Envoyer un message</md-tooltip>
             </md-button>
 

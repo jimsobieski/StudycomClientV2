@@ -4,6 +4,7 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         $scope.url = $location.absUrl();
         $scope.showTopicMenu = false;
+        $scope.message = '';
 
         Auth.user().then(function (response) {
             $scope.user = response;
@@ -21,8 +22,6 @@ angular.module('myApp.topicController', ['ngRoute'])
                     console.log(message);
                     $scope.messageFilter(message);
 
-                    $location.hash($scope.messages[$scope.messages.length]);
-                    $anchorScroll();
                 });
 
             })
@@ -36,6 +35,8 @@ angular.module('myApp.topicController', ['ngRoute'])
                 $scope.topic = response.data[0];
                 $scope.getTopicMessages($scope.topic.id);
                 $scope.getTopicUsers($scope.topic.id);
+
+                $scope.getContacts();
 
             });
         };
@@ -52,6 +53,7 @@ angular.module('myApp.topicController', ['ngRoute'])
         $scope.getTopicMessages = function (idTopic) {
             $http.get('http://localhost/Studycom/public/api/topic/' + idTopic + '/posts').then(function (response) {
                 $scope.messages = response.data;
+                //$scope.scrollBottom();
             });
         };
         $scope.toggleTopicMenu = function () {
@@ -69,8 +71,6 @@ angular.module('myApp.topicController', ['ngRoute'])
                 $scope.socket.emit('newMessage', response.data);
             });
             $scope.message = '';
-
-            //scrollBottom();
         };
 
         $scope.userMessage = function (message) {
@@ -105,6 +105,14 @@ angular.module('myApp.topicController', ['ngRoute'])
             });
         };
 
+        $scope.getContacts = function () {
+            $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contacts/get')
+                .then(function(response) {
+                    $scope.contacts = response.data;
+                })
+        };
+
+
         $scope.leftOrRight = function (message) {
             if (message.idAuthor == $scope.user.id) {
                 return 'end center';
@@ -124,7 +132,8 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         $scope.scrollBottom = function () {
             var objDiv = document.getElementById("topic-feed");
-            window.scrollTo(0, objDiv);
+            console.log('scroll');
+            window.scrollTo(objDiv.height, objDiv);
         }
 
         $scope.openUserProfileModal = function (ev) {
@@ -244,6 +253,7 @@ angular.module('myApp.topicController', ['ngRoute'])
 
                     $http.post('http://localhost/Studycom/public/api/topic/'+ idTopic+'/modify', formData)
                         .then(function(response) {
+                            window.location = 'http://localhost/StudycomClient/app/#/topic/'+ idTopic;
                             $mdDialog.hide();
                         })
                 };
@@ -251,11 +261,6 @@ angular.module('myApp.topicController', ['ngRoute'])
             }
 
         };
-
-        var scrollBottom = function () {
-
-
-        }
 
         $scope.messageFilter = function (message) {
             var messageExist = false;
@@ -268,6 +273,7 @@ angular.module('myApp.topicController', ['ngRoute'])
             }
             if(!messageExist) {
                 $scope.messages.push(message);
+                $scope.$apply();
             }
         }
     });

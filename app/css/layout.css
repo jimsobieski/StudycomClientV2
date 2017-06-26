@@ -123,6 +123,7 @@ topic-sidenav-menu-button {
 }
 
 .topic-response-bar {
+    background-color: #80CBC4 !important;
     height: 12%;
 }
 
@@ -139,10 +140,16 @@ topic-sidenav-menu-button {
 }
 
 .topic-response-bar .topic-send-message-button {
+    background-color: #00695c !important;
     margin: 0;
     padding-left: 8px;
     width: 128px;
 }
+
+.topic-send-message-button[disabled='disabled'] {
+    background-color: transparent !important;
+}
+
 .topic-auth-message {
     background-color: #80CBC4;
     color: white;
