@@ -5,7 +5,6 @@ studycom.controller('SidenavController', function($scope, $http) {
     $http.get('/api/topic/show').
         then(function(response) {
             $scope.topics = response.data;
-            console.log($scope.topics);
         });
     
     

@@ -3,7 +3,7 @@
     <section layout="column" flex="100">
         <div class="topic-name" layout="row" layout-align="space-between center">
             <h1>{{topic.nom}}</h1><label><input type="checkbox" value="true"></label>
-            <md-button ng-click="toggleTopicMenu()" class="md-primary md-raised">
+            <md-button  ng-click="toggleTopicMenu()" class="md-primary md-raised">
                 <md-icon md-svg-src="icons/menu_white.svg"></md-icon>
                 <md-tooltip>Topic infos</md-tooltip>
             </md-button>
@@ -114,7 +114,7 @@
             <md-input-container class="message-container" flex="grow">
                 <textarea aria-label="message" ng-model="message"></textarea>
             </md-input-container>
-            <md-button class="md-raised topic-send-message-button" ng-click="addMessage()" ng-disabled="message==''">
+            <md-button  class="md-raised topic-send-message-button" ng-click="addMessage()" ng-disabled="message==''">
                 <md-icon md-svg-src="icons/chat_bubble_white.svg"></md-icon>
                 <md-tooltip md-direction="top">Envoyer un message</md-tooltip>
             </md-button>

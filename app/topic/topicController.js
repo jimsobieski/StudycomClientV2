@@ -19,7 +19,6 @@ angular.module('myApp.topicController', ['ngRoute'])
             $scope.socket.on('joinChannel', function () {
 
                 $scope.socket.on('newMessage', function (message) {
-                    console.log(message);
                     $scope.messageFilter(message);
 
                 });
@@ -132,7 +131,6 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         $scope.scrollBottom = function () {
             var objDiv = document.getElementById("topic-feed");
-            console.log('scroll');
             window.scrollTo(objDiv.height, objDiv);
         }
 
@@ -156,12 +154,17 @@ angular.module('myApp.topicController', ['ngRoute'])
                     $scope.user = response;
                     $scope.getAuthor();
                     $scope.getContacts();
+                    $scope.getNumberOfContacts();
+                    $scope.getMutualContacts();
+                    $scope.getMutualTopics();
+
 
                 });
 
                 $scope.getAuthor = function () {
                     $http.get('http://localhost/Studycom/public/api/author/'+idAuthor+'/get')
                         .then(function(response) {
+
                             $scope.author = response.data[0];
                         })
                 };
@@ -170,6 +173,27 @@ angular.module('myApp.topicController', ['ngRoute'])
                     $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contacts/get')
                         .then(function(response) {
                             $scope.contacts = response.data;
+                        })
+                };
+
+                $scope.getNumberOfContacts = function () {
+                    $http.get('http://localhost/Studycom/public/api/user/'+idAuthor+'/number/contacts')
+                        .then(function(response) {
+                            $scope.numberOfContacts = response.data;
+                        })
+                };
+
+                $scope.getMutualContacts = function () {
+                    $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/user2/'+idAuthor+'/mutual/contacts')
+                        .then(function(response) {
+                            $scope.mutualContacts = response.data;
+                        })
+                };
+
+                $scope.getMutualTopics = function () {
+                    $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/user2/'+idAuthor+'/mutual/topics')
+                        .then(function(response) {
+                            $scope.mutualTopics = response.data;
                         })
                 };
 
