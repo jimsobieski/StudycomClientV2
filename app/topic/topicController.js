@@ -136,27 +136,70 @@ angular.module('myApp.topicController', ['ngRoute'])
             window.scrollTo(objDiv.height, objDiv);
         }
 
-        $scope.openUserProfileModal = function (ev) {
+        $scope.openUserProfileModal = function (idAuthor) {
             $mdDialog.show({
                 controller: userProfileModalController,
                 controllerAs: 'userProfileModal',
                 templateUrl: 'util/userProfileModal.html',
                 parent: angular.element(document.body),
-                targetEvent: ev,
+                locals: {
+                    idAuthor: idAuthor
+                },
                 clickOutsideToClose: true
             }).then(function (answer) {
 
             });
 
-            function userProfileModalController($scope, $mdDialog, $rootScope, Auth) {
-                $scope.email = 'sobieskimail@yopmail.com';
-                $scope.name = "jim";
+            function userProfileModalController($scope, $mdDialog, $rootScope, Auth,idAuthor) {
+
+                Auth.user().then(function(response) {
+                    $scope.user = response;
+                    $scope.getAuthor();
+                    $scope.getContacts();
+
+                });
+
+                $scope.getAuthor = function () {
+                    $http.get('http://localhost/Studycom/public/api/author/'+idAuthor+'/get')
+                        .then(function(response) {
+                            $scope.author = response.data[0];
+                        })
+                };
+
+                $scope.getContacts = function () {
+                    $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contacts/get')
+                        .then(function(response) {
+                            $scope.contacts = response.data;
+                        })
+                };
+
+                $scope.isInAuthorContacts = function () {
+
+                   $scope.show = true;
+                    /*$scope.contacts.forEach(function(contact) {
+                        if($scope.author.id == contact.id){
+                            $scope.show = false;
+                        }
+                    });*/
+
+                    return $scope.show;
+
+                };
+
                 $scope.closeDialog = function () {
                     $mdDialog.hide();
                 };
 
                 $scope.addContact = function () {
-                    console.log('contact ajouté');
+
+                    var formData = {
+                        email: $scope.author.email
+                    };
+
+                    $http.post('http://localhost/Studycom/public/api/user/'+ $scope.user.id+'/contact/request', formData)
+                        .then(function(response) {
+                            $mdDialog.hide();
+                        })
                 }
 
             }
@@ -211,7 +254,6 @@ angular.module('myApp.topicController', ['ngRoute'])
 
                     $http.post('http://localhost/Studycom/public/api/topic/'+ $scope.idtopic+'/addcontacts', $scope.contactsToAdd)
                         .then(function(response) {
-                            console.log(response.data);
                             $mdDialog.hide();
                         })
                 };
