@@ -37,7 +37,8 @@ angular.module('myApp.contactController', ['ngRoute'])
         $scope.deleteUser = function () {
             $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contact/'+$scope.contact.id+'/delete').
             then(function (response) {
-                $location.url('http://localhost/StudycomClient/app/#/home');
+                window.location = 'http://localhost/StudycomClient/app/#/home';
+
             });
         };
 
