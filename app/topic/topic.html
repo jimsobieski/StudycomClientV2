@@ -9,7 +9,7 @@
             </md-button>
         </div>
         <div class="topic-view" layout="row">
-            <div class="topic-feed" id="topic-feed" flex="grow" scroll-glue>
+            <div class="topic-feed" flex="grow" scroll-glue>
 
                 <md-grid-list md-cols="1" md-row-height="200px">
                     <md-grid-tile ng-repeat="message in messages | orderBy: 'dateCreation' ">
@@ -39,7 +39,6 @@
                         </div>
                     </md-grid-tile>
                 </md-grid-list>
-                <a id="topic-bottom"></a>
 
             </div>
 
