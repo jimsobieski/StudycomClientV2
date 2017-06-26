@@ -1,7 +1,7 @@
 <md-dialog layout-padding aria-label="Profil de" flex="40" class="user-profile-modal">
     <md-dialog-title layout="row" layout-align="space-between">
 
-            <h3>Jim Sobieski</h3>
+            <h3>{{author.name}}</h3>
             <md-button class="md-raised" ng-click="closeDialog()" aria-label="annuler">
                 <md-icon md-svg-src="icons/clear.svg"></md-icon>
             </md-button>
@@ -14,45 +14,39 @@
                 <md-list flex="60">
                     <md-list-item>
                         <md-input-container>
-                            <label>Prenom</label>
-                            <input ng-value="'Jim'" type="text" ng-disabled="true">
+                            <label>Login</label>
+                            <input ng-model="author.login" type="text" ng-disabled="true">
                         </md-input-container>
                     </md-list-item>
                     <md-list-item>
                         <md-input-container>
                             <label>Nom</label>
-                            <input ng-value="'Sobieski'" type="text" ng-disabled="true">
+                            <input ng-model="author.name" type="text" ng-disabled="true">
                         </md-input-container>
                     </md-list-item>
                     <md-list-item>
                         <md-input-container>
-                            <label>Mail</label>
-                            <input ng-value="'sobieskimail@yopmail.com'" type="email" ng-disabled="true">
-                        </md-input-container>
-                    </md-list-item>
-                    <md-list-item>
-                        <md-input-container>
-                            <label>Téléphone</label>
-                            <input ng-value="0664859856" type="tel" ng-disabled="true">
+                            <label>Adresse e-mail</label>
+                            <input ng-model="author.email" type="email" ng-disabled="true">
                         </md-input-container>
                     </md-list-item>
                 </md-list>
             </div>
             <div layout="row" layout-align="space-around center" class="user-profile-modal-second-part">
                 <md-menu-item flex="30">
-                    <p>Nombre de contacts : 60</p>
+                    <p>Nombre de contact(s) : {{numberOfContacts}}</p>
                 </md-menu-item>
                 <md-menu-item flex="30">
-                    <p>12 contacts en communs</p>
+                    <p>{{mutualContacts}} contact(s) en communs</p>
                 </md-menu-item>
                 <md-menu-item flex="30">
-                    <p>4 topics en communs</p>
+                    <p>{{mutualTopics}} topic(s) en communs</p>
                 </md-menu-item>
             </div>
         </div>
     </md-dialog-content>
     <md-dialog-actions>
-        <md-button aria-label="ajouter" ng-click="addContact()">
+        <md-button ng-if="isInAuthorContacts() && author.id != user.id" aria-label="ajouter" ng-click="addContact()">
             <md-icon md-svg-src="icons/person_add.svg"></md-icon>
         </md-button>
     </md-dialog-actions>

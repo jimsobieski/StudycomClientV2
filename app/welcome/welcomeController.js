@@ -19,7 +19,6 @@ angular.module('myApp.welcomeController', ['ngRoute'])
                 $rootScope.error = 'Invalid credentials.';
                 $mdDialog.hide();
             }).then(function (response) {
-                console.log(response);
                 $window.location = '/home';
 
             })
@@ -45,7 +44,6 @@ angular.module('myApp.welcomeController', ['ngRoute'])
                 targetEvent: ev,
                 clickOutsideToClose: true
             }).then(function (answer) {
-                console.log(answer);
             })
 
             function inscriptionController($scope, $mdDialog) {
@@ -58,7 +56,7 @@ angular.module('myApp.welcomeController', ['ngRoute'])
                 }
 
                 $scope.authInscription = function () {
-                    console.log($scope.email);
+
                 }
             }
         };
@@ -94,7 +92,6 @@ angular.module('myApp.welcomeController', ['ngRoute'])
                     });
 
                     function successAuth() {
-                        console.log('close dialog');
                         $mdDialog.hide();
                     }
                 };

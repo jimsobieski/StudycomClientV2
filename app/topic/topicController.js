@@ -20,7 +20,6 @@ angular.module('myApp.topicController', ['ngRoute'])
             $scope.socket.on('joinChannel', function () {
 
                 $scope.socket.on('newMessage', function (message) {
-                    console.log(message);
                     $scope.messageFilter(message);
 
                 });
@@ -92,13 +91,13 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         $scope.leaveTopic = function () {
             $http.get('http://localhost/Studycom/public/api/user/' + $scope.user.id + '/topic/' + $scope.topic.id + '/leave').then(function (response) {
-                $location.url('http://localhost/StudycomClient/app/#/home');
+                window.location = 'http://localhost/StudycomClient/app/#/home';
             });
         };
 
         $scope.deleteTopic = function () {
             $http.get('http://localhost/Studycom/public/api/topic/' + $scope.topic.id + '/delete').then(function (response) {
-                $location.url('http://localhost/StudycomClient/app/#/home');
+                window.location = 'http://localhost/StudycomClient/app/#/home';
             });
         };
 
@@ -154,31 +153,99 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         $scope.scrollBottom = function () {
             var objDiv = document.getElementById("topic-feed");
-            console.log('scroll');
             window.scrollTo(objDiv.height, objDiv);
         }
 
-        $scope.openUserProfileModal = function (ev) {
+        $scope.openUserProfileModal = function (idAuthor) {
             $mdDialog.show({
                 controller: userProfileModalController,
                 controllerAs: 'userProfileModal',
                 templateUrl: 'util/userProfileModal.html',
                 parent: angular.element(document.body),
-                targetEvent: ev,
+                locals: {
+                    idAuthor: idAuthor
+                },
                 clickOutsideToClose: true
             }).then(function (answer) {
 
             });
 
-            function userProfileModalController($scope, $mdDialog, $rootScope, Auth) {
-                $scope.email = 'sobieskimail@yopmail.com';
-                $scope.name = "jim";
+            function userProfileModalController($scope, $mdDialog, $rootScope, Auth,idAuthor) {
+
+                Auth.user().then(function(response) {
+                    $scope.user = response;
+                    $scope.getAuthor();
+                    $scope.getContacts();
+                    $scope.getNumberOfContacts();
+                    $scope.getMutualContacts();
+                    $scope.getMutualTopics();
+
+
+                });
+
+                $scope.getAuthor = function () {
+                    $http.get('http://localhost/Studycom/public/api/author/'+idAuthor+'/get')
+                        .then(function(response) {
+
+                            $scope.author = response.data[0];
+                        })
+                };
+
+                $scope.getContacts = function () {
+                    $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contacts/get')
+                        .then(function(response) {
+                            $scope.contacts = response.data;
+                        })
+                };
+
+                $scope.getNumberOfContacts = function () {
+                    $http.get('http://localhost/Studycom/public/api/user/'+idAuthor+'/number/contacts')
+                        .then(function(response) {
+                            $scope.numberOfContacts = response.data;
+                        })
+                };
+
+                $scope.getMutualContacts = function () {
+                    $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/user2/'+idAuthor+'/mutual/contacts')
+                        .then(function(response) {
+                            $scope.mutualContacts = response.data;
+                        })
+                };
+
+                $scope.getMutualTopics = function () {
+                    $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/user2/'+idAuthor+'/mutual/topics')
+                        .then(function(response) {
+                            $scope.mutualTopics = response.data;
+                        })
+                };
+
+                $scope.isInAuthorContacts = function () {
+
+                   $scope.show = true;
+                    /*$scope.contacts.forEach(function(contact) {
+                        if($scope.author.id == contact.id){
+                            $scope.show = false;
+                        }
+                    });*/
+
+                    return $scope.show;
+
+                };
+
                 $scope.closeDialog = function () {
                     $mdDialog.hide();
                 };
 
                 $scope.addContact = function () {
-                    console.log('contact ajouté');
+
+                    var formData = {
+                        email: $scope.author.email
+                    };
+
+                    $http.post('http://localhost/Studycom/public/api/user/'+ $scope.user.id+'/contact/request', formData)
+                        .then(function(response) {
+                            $mdDialog.hide();
+                        })
                 }
 
             }
