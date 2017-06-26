@@ -8,7 +8,6 @@ var studycom = angular.module('myApp', [
     'myApp.navbarController',
     'myApp.homeController',
     'myApp.contactController',
-    'myApp.view1',
     'myApp.profilController',
     'myApp.topicController',
     'myApp.version'
@@ -21,16 +20,12 @@ var studycom = angular.module('myApp', [
 
     $locationProvider.hashPrefix('');
 
-
     $routeProvider.when('/', {
         templateUrl: "welcome/welcome.html",
         controller: "welcomeController"
     }).when('/profil', {
         templateUrl: 'profil/profil.html',
         controller: 'profilController'
-    }).when('/view1', {
-            templateUrl: 'view1/view1.html',
-            controller: 'View1Ctrl'
     }).when('/home', {
     templateUrl: 'home/home.html',
     controller: 'homeController'
