@@ -36,4 +36,8 @@ angular.module('myApp.profilController', ['ngRoute'])
     $scope.validUserToEdit = function () {
         $scope.user = angular.copy($scope.userToEdit);
     }
+
+    $scope.goBack = function () {
+        window.history.go(-1);
+    }
 });

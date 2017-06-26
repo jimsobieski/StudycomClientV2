@@ -52,10 +52,15 @@ angular.module('myApp.topicController', ['ngRoute'])
         };
 
         $scope.isContactToAddToTopic = function (contact) {
-            if (!$scope.users.includes(contact)) {
-                return true;
-            }
-            return false;
+            var bool = true;
+            angular.forEach($scope.users, function(user, index) {
+                if(user.id == contact.id) {
+                    bool = false;
+                }
+            });
+
+
+            return bool;
         };
 
         $scope.getTopicMessages = function (idTopic) {
@@ -123,10 +128,9 @@ angular.module('myApp.topicController', ['ngRoute'])
                 'idTopic': $scope.topic.id,
                 'idUser': contact.id
             };
-            console.log(formData);
+
             $http.post('http://localhost/Studycom/public/api/topic/addContact', formData)
                 .then(function (response) {
-                    console.log(response.data);
                     $scope.users.push(contact);
                     $mdDialog.hide();
                 })
