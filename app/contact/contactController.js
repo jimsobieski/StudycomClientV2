@@ -9,6 +9,21 @@ angular.module('myApp.contactController', ['ngRoute'])
 
         });
 
+        $scope.socket = io.connect('http://localhost:8080');
+        $scope.socket.on('connect', function () {
+            $scope.socket.emit('joinChannel', 'channel/' + contact.id);
+
+            $scope.socket.on('joinChannel', function () {
+
+                $scope.socket.on('newMessage', function (message) {
+                    console.log(message);
+                    $scope.messageFilter(message);
+
+                });
+
+            })
+        });
+
 
 
         $scope.getContact = function () {
@@ -52,11 +67,9 @@ angular.module('myApp.contactController', ['ngRoute'])
             };
             $http.post('http://localhost/Studycom/public/api/topic/sendMessage', data).
             then(function (response) {
-                $scope.messages.push(response.data);
+                $scope.socket.emit('newMessage', response.data);
             });
             $scope.message = '';
-
-            scrollBottom();
         };
 
         $scope.userMessage = function (message) {
@@ -107,9 +120,19 @@ angular.module('myApp.contactController', ['ngRoute'])
 
         };
 
-        var scrollBottom = function () {
-
-
+        $scope.messageFilter = function (message) {
+            var messageExist = false;
+            for (var i = 0; i < $scope.messages.length; i++) {
+                var topicMessage = $scope.messages[i];
+                if (topicMessage.id == message.id) {
+                    messageExist = true;
+                    i = $scope.messages.length;
+                }
+            }
+            if(!messageExist) {
+                $scope.messages.push(message);
+                $scope.$apply();
+            }
         }
 
     });

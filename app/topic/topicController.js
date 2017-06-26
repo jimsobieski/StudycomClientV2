@@ -5,6 +5,7 @@ angular.module('myApp.topicController', ['ngRoute'])
         $scope.url = $location.absUrl();
         $scope.showTopicMenu = false;
         $scope.message = '';
+        $scope.users = [];
 
         Auth.user().then(function (response) {
             $scope.user = response;
@@ -49,6 +50,13 @@ angular.module('myApp.topicController', ['ngRoute'])
                 });
         };
 
+        $scope.isContactToAddToTopic = function (contact) {
+            if (!$scope.users.includes(contact)) {
+                return true;
+            }
+            return false;
+        };
+
         $scope.getTopicMessages = function (idTopic) {
             $http.get('http://localhost/Studycom/public/api/topic/' + idTopic + '/posts').then(function (response) {
                 $scope.messages = response.data;
@@ -77,41 +85,51 @@ angular.module('myApp.topicController', ['ngRoute'])
         };
 
         $scope.leaveTopic = function () {
-            $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/topic/'+$scope.topic.id + '/leave').
-            then(function(response) {
+            $http.get('http://localhost/Studycom/public/api/user/' + $scope.user.id + '/topic/' + $scope.topic.id + '/leave').then(function (response) {
                 window.location = 'http://localhost/StudycomClient/app/#/home';
             });
         };
 
         $scope.deleteTopic = function () {
-            $http.get('http://localhost/Studycom/public/api/topic/'+$scope.topic.id + '/delete').
-            then(function(response) {
+            $http.get('http://localhost/Studycom/public/api/topic/' + $scope.topic.id + '/delete').then(function (response) {
                 window.location = 'http://localhost/StudycomClient/app/#/home';
             });
         };
 
         $scope.deleteUserFromTopic = function (idUser) {
-            $http.get('http://localhost/Studycom/public/api/topic/'+$scope.topic.id +'/user/'+idUser+'/delete').
-            then(function(response) {
+            $http.get('http://localhost/Studycom/public/api/topic/' + $scope.topic.id + '/user/' + idUser + '/delete').then(function (response) {
 
-                $scope.users.forEach(function(user) {
-                    if(user.id == response.data[0].id){
+                $scope.users.forEach(function (user) {
+                    if (user.id == response.data[0].id) {
                         $scope.index = $scope.users.indexOf(user);
                     }
                 });
 
-               $scope.users.splice($scope.index,1);
+                $scope.users.splice($scope.index, 1);
             });
         };
 
         $scope.getContacts = function () {
-            $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contacts/get')
-                .then(function(response) {
+            $http.get('http://localhost/Studycom/public/api/user/' + $scope.user.id + '/contacts/get')
+                .then(function (response) {
                     $scope.contacts = response.data;
                 })
         };
 
+        $scope.addTopicUser = function (contact) {
 
+            var formData = {
+                'idTopic': $scope.topic.id,
+                'idUser': contact.id
+            };
+            console.log(formData);
+            $http.post('http://localhost/Studycom/public/api/topic/addContact', formData)
+                .then(function (response) {
+                    console.log(response.data);
+                    $scope.users.push(contact);
+                    $mdDialog.hide();
+                })
+        };
         $scope.leftOrRight = function (message) {
             if (message.idAuthor == $scope.user.id) {
                 return 'end center';
@@ -230,61 +248,6 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         };
 
-        $scope.openAddUsersModal = function (ev) {
-            $mdDialog.show({
-                controller: addUsersModalController,
-                controllerAs: 'addUsersModal',
-                templateUrl: 'topic/addUsersModal.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true
-            }).then(function (answer) {
-
-            });
-
-            function addUsersModalController($scope, $mdDialog, $location, Auth) {
-
-
-
-                $scope.idtopic =  $location.absUrl().split('/')[7];
-
-                Auth.user().then(function(response) {
-                    $scope.user = response;
-                    $scope.getContacts();
-                    $scope.getTopicUsers();
-
-                });
-
-                $scope.getContacts = function () {
-                    $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contacts/get')
-                        .then(function(response) {
-                        $scope.contacts = response.data;
-                    })
-                };
-
-
-                $scope.contactsToAdd = [];
-
-                $scope.addContact = function ($idContact) {
-                    $scope.contactsToAdd.push($idContact);
-                };
-
-                $scope.closeDialog = function () {
-                    $mdDialog.hide();
-                };
-
-                $scope.addTopicUsers = function () {
-
-
-                    $http.post('http://localhost/Studycom/public/api/topic/'+ $scope.idtopic+'/addcontacts', $scope.contactsToAdd)
-                        .then(function(response) {
-                            $mdDialog.hide();
-                        })
-                };
-            }
-
-        };
-
         $scope.openModifyTopicNameModal = function (ev) {
             $mdDialog.show({
                 controller: modifyTopicNameModalController,
@@ -317,9 +280,9 @@ angular.module('myApp.topicController', ['ngRoute'])
                         name: $scope.name
                     };
 
-                    $http.post('http://localhost/Studycom/public/api/topic/'+ idTopic+'/modify', formData)
-                        .then(function(response) {
-                            window.location = 'http://localhost/StudycomClient/app/#/topic/'+ idTopic;
+                    $http.post('http://localhost/Studycom/public/api/topic/' + idTopic + '/modify', formData)
+                        .then(function (response) {
+                            window.location = 'http://localhost/StudycomClient/app/#/topic/' + idTopic;
                             $mdDialog.hide();
                         })
                 };
@@ -337,7 +300,7 @@ angular.module('myApp.topicController', ['ngRoute'])
                     i = $scope.messages.length;
                 }
             }
-            if(!messageExist) {
+            if (!messageExist) {
                 $scope.messages.push(message);
                 $scope.$apply();
             }

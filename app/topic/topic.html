@@ -9,7 +9,7 @@
             </md-button>
         </div>
         <div class="topic-view" layout="row">
-            <div class="topic-feed" id="topic-feed" flex="grow" scroll-glue>
+            <div class="topic-feed" flex="grow" scroll-glue>
 
                 <md-grid-list md-cols="1" md-row-height="200px">
                     <md-grid-tile ng-repeat="message in messages | orderBy: 'dateCreation' ">
@@ -38,7 +38,6 @@
                         </div>
                     </md-grid-tile>
                 </md-grid-list>
-                <a id="topic-bottom"></a>
 
             </div>
 
@@ -82,10 +81,13 @@
                         <md-tab-label>
                             <md-icon md-svg-src="icons/group_add.svg"></md-icon>
                         </md-tab-label>
-                        <md-tab-body>
-                            <md-list-item ng-repeat="contact in contacts" layout="row">
+                        <md-tab-body ng-if="isTopicMembersLoaded">
+                            <md-list-item ng-repeat="contact in contacts" layout="row" ng-if="isContactToAddToTopic(contact)">
                                 <p>{{contact.name}}</p>
-                                <input type="checkbox">
+                                <md-button aria-label="Ajouter" class="mini-button" ng-click="addTopicUser(contact)">
+                                    <md-icon md-svg-src="icons/add.svg"></md-icon>
+                                    <md-tooltip>Ajouter {{contact.name}} au topic</md-tooltip>
+                                </md-button>
                             </md-list-item>
                         </md-tab-body>
                     </md-tab>
