@@ -44,7 +44,6 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
     return {
         signup: function (data, success, error) {
             $http.post('http://localhost/Studycom/public/api/signup', data).then(function(response) {
-                console.log(response);
                 if(response.data == '') {
                     window.location = 'http://localhost/StudycomClient/app/#/';
                     error();
@@ -67,7 +66,6 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
         logout: function (data) {
             tokenClaims = {};
             $http.post('http://localhost/Studycom/public/api/logout', data).then(function(response) {
-                console.log(response.data);
                 delete $localStorage.token;
                 window.location = 'http://localhost/StudycomClient/app/#/';
             });

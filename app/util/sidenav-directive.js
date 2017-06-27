@@ -171,7 +171,12 @@ studycom.directive("studycomSidenav", function ($http) {
                                 else if(response.data == 'requested'){
                                     console.log('Vous avez deja envoyé une requete à ce contact !');
 
-                                }else{
+                                }
+                                else if(response.data == 'yourself'){
+                                    console.log('Vous ne pouvez pas vous ajouter vous-même !');
+
+                                }
+                                else{
                                     console.log('demande de contact envoyée');
                                     $mdDialog.hide();
 
