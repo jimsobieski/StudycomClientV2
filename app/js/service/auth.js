@@ -57,9 +57,15 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
         },
         signin: function (data, success, error) {
             $http.post('http://localhost/Studycom/public/api/signin', data).then(function(response){
-                $localStorage.token = response.data.token;
-                window.location = 'http://localhost/StudycomClient/app/#/home';
-                success();
+                if(response.data == false) {
+                    error();
+                }
+                else {
+                    $localStorage.token = response.data.token;
+                    window.location = 'http://localhost/StudycomClient/app/#/home';
+                    success();
+                }
+
             });
         },
         logout: function (data) {

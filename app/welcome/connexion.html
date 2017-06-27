@@ -1,7 +1,7 @@
 <md-dialog layout-padding aria-label="Connexion">
     <form ng-cloak name="connexionForm" ng-submit="signin()">
         <h3>Connexion</h3>
-
+        <div class="error-message" ng-if="authFailed">L'email ou le mot de passe est incorrect</div>
         <md-input-container>
             <label>Email</label>
             <input ng-model="email" type="email" required>

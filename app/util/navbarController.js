@@ -90,6 +90,7 @@ angular.module('myApp.navbarController', ['ngRoute'])
                 $scope.email = '';
                 $scope.password = '';
                 $scope.name = "connexion";
+                $scope.authFailed = false;
 
                 $scope.closeDialog = function () {
                     $mdDialog.hide();
@@ -102,7 +103,7 @@ angular.module('myApp.navbarController', ['ngRoute'])
                     };
 
                     Auth.signin(formData, successAuth, function () {
-                        $rootScope.error = 'Invalid credentials.';
+                        $scope.authFailed = true;
                     })
                 };
             }

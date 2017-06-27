@@ -10,7 +10,6 @@ angular.module('myApp.topicController', ['ngRoute'])
             window.location = 'http://localhost/StudycomClient/app/#/';
         }
 
-
         Auth.user().then(function (response) {
             $scope.user = response;
             $scope.isTopicMember();
@@ -32,20 +31,6 @@ angular.module('myApp.topicController', ['ngRoute'])
             })
         });
 
-        $scope.isTopicMember = function () {
-            var formData = {
-                'idUser': $scope.user.id,
-                'idTopic': parseInt(topicParams.id)
-            };
-
-            $http.post('http://localhost/Studycom/public/api/topic/userMember', formData).then(function (response) {
-                if(response.data == 0) {
-                    window.location = 'http://localhost/StudycomClient/app/#/home';
-                }
-            })
-        };
-
-
         $scope.getTopicByUrl = function () {
             var splitUrl = $scope.url.split('/');
             var idTopic = splitUrl[7];
@@ -59,9 +44,7 @@ angular.module('myApp.topicController', ['ngRoute'])
             });
         };
 
-
         $scope.getTopicUsers = function (idTopic) {
-
             $http.get('http://localhost/Studycom/public/api/topic/' + idTopic + '/users')
                 .then(function (response) {
                     $scope.users = response.data;
@@ -75,15 +58,25 @@ angular.module('myApp.topicController', ['ngRoute'])
                     bool = false;
                 }
             });
-
-
             return bool;
+        };
+
+        $scope.isTopicMember = function () {
+            var formData = {
+                'idUser': $scope.user.id,
+                'idTopic': parseInt(topicParams.id)
+            };
+
+            $http.post('http://localhost/Studycom/public/api/topic/userMember', formData).then(function (response) {
+                if(response.data == 0) {
+                    window.location = 'http://localhost/StudycomClient/app/#/home';
+                }
+            })
         };
 
         $scope.getTopicMessages = function (idTopic) {
             $http.get('http://localhost/Studycom/public/api/topic/' + idTopic + '/posts').then(function (response) {
                 $scope.messages = response.data;
-                //$scope.scrollBottom();
             });
         };
         $scope.toggleTopicMenu = function () {
@@ -91,7 +84,6 @@ angular.module('myApp.topicController', ['ngRoute'])
         };
 
         $scope.addMessage = function () {
-
             var data = {
                 'idAuthor': $scope.user.id,
                 'idTopic': $scope.topic.id,
@@ -114,7 +106,6 @@ angular.module('myApp.topicController', ['ngRoute'])
         };
 
         $scope.deleteTopic = function () {
-
             var data = {
                 'idTopic': $scope.topic.id,
                 'idUser': $scope.user.id
@@ -125,7 +116,6 @@ angular.module('myApp.topicController', ['ngRoute'])
         };
 
         $scope.deleteUserFromTopic = function (idUser) {
-
             var data = {
                 'idTopic': $scope.topic.id,
                 'idUserConnected': $scope.user.id,
@@ -153,7 +143,6 @@ angular.module('myApp.topicController', ['ngRoute'])
         };
 
         $scope.addTopicUser = function (contact) {
-
             var formData = {
                 'idTopic': $scope.topic.id,
                 'idUser': contact.id,
@@ -168,6 +157,7 @@ angular.module('myApp.topicController', ['ngRoute'])
                     }
                 })
         };
+
         $scope.leftOrRight = function (message) {
             if (message.idAuthor == $scope.user.id) {
                 return 'end center';
@@ -176,6 +166,7 @@ angular.module('myApp.topicController', ['ngRoute'])
                 return 'start center';
             }
         };
+
         $scope.authMessage = function (message) {
             if (message.idAuthor == $scope.user.id) {
                 return 'topic-auth-message';
@@ -256,11 +247,6 @@ angular.module('myApp.topicController', ['ngRoute'])
                 $scope.isInAuthorContacts = function () {
 
                    $scope.show = true;
-                    /*$scope.contacts.forEach(function(contact) {
-                        if($scope.author.id == contact.id){
-                            $scope.show = false;
-                        }
-                    });*/
 
                     return $scope.show;
 

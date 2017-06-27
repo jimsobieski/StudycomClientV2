@@ -22,14 +22,10 @@ angular.module('myApp.contactController', ['ngRoute'])
                     $scope.messageFilter(message);
 
                 });
-
             })
         });
 
-
-
         $scope.getContact = function () {
-
             $http.get('http://localhost/Studycom/public/api/contact/'+contact.id+'/get').then(function(response) {
                 $scope.contact = response.data[0];
                 $scope.getTopic();
@@ -58,8 +54,6 @@ angular.module('myApp.contactController', ['ngRoute'])
 
             });
         };
-
-
 
         $scope.addMessage = function () {
 
@@ -160,11 +154,6 @@ angular.module('myApp.contactController', ['ngRoute'])
                 $scope.isInAuthorContacts = function () {
 
                     $scope.show = true;
-                    /*$scope.contacts.forEach(function(contact) {
-                     if($scope.author.id == contact.id){
-                     $scope.show = false;
-                     }
-                     });*/
 
                     return $scope.show;
 
@@ -185,7 +174,6 @@ angular.module('myApp.contactController', ['ngRoute'])
                             $mdDialog.hide();
                         })
                 }
-
             }
 
         };

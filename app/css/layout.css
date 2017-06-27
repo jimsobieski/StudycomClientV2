@@ -166,13 +166,13 @@ md-sidenav {
     overflow-y: auto;
 }
 
-.message-content > .message-text {
-
-}
-
 .message-infos {
-    padding-top: 8px;
-    padding-bottom: 8px;
+    height: 32px !important;
+    min-height: 32px !important;
+    overflow-y: hidden;
+    padding-bottom: 0;
+    padding-top: 0;
+
 }
 
 .message-infos > .message-date {

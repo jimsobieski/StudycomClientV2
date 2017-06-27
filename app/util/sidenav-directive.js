@@ -11,8 +11,6 @@ studycom.directive("studycomSidenav", function ($http) {
             $scope.user = null;
             $scope.url = $location.absUrl();
 
-
-
             Auth.user().then(function(response) {
                 $scope.user = response;
                 $scope.getTopics();
@@ -125,7 +123,7 @@ studycom.directive("studycomSidenav", function ($http) {
 
                     };
                 }
-            }
+            };
 
             $scope.openAddContactDialog = function (ev) {
                 $mdDialog.show({
@@ -135,8 +133,6 @@ studycom.directive("studycomSidenav", function ($http) {
                     parent: angular.element(document.body),
                     targetEvent: ev,
                     clickOutsideToClose: true
-                }).then(function (answer) {
-
                 });
 
                 function addContactModalController($scope, $mdDialog, $rootScope, Auth) {
@@ -146,6 +142,10 @@ studycom.directive("studycomSidenav", function ($http) {
                     });
 
                     $scope.email = '';
+                    $scope.userNotFound = false;
+                    $scope.userAlreadyContact = false;
+                    $scope.userAlreadyReceiveRequest = false;
+                    $scope.userIsHimself = false;
 
                     $scope.closeDialog = function () {
                         $mdDialog.hide();
@@ -161,28 +161,21 @@ studycom.directive("studycomSidenav", function ($http) {
                             .then(function(response) {
 
                                 if(response.data == 'invalid'){
-                                    console.log('Cette adresse mail n\'existe pas !');
-
-
+                                    $scope.userNotFound = true;
                                 } else if(response.data == 'exists'){
-                                    console.log('Deja dans votre liste de contacts !');
-
+                                    $scope.userAlreadyContact = true;
                                 }
                                 else if(response.data == 'requested'){
-                                    console.log('Vous avez deja envoyé une requete à ce contact !');
+                                    $scope.userAlreadyReceiveRequest = true;
 
                                 }
                                 else if(response.data == 'yourself'){
-                                    console.log('Vous ne pouvez pas vous ajouter vous-même !');
-
+                                    $scope.userIsHimself = true;
                                 }
                                 else{
-                                    console.log('demande de contact envoyée');
                                     $mdDialog.hide();
-
                                 }
                             })
-
                     };
                 }
             }

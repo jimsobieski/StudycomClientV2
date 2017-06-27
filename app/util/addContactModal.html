@@ -9,6 +9,10 @@
                 <div ng-messages="addContactForm.email.$error" role="alert">
                     <ng-message when="required">Un email est obligatoire</ng-message>
                 </div>
+                <div class="error-message" ng-if="userNotFound">Contact non trouvé</div>
+                <div class="error-message" ng-if="userAlreadyContact">Vous avez déjà ajouté cet utilisateur</div>
+                <div class="error-message" ng-if="userAlreadyReceiveRequest">Vous avez déjà envoyé une demande de contact</div>
+                <div class="error-message" ng-if="userIsHimself">Vous ne pouvez pas vous inviter vous même</div>
             </md-input-container>
         </md-dialog-content>
         <md-dialog-actions layout="row">
