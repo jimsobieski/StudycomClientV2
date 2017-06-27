@@ -304,7 +304,7 @@ angular.module('myApp.topicController', ['ngRoute'])
 
                     $http.post('http://localhost/Studycom/public/api/topic/' + idTopic + '/modify', formData)
                         .then(function (response) {
-                            window.location = 'http://localhost/StudycomClient/app/#/topic/' + idTopic;
+                            window.location = 'http://localhost/StudycomClient/app/#/home';
                             $mdDialog.hide();
                         })
                 };

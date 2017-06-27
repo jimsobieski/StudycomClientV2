@@ -20,8 +20,9 @@
                                         <img class="md-user-avatar" src="img/avatar.png">
                                     </md-card-avatar>
                                     <md-card-title>
-                                        <p><a ng-if="userMessage(message)" ng-click="openUserProfileModal()">{{user.name}}</a></p>
-                                        <p><a ng-if="!userMessage(message)" ng-click="openUserProfileModal()">{{message.name}}</a></p>
+                                        <p>
+                                            <a ng-click="openUserProfileModal(message.idAuthor)">{{message.name}}</a>
+                                        </p>
                                     </md-card-title>
                                 </md-card-header>
                                 <md-divider></md-divider>
@@ -41,9 +42,10 @@
             </div>
         </div>
         <md-divider></md-divider>
-        <div layout="row" layout-align="space-between center" class="topic-response-bar md-padding">
+
+        <div layout="row" layout-align="space-between center" class="topic-response-bar md-padding" md-whiteframe="8">
             <md-input-container class="message-container" flex="grow">
-                <textarea aria-label="message" ng-model="message"></textarea>
+                <textarea md-maxlength="200" aria-label="message" ng-model="message"></textarea>
             </md-input-container>
             <md-button class="topic-send-message-button" ng-click="addMessage()" ng-disabled="message==''">
                 <md-icon md-svg-src="icons/chat_bubble_white.svg"></md-icon>

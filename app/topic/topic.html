@@ -114,7 +114,7 @@
 
         <div layout="row" layout-align="space-between center" class="topic-response-bar md-padding" md-whiteframe="8">
             <md-input-container class="message-container" flex="grow">
-                <textarea aria-label="message" ng-model="message"></textarea>
+                <textarea md-maxlength="200" aria-label="message" ng-model="message"></textarea>
             </md-input-container>
             <md-button  class="md-raised topic-send-message-button" ng-click="addMessage()" ng-disabled="message==''">
                 <md-icon md-svg-src="icons/chat_bubble_white.svg"></md-icon>
