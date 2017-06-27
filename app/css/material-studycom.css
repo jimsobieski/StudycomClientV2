@@ -16,6 +16,15 @@ md-input-container .md-input[disabled] {
     font-weight: 500;
 }
 
+md-dialog .md-input {
+    margin-bottom: 0;
+}
+.error-message {
+    font-size: 12px;
+    line-height: 14px;
+    color: rgb(221,44,0);
+}
+
  h3 {
     text-transform: uppercase;
     font-family: 'Bahiana', cursive;

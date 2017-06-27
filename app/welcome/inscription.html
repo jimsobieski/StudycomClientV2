@@ -1,31 +1,52 @@
 <md-dialog layout-padding aria-label="Inscription">
-    <form ng-cloak ng-submit="authInscription()">
+    <form ng-cloak name="inscriptionForm" novalidate ng-submit="authInscription(inscriptionForm)">
         <h3>Inscription</h3>
         <md-input-container>
             <label>Login</label>
-            <input ng-model="login" type="text" required>
+            <input ng-model="login" type="text" name="login" required>
+            <div ng-messages="inscriptionForm.login.$error" role="alert">
+                <div ng-message when="required">Ce champ est obligatoire</div>
+            </div>
         </md-input-container>
         <md-input-container>
             <label>Nom</label>
-            <input ng-model="name" type="text" required>
+            <input ng-model="name" type="text" name="name" required>
+            <div ng-messages="inscriptionForm.name.$error" role="alert">
+                <div ng-message when="required">Ce champ est obligatoire</div>
+            </div>
         </md-input-container>
         <md-input-container>
             <label>Email</label>
-            <input ng-model="email" type="email" required>
+            <input ng-model="email" type="email" name="email" required>
+            <div ng-messages="inscriptionForm.email.$error" role="alert">
+                <div ng-message when="required">Ce champ est obligatoire</div>
+                <div ng-message when="email">Ce champ doit être un email</div>
+            </div>
+            <div class="error-message" ng-if="authFailed">L'adresse email est déja saisi</div>
         </md-input-container>
         <md-input-container>
             <label>Mot de passe</label>
-            <input ng-model="password" type="password" required>
+            <input ng-model="password" type="password" name="password" required>
+            <div ng-messages="inscriptionForm.password.$error" role="alert">
+                <div ng-message when="required">Ce champ est obligatoire</div>
+            </div>
         </md-input-container>
         <md-input-container>
             <label>Confirmer le mot de passe</label>
-            <input ng-model="confirmPassword" type="password" required>
+            <input ng-model="confirmPassword" type="password" ng-change="checkDifferentPassword()" name="confirmPassword" required>
+            <div ng-messages ="inscriptionForm.confirmPassword.$error" role="alert">
+                <div ng-message when="required">Ce champ est obligatoire</div>
+            </div>
+            <div class="error-message" ng-if="isDifferentPassword">Les messages doivent être identiques</div>
         </md-input-container>
         <md-input-container>
-            <md-radio-group ng-model="typeUser">
+            <md-radio-group ng-model="typeUser" name="typeUser">
                 <md-radio-button ng-value="1">Etudiant</md-radio-button>
                 <md-radio-button ng-value="2">Professeur</md-radio-button>
             </md-radio-group>
+            <div ng-messages ="inscriptionForm.typeUser.$error" role="alert">
+                <div ng-message when="required">Ce champ est obligatoire</div>
+            </div>
         </md-input-container>
         <div layout="row">
             <md-button class="md-raised" ng-click="closeDialog()" aria-label="annuler">annuler</md-button>

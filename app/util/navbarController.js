@@ -7,7 +7,6 @@ angular.module('myApp.navbarController', ['ngRoute'])
                 $scope.user = response;
             });
         }
-
         $scope.isConnected = false;
 
         function successAuth(res) {
@@ -37,11 +36,19 @@ angular.module('myApp.navbarController', ['ngRoute'])
                 $scope.email = '';
                 $scope.password = '';
                 $scope.confirmPassword = '';
+                $scope.isDifferentPassword = false;
+                $scope.authFailed = false;
+
                 $scope.closeDialog = function () {
                     $mdDialog.hide();
                 }
 
-                $scope.authInscription = function () {
+                $scope.authInscription = function (inscriptionForm) {
+
+                    if($scope.isDifferentPassword) {
+                        console.log(inscriptionForm);
+                        return null;
+                    }
 
                     var formData = {
                         'login': $scope.login,
@@ -49,13 +56,22 @@ angular.module('myApp.navbarController', ['ngRoute'])
                         'email': $scope.email,
                         'password': $scope.password,
                         'idtype': $scope.typeUser
-                    }
+                    };
 
                     Auth.signup(formData, successAuth, function () {
-                        $rootScope.error = 'Invalid credentials.';
+                        $scope.authFailed = true;
                     })
 
-                }
+                };
+
+                $scope.checkDifferentPassword = function (error) {
+                    if($scope.password !== $scope.confirmPassword) {
+                        $scope.isDifferentPassword = true;
+                    }
+                    else {
+                        $scope.isDifferentPassword = false;
+                    }
+                };
             }
         };
         $scope.showConnexion = function (ev) {

@@ -4,11 +4,6 @@ angular.module('myApp.welcomeController', ['ngRoute'])
 
     .controller('welcomeController', function ($scope, $mdDialog, $http, $rootScope, Auth) {
 
-        $scope.name = 'welcome';
-        $scope.email = 'sobieskimail@yopmail.com';
-        $scope.password = 'studycom';
-
-
         $scope.signin = function () {
             var formData = {
                 email: $scope.email,
@@ -53,10 +48,6 @@ angular.module('myApp.welcomeController', ['ngRoute'])
                 $scope.name = "connexion";
                 $scope.closeDialog = function () {
                     $mdDialog.hide();
-                }
-
-                $scope.authInscription = function () {
-
                 }
             }
         };

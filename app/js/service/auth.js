@@ -45,7 +45,6 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
         signup: function (data, success, error) {
             $http.post('http://localhost/Studycom/public/api/signup', data).then(function(response) {
                 if(response.data == '') {
-                    window.location = 'http://localhost/StudycomClient/app/#/';
                     error();
                 }
                 else {

@@ -3,6 +3,8 @@ var studycom = angular.module('myApp', [
     'ngMaterial',
     'ngRoute',
     'ngStorage',
+    'ngAnimate',
+    'ngMessages',
     'ngScrollGlue',
     'myApp.welcomeController',
     'myApp.navbarController',
