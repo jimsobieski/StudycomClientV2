@@ -164,7 +164,7 @@ md-sidenav {
     color: white;
 }
 
-.topic-prof-message md-card-title md-icon {
+.topic-prof-message md-card-title md-icon, .topic-auth-message md-card-title md-icon {
     margin: 0;
 }
 

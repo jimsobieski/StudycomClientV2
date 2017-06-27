@@ -50,14 +50,17 @@
             <md-tab flex label="Demandes d'ajout">
                 <md-content class="md-padding">
                     <md-list>
-                        <md-list-item ng-repeat="request in requests">
-                            {{request.name}}
-                            <md-button ng-click="acceptRequest(request.id)" class="md-raised">
-                                <md-icon md-svg-src="icons/done.svg"></md-icon>
-                            </md-button>
-                            <md-button ng-click="refuseRequest(request.id)" class="md-raised">
-                                <md-icon md-svg-src="icons/clear.svg"></md-icon>
-                            </md-button>
+                        <md-list-item ng-repeat="request in requests" layout="row" layout-align="space-between center">
+                            <p>{{request.name}}</p>
+                            <div>
+                                <md-button ng-click="acceptRequest(request.id)"
+                                           class="md-raised md-primary mini-button">
+                                    <md-icon md-svg-src="icons/check_white.svg"></md-icon>
+                                </md-button>
+                                <md-button ng-click="refuseRequest(request.id)" class="md-raised mini-button">
+                                    <md-icon md-svg-src="icons/clear.svg"></md-icon>
+                                </md-button>
+                            </div>
                         </md-list-item>
                     </md-list>
                 </md-content>

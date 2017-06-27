@@ -14,7 +14,7 @@
                 <md-grid-list md-cols="1" md-row-height="200px">
                     <md-grid-tile ng-repeat="message in messages | orderBy: 'dateCreation' ">
                         <div layout="row" flex="100" layout-align="{{leftOrRight(message)}}">
-                            <md-card class="topic-message-card {{authMessage(message)}}" flex="40">
+                            <md-card class="topic-message-card {{authMessage(message)}}" flex="30">
                                 <md-card-header layout="row" layout-align="space-around center">
                                     <md-card-avatar>
                                         <img class="md-user-avatar" src="img/avatar.png">
