@@ -171,6 +171,9 @@ angular.module('myApp.topicController', ['ngRoute'])
             if (message.idAuthor == $scope.user.id) {
                 return 'topic-auth-message';
             }
+            else if(message.idtype == 2) {
+                return 'topic-prof-message';
+            }
             else {
                 return '';
             }

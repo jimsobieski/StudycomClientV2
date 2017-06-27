@@ -19,10 +19,11 @@
                                     <md-card-avatar>
                                         <img class="md-user-avatar" src="img/avatar.png">
                                     </md-card-avatar>
-                                    <md-card-title>
+                                    <md-card-title layout="row" layout-align="space-between center">
                                         <p>
                                             <a ng-click="openUserProfileModal(message.idAuthor)">{{message.name}}</a>
                                         </p>
+                                        <md-icon ng-if="message.idtype==2" md-svg-src="icons/school_white.svg"></md-icon>
                                     </md-card-title>
                                 </md-card-header>
                                 <md-divider></md-divider>
@@ -32,7 +33,8 @@
                                 <md-divider></md-divider>
                                 <md-card-content class="message-infos" layout="row" layout-align="space-between center">
                                     <p class="message-date">{{message.dateCreation | date : format : timezone}}</p>
-                                    <md-icon class="message-valid-send" md-svg-src="icons/done.svg"></md-icon>
+                                    <md-icon ng-if="message.idAuthor !== user.id && message.idtype==1" class="message-valid-send" md-svg-src="icons/done.svg"></md-icon>
+                                    <md-icon ng-if="message.idtype==2 || message.idAuthor == user.id" class="message-valid-send" md-svg-src="icons/check_white.svg"></md-icon>
                                 </md-card-content>
                             </md-card>
                         </div>

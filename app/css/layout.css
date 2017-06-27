@@ -154,12 +154,24 @@ md-sidenav {
     background-color: #80CBC4;
     color: white;
 }
+
+.topic-prof-message {
+    background-color: #00695c;
+    color: white;
+}
+
+.topic-prof-message md-card-title a {
+    color: white;
+}
+
+.topic-prof-message md-card-title md-icon {
+    margin: 0;
+}
+
 .topic-message-card > md-card-header {
-    //padding: 4px;
     height: 50px;
 }
 .topic-message-card > md-card-content {
-    //padding: 12px;
     min-height: 50px;
     height: auto;
     max-height: 400px;
