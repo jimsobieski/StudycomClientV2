@@ -2,13 +2,16 @@ angular.module('myApp.contactController', ['ngRoute'])
 
     .controller('contactController', function ($scope, $mdDialog, $http,$location, $rootScope, Auth, contact) {
 
+        if (!Auth.isConnected()) {
+            window.location = 'http://localhost/StudycomClient/app/#/';
+        }
         Auth.user().then(function(response) {
             $scope.user = response;
 
             $scope.getContact();
 
         });
-
+        $scope.message = '';
         $scope.socket = io.connect('http://localhost:8080');
         $scope.socket.on('connect', function () {
             $scope.socket.emit('joinChannel', 'channel/' + contact.id);

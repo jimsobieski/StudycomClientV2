@@ -1,11 +1,14 @@
 <md-dialog layout-padding aria-label="Ajouter un contact" flex="30">
-    <form ng-cloak name="form">
+    <form ng-cloak name="addContactForm">
 
         <h3>Ajouter un contact</h3>
         <md-dialog-content>
             <md-input-container>
                 <label>Adresse e-mail du contact</label>
                 <input ng-model="email" type="text" required>
+                <div ng-messages="addContactForm.email.$error" role="alert">
+                    <ng-message when="required">Un email est obligatoire</ng-message>
+                </div>
             </md-input-container>
         </md-dialog-content>
         <md-dialog-actions layout="row">

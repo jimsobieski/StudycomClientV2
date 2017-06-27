@@ -4,6 +4,9 @@ angular.module('myApp.profilController', ['ngRoute'])
 
 .controller('profilController', function($scope, $http, Auth) {
 
+    if (!Auth.isConnected()) {
+        window.location = 'http://localhost/StudycomClient/app/#/';
+    }
     $scope.userEdit = false;
 
     Auth.user().then(function(response) {

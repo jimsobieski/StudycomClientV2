@@ -16,7 +16,8 @@
     "materialize": "^0.98.2",
     "ngstorage": "^0.3.11",
     "socket.io": "^2.0.3",
-    "ng-scroll-glue": "^2.0.10"
+    "ng-scroll-glue": "^2.0.10",
+    "angular-messages": "^1.6.4"
   },
   "resolutions": {
     "angular": "1.6.4"

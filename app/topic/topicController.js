@@ -1,14 +1,19 @@
 angular.module('myApp.topicController', ['ngRoute'])
 
-    .controller('topicController', function ($scope, $mdDialog, $http, $location, $rootScope, Auth, $mdSidenav, topicParams, $anchorScroll) {
+    .controller('topicController', function ($scope, $mdDialog, $http, $location, $rootScope, Auth, $mdSidenav, topicParams, $localStorage) {
 
         $scope.url = $location.absUrl();
         $scope.showTopicMenu = false;
         $scope.message = '';
         $scope.users = [];
+        if (!Auth.isConnected()) {
+            window.location = 'http://localhost/StudycomClient/app/#/';
+        }
+
 
         Auth.user().then(function (response) {
             $scope.user = response;
+            $scope.isTopicMember();
             $scope.getTopicByUrl();
 
         });
@@ -26,6 +31,19 @@ angular.module('myApp.topicController', ['ngRoute'])
 
             })
         });
+
+        $scope.isTopicMember = function () {
+            var formData = {
+                'idUser': $scope.user.id,
+                'idTopic': parseInt(topicParams.id)
+            };
+
+            $http.post('http://localhost/Studycom/public/api/topic/userMember', formData).then(function (response) {
+                if(response.data == 0) {
+                    window.location = 'http://localhost/StudycomClient/app/#/home';
+                }
+            })
+        };
 
 
         $scope.getTopicByUrl = function () {

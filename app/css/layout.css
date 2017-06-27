@@ -91,8 +91,8 @@ md-sidenav {
     background-color: #E0F2F1;
 }
 
-topic-sidenav-menu-button {
-
+.topic-sidenav-menu {
+    width: 300px;
 }
 
 .topic-feed::-webkit-scrollbar-track

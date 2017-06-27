@@ -41,12 +41,12 @@
             </div>
         </div>
         <md-divider></md-divider>
-        <div layout="row" layout-align="center center" class="topic-response-bar md-padding">
-            <md-input-container flex="80">
+        <div layout="row" layout-align="space-between center" class="topic-response-bar md-padding">
+            <md-input-container class="message-container" flex="grow">
                 <textarea aria-label="message" ng-model="message"></textarea>
             </md-input-container>
-            <md-button class="md-primary md-raised" ng-click="addMessage()" flex="20" ng-disabled="message==''">
-                <md-icon md-svg-src="icons/message.svg"></md-icon>
+            <md-button class="topic-send-message-button" ng-click="addMessage()" ng-disabled="message==''">
+                <md-icon md-svg-src="icons/chat_bubble_white.svg"></md-icon>
                 <md-tooltip md-direction="top">Envoyer un message</md-tooltip>
             </md-button>
 

@@ -67,7 +67,6 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
         logout: function (data) {
             tokenClaims = {};
             $http.post('http://localhost/Studycom/public/api/logout', data).then(function(response) {
-                console.log(response.data);
                 delete $localStorage.token;
                 window.location = 'http://localhost/StudycomClient/app/#/';
             });

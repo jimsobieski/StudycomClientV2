@@ -12,6 +12,9 @@
 .md-button.md-primary.md-raised:not([disabled]):hover {
     background-color: #80CBC4 !important;
 }
+md-input-container .md-input[disabled] {
+    font-weight: 500;
+}
 
  h3 {
     text-transform: uppercase;
