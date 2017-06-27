@@ -167,7 +167,7 @@ md-sidenav {
 }
 
 .message-infos {
-    height: 32px !important;
+    height: 32px;
     min-height: 32px !important;
     overflow-y: hidden;
     padding-bottom: 0;
