@@ -54,7 +54,7 @@
                                 <md-icon flex="20" md-svg-src="icons/edit_black.svg"></md-icon>
                                 <md-button ng-click="openModifyTopicNameModal()">Editer</md-button>
                             </md-menu-item>
-                            <md-menu-item>
+                            <md-menu-item ng-if="topic.idAdmin!=user.id">
                                 <md-icon flex="20" md-svg-src="icons/remove_circle.svg"></md-icon>
                                 <md-button ng-click="leaveTopic()">Quitter</md-button>
                             </md-menu-item>
