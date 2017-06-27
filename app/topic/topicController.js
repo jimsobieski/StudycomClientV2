@@ -114,21 +114,34 @@ angular.module('myApp.topicController', ['ngRoute'])
         };
 
         $scope.deleteTopic = function () {
-            $http.get('http://localhost/Studycom/public/api/topic/' + $scope.topic.id + '/delete').then(function (response) {
+
+            var data = {
+                'idTopic': $scope.topic.id,
+                'idUser': $scope.user.id
+            };
+            $http.post('http://localhost/Studycom/public/api/topic/delete',data).then(function (response) {
                 window.location = 'http://localhost/StudycomClient/app/#/home';
             });
         };
 
         $scope.deleteUserFromTopic = function (idUser) {
-            $http.get('http://localhost/Studycom/public/api/topic/' + $scope.topic.id + '/user/' + idUser + '/delete').then(function (response) {
 
-                $scope.users.forEach(function (user) {
-                    if (user.id == response.data[0].id) {
-                        $scope.index = $scope.users.indexOf(user);
-                    }
-                });
+            var data = {
+                'idTopic': $scope.topic.id,
+                'idUserConnected': $scope.user.id,
+                'idUser': idUser
+            };
+            $http.post('http://localhost/Studycom/public/api/topic/user/delete',data).then(function (response) {
 
-                $scope.users.splice($scope.index, 1);
+                if(response.data != 'denied'){
+                    $scope.users.forEach(function (user) {
+                        if (user.id == response.data[0].id) {
+                            $scope.index = $scope.users.indexOf(user);
+                        }
+                    });
+
+                    $scope.users.splice($scope.index, 1);
+                }
             });
         };
 
@@ -143,13 +156,16 @@ angular.module('myApp.topicController', ['ngRoute'])
 
             var formData = {
                 'idTopic': $scope.topic.id,
-                'idUser': contact.id
+                'idUser': contact.id,
+                'idUserConnected': $scope.user.id
             };
 
             $http.post('http://localhost/Studycom/public/api/topic/addContact', formData)
                 .then(function (response) {
-                    $scope.users.push(contact);
-                    $mdDialog.hide();
+                    if(response.data != 'denied'){
+                        $scope.users.push(contact);
+                        $mdDialog.hide();
+                    }
                 })
         };
         $scope.leftOrRight = function (message) {
@@ -282,10 +298,14 @@ angular.module('myApp.topicController', ['ngRoute'])
 
             });
 
-            function modifyTopicNameModalController($scope, $mdDialog, $location) {
+            function modifyTopicNameModalController($scope, $mdDialog, $location,Auth) {
 
                 $scope.url = $location.absUrl();
                 $scope.name = '';
+
+                Auth.user().then(function(response) {
+                    $scope.user = response;
+                });
 
 
                 $scope.closeDialog = function () {
@@ -299,10 +319,12 @@ angular.module('myApp.topicController', ['ngRoute'])
                     var idTopic = splitUrl[7];
 
                     var formData = {
-                        name: $scope.name
+                        name: $scope.name,
+                        idUser:$scope.user.id,
+                        idTopic: idTopic
                     };
 
-                    $http.post('http://localhost/Studycom/public/api/topic/' + idTopic + '/modify', formData)
+                    $http.post('http://localhost/Studycom/public/api/topic/modify', formData)
                         .then(function (response) {
                             window.location = 'http://localhost/StudycomClient/app/#/home';
                             $mdDialog.hide();
