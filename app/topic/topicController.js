@@ -7,7 +7,7 @@ angular.module('myApp.topicController', ['ngRoute'])
         $scope.message = '';
         $scope.users = [];
         if (!Auth.isConnected()) {
-            window.location = 'http://localhost/StudycomClient/app/#/';
+            window.location = 'http://localhost/StudycomClientV2/app/#/';
         }
 
         Auth.user().then(function (response) {
@@ -69,7 +69,7 @@ angular.module('myApp.topicController', ['ngRoute'])
 
             $http.post('http://localhost/Studycom/public/api/topic/userMember', formData).then(function (response) {
                 if(response.data == 0) {
-                    window.location = 'http://localhost/StudycomClient/app/#/home';
+                    window.location = 'http://localhost/StudycomClientV2/app/#/home';
                 }
             })
         };
@@ -101,7 +101,7 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         $scope.leaveTopic = function () {
             $http.get('http://localhost/Studycom/public/api/user/' + $scope.user.id + '/topic/' + $scope.topic.id + '/leave').then(function (response) {
-                window.location = 'http://localhost/StudycomClient/app/#/home';
+                window.location = 'http://localhost/StudycomClientV2/app/#/home';
             });
         };
 
@@ -111,7 +111,7 @@ angular.module('myApp.topicController', ['ngRoute'])
                 'idUser': $scope.user.id
             };
             $http.post('http://localhost/Studycom/public/api/topic/delete',data).then(function (response) {
-                window.location = 'http://localhost/StudycomClient/app/#/home';
+                window.location = 'http://localhost/StudycomClientV2/app/#/home';
             });
         };
 

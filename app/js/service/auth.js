@@ -49,7 +49,7 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
                 }
                 else {
                     $localStorage.token = response.data.token;
-                    window.location = 'http://localhost/StudycomClient/app/#/home';
+                    window.location = 'http://localhost/StudycomClientV2/app/#/home';
                     success();
                 }
 
@@ -62,7 +62,7 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
                 }
                 else {
                     $localStorage.token = response.data.token;
-                    window.location = 'http://localhost/StudycomClient/app/#/home';
+                    window.location = 'http://localhost/StudycomClientV2/app/#/home';
                     success();
                 }
 
@@ -72,7 +72,7 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
             tokenClaims = {};
             $http.post('http://localhost/Studycom/public/api/logout', data).then(function(response) {
                 delete $localStorage.token;
-                window.location = 'http://localhost/StudycomClient/app/#/';
+                window.location = 'http://localhost/StudycomClientV2/app/#/';
             });
 
         },
