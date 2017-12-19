@@ -112,7 +112,7 @@ angular.module('myApp.navbarController', ['ngRoute'])
 
         $scope.logout = function () {
             var formData = {
-                'id': $scope.user.id
+                'token': $localStorage.token
             };
             Auth.logout(formData);
         };

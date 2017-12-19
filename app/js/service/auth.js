@@ -30,8 +30,12 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
 
     function getUser() {
         if(typeof $localStorage.token !== 'undefined') {
-            var tokenClaim = getClaimsFromToken();
-            var userPromise = $http.get('http://localhost/Studycom/public/api/user/'+tokenClaim.sub).then(function (response) {
+            //var tokenClaim = getClaimsFromToken();
+            var data = {
+                token: $localStorage.token
+            }
+            var userPromise = $http.post('http://localhost:8081/api/user', data).then(function (response) {
+                console.log(response.data);
                 return response.data;
             });
             return userPromise;
@@ -43,7 +47,7 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
 
     return {
         signup: function (data, success, error) {
-            $http.post('http://localhost/Studycom/public/api/signup', data).then(function(response) {
+            $http.post('http://localhost:8081/api/signup', data).then(function(response) {
                 if(response.data == '') {
                     error();
                 }
@@ -56,7 +60,7 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
             });
         },
         signin: function (data, success, error) {
-            $http.post('http://localhost/Studycom/public/api/signin', data).then(function(response){
+            $http.post('http://localhost:8081/api/signin', data).then(function(response){
                 if(response.data == false) {
                     error();
                 }
@@ -70,7 +74,7 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
         },
         logout: function (data) {
             tokenClaims = {};
-            $http.post('http://localhost/Studycom/public/api/logout', data).then(function(response) {
+            $http.post('http://localhost:8081/api/logout', data).then(function(response) {
                 delete $localStorage.token;
                 window.location = 'http://localhost/StudycomClientV2/app/#/';
             });
