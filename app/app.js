@@ -6,6 +6,7 @@ var studycom = angular.module('myApp', [
     'ngAnimate',
     'ngMessages',
     'ngScrollGlue',
+    'angularFileUpload',
     'myApp.welcomeController',
     'myApp.navbarController',
     'myApp.homeController',

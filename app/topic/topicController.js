@@ -1,6 +1,6 @@
 angular.module('myApp.topicController', ['ngRoute'])
 
-    .controller('topicController', function ($scope, $mdDialog, $http, $location, $rootScope, Auth, $mdSidenav, topicParams, $localStorage) {
+    .controller('topicController', function ($scope, $mdDialog, $http, $location, $rootScope, Auth, $mdSidenav, topicParams, $localStorage, FileUploader) {
 
         $scope.url = $location.absUrl();
         $scope.showTopicMenu = false;
@@ -337,5 +337,12 @@ angular.module('myApp.topicController', ['ngRoute'])
                 $scope.messages.push(message);
                 $scope.$apply();
             }
+        };
+
+        $scope.uploader = new FileUploader();
+
+        $scope.uploadFile = function () {
+            console.log($scope.uploader);
+            $scope.uploader.uploadItem();
         }
     });

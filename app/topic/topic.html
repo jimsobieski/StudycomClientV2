@@ -115,6 +115,8 @@
         </div>
 
         <div layout="row" layout-align="space-between center" class="topic-response-bar md-padding" md-whiteframe="8">
+            <input type="file" nv-file-select uploader="uploader"/>
+            <button ng-click="uploadFile()">upload</button>
             <md-input-container class="message-container" flex="grow">
                 <textarea md-maxlength="200" aria-label="message" ng-model="message"></textarea>
             </md-input-container>

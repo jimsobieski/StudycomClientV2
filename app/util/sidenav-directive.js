@@ -34,27 +34,27 @@ studycom.directive("studycomSidenav", function ($http) {
             $scope.selectedTab = $scope.selectTab();
 
             $scope.getTopics = function () {
-                $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/topic').then(function(response) {
+                $http.get('http://localhost:8081/api/user/'+$scope.user.id+'/topic').then(function(response) {
                     $scope.topics = response.data;
 
                 })
             };
 
             $scope.getContacts = function () {
-                $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/contacts/get').then(function(response) {
+                $http.get('http://localhost:8081/api/user/'+$scope.user.id+'/contacts/get').then(function(response) {
                     $scope.contacts = response.data;
                 })
             };
 
             $scope.getRequests = function () {
-                $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/requests').then(function(response) {
+                $http.get('http://localhost:8081/api/user/'+$scope.user.id+'/requests').then(function(response) {
                     $scope.requests = response.data;
 
                 })
             };
 
             $scope.acceptRequest = function (idRequest) {
-                $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/request/'+idRequest+'/accept').then(function(response) {
+                $http.get('http://localhost:8081/api/user/'+$scope.user.id+'/request/'+idRequest+'/accept').then(function(response) {
 
                     $scope.requests.forEach(function(request) {
                         if(request.id == idRequest){
@@ -70,7 +70,7 @@ studycom.directive("studycomSidenav", function ($http) {
             };
 
             $scope.refuseRequest = function (idRequest) {
-                $http.get('http://localhost/Studycom/public/api/user/'+$scope.user.id+'/request/'+idRequest+'/refuse').then(function(response) {
+                $http.get('http://localhost:8081/api/user/'+$scope.user.id+'/request/'+idRequest+'/refuse').then(function(response) {
 
                     $scope.requests.forEach(function(request) {
                         if(request.id == idRequest){
@@ -113,7 +113,7 @@ studycom.directive("studycomSidenav", function ($http) {
                             name: $scope.name,
                         };
 
-                        $http.post('http://localhost/Studycom/public/api/user/'+ $scope.user.id+'/topic', formData)
+                        $http.post('http://localhost:8081/api/user/'+ $scope.user.id+'/topic', formData)
                             .then(function(response) {
                                 var topic = response.data;
                                 $mdDialog.hide();
@@ -157,7 +157,7 @@ studycom.directive("studycomSidenav", function ($http) {
                             email: $scope.email
                         };
 
-                        $http.post('http://localhost/Studycom/public/api/user/'+ $scope.user.id+'/contact/request', formData)
+                        $http.post('http://localhost:8081/api/user/'+ $scope.user.id+'/contact/request', formData)
                             .then(function(response) {
 
                                 if(response.data == 'invalid'){
