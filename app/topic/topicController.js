@@ -17,7 +17,7 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         });
 
-        $scope.socket = io.connect('http://localhost:8080');
+        $scope.socket = io.connect('http://localhost:8081');
         $scope.socket.on('connect', function () {
             $scope.socket.emit('joinChannel', 'channel/' + topicParams.id);
 

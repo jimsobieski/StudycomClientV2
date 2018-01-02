@@ -12,7 +12,7 @@
                 <a href="#/profil">{{user.name}}</a>
             </md-menu-item>
             <md-menu md-offset="120 30">
-                <md-button ng-click="$mdMenu.open($event)" class="md-raised">
+                <md-button ng-click="$mdMenu.open($event)" class="md-raised" ng-disabled="true">
                     <md-icon md-svg-src="icons/add.svg"></md-icon>
                     <md-tooltip md-direction="top">Nouveau</md-tooltip>
                 </md-button>
