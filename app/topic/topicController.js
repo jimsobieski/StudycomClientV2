@@ -12,7 +12,6 @@ angular.module('myApp.topicController', ['ngRoute'])
 
         Auth.user().then(function (response) {
             $scope.user = response;
-            $scope.isTopicMember();
             $scope.getTopicByUrl();
 
         });
@@ -34,8 +33,9 @@ angular.module('myApp.topicController', ['ngRoute'])
         $scope.getTopicByUrl = function () {
             var splitUrl = $scope.url.split('/');
             var idTopic = splitUrl[7];
-            $http.get('http://localhost:8081/api/topic/' + idTopic + '/get').then(function (response) {
-                $scope.topic = response.data[0];
+            $http.get('http://localhost:8081/api/topic/' + idTopic).then(function (response) {
+                console.log(response.data);
+                $scope.topic = response.data;
                 $scope.getTopicMessages($scope.topic.id);
                 $scope.getTopicUsers($scope.topic.id);
 
@@ -61,19 +61,6 @@ angular.module('myApp.topicController', ['ngRoute'])
             return bool;
         };
 
-        $scope.isTopicMember = function () {
-            var formData = {
-                'idUser': $scope.user.id,
-                'idTopic': parseInt(topicParams.id)
-            };
-
-            $http.post('http://localhost:8081/api/topic/userMember', formData).then(function (response) {
-                if(response.data == 0) {
-                    window.location = 'http://localhost/StudycomClientV2/app/#/home';
-                }
-            })
-        };
-
         $scope.getTopicMessages = function (idTopic) {
             $http.get('http://localhost:8081/api/topic/' + idTopic + '/posts').then(function (response) {
                 $scope.messages = response.data;
@@ -86,10 +73,9 @@ angular.module('myApp.topicController', ['ngRoute'])
         $scope.addMessage = function () {
             var data = {
                 'idAuthor': $scope.user.id,
-                'idTopic': $scope.topic.id,
                 'text': $scope.message
             };
-            $http.post('http://localhost:8081/api/topic/sendMessage', data).then(function (response) {
+            $http.post('http://localhost:8081/api/topic/' + $scope.topic.id + '/posts', data).then(function (response) {
                 $scope.socket.emit('newMessage', response.data);
             });
             $scope.message = '';

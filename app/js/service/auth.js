@@ -35,7 +35,6 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
                 token: $localStorage.token
             }
             var userPromise = $http.post('http://localhost:8081/api/user', data).then(function (response) {
-                console.log(response.data);
                 return response.data;
             });
             return userPromise;
