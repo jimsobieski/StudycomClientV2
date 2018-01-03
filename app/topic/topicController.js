@@ -318,6 +318,7 @@ angular.module('myApp.topicController', ['ngRoute'])
                 }
             }
             if (!messageExist) {
+                
                 $scope.messages.push(message);
                 $scope.$apply();
             }

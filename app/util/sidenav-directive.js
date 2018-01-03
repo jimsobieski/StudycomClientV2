@@ -36,12 +36,11 @@ studycom.directive("studycomSidenav", function ($http) {
             $scope.getTopics = function () {
                 $http.get('http://localhost:8081/api/user/'+$scope.user.id+'/topic').then(function(response) {
                     $scope.topics = response.data;
-
                 })
             };
 
             $scope.getContacts = function () {
-                $http.get('http://localhost:8081/api/user/'+$scope.user.id+'/contacts/get').then(function(response) {
+                $http.get('http://localhost:8081/api/user/'+$scope.user.id+'/contacts').then(function(response) {
                     $scope.contacts = response.data;
                 })
             };
