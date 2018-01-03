@@ -34,7 +34,6 @@ angular.module('myApp.topicController', ['ngRoute'])
             var splitUrl = $scope.url.split('/');
             var idTopic = splitUrl[7];
             $http.get('http://localhost:8081/api/topic/' + idTopic).then(function (response) {
-                console.log(response.data);
                 $scope.topic = response.data;
                 $scope.getTopicMessages($scope.topic.id);
                 $scope.getTopicUsers($scope.topic.id);
@@ -86,17 +85,16 @@ angular.module('myApp.topicController', ['ngRoute'])
         };
 
         $scope.leaveTopic = function () {
-            $http.get('http://localhost:8081/api/user/' + $scope.user.id + '/topic/' + $scope.topic.id + '/leave').then(function (response) {
+            $http.delete('http://localhost:8081/api/user/' + $scope.user.id + '/topic/' + $scope.topic.id).then(function (response) {
                 window.location = 'http://localhost/StudycomClientV2/app/#/home';
             });
         };
 
         $scope.deleteTopic = function () {
             var data = {
-                'idTopic': $scope.topic.id,
-                'idUser': $scope.user.id
+                'idAdmin': $scope.user.id
             };
-            $http.post('http://localhost:8081/api/topic/delete',data).then(function (response) {
+            $http.delete('http://localhost:8081/api/topic/'+$scope.topic.id,data).then(function (response) {
                 window.location = 'http://localhost/StudycomClientV2/app/#/home';
             });
         };
