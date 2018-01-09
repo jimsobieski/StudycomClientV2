@@ -5,7 +5,7 @@ angular.module('myApp.profilController', ['ngRoute'])
 .controller('profilController', function($scope, $http, Auth) {
 
     if (!Auth.isConnected()) {
-        window.location = 'http://localhost/StudycomClient/app/#/';
+        window.location = 'http://localhost/StudycomClientV2/app/#/';
     }
     $scope.userEdit = false;
 
@@ -16,7 +16,7 @@ angular.module('myApp.profilController', ['ngRoute'])
 
     $scope.updateUser = function () {
 
-        $http.post('http://localhost/Studycom/public/api/user/update', $scope.userToEdit).
+        $http.post('http://localhost:8081/api/user/update', $scope.userToEdit).
         then(function (response) {
             $scope.user = $scope.userToEdit;
             $scope.editProfile();

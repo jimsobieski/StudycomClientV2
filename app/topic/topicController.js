@@ -11,6 +11,7 @@ angular.module('myApp.topicController', ['ngRoute'])
         }
 
         Auth.user().then(function (response) {
+            console.log(response);
             $scope.user = response;
             $scope.getTopicByUrl();
 
@@ -299,7 +300,7 @@ angular.module('myApp.topicController', ['ngRoute'])
 
                     $http.post('http://localhost:8081/api/topic/modify', formData)
                         .then(function (response) {
-                            window.location = 'http://localhost/StudycomClient/app/#/home';
+                            window.location = 'http://localhost/StudycomClientV2/app/#/home';
                             $mdDialog.hide();
                         })
                 };

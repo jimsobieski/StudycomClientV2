@@ -52,8 +52,12 @@ studycom.factory('Auth', ['$http', '$localStorage', function ($http, $localStora
                 }
                 else {
                     $localStorage.token = response.data.token;
-                    window.location = 'http://localhost/StudycomClientV2/app/#/home';
-                    success();
+                    $http.post('http://localhost:8081/api/user', data).then(function (response) {
+                        $localStorage.user = response.data;
+                        window.location = 'http://localhost/StudycomClientV2/app/#/home';
+                        success();
+                    });
+
                 }
 
             });

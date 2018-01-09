@@ -3,7 +3,7 @@ angular.module('myApp.contactController', ['ngRoute'])
     .controller('contactController', function ($scope, $mdDialog, $http,$location, $rootScope, Auth, contact) {
 
         if (!Auth.isConnected()) {
-            window.location = 'http://localhost/StudycomClient/app/#/';
+            window.location = 'http://localhost/StudycomClientV2/app/#/';
         }
         Auth.user().then(function(response) {
             $scope.user = response;
@@ -50,7 +50,7 @@ angular.module('myApp.contactController', ['ngRoute'])
         $scope.deleteUser = function () {
             $http.get('http://localhost:8081/api/user/'+$scope.user.id+'/contact/'+$scope.contact.id+'/delete').
             then(function (response) {
-                window.location = 'http://localhost/StudycomClient/app/#/home';
+                window.location = 'http://localhost/StudycomClientV2/app/#/home';
 
             });
         };

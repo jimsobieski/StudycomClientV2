@@ -116,7 +116,7 @@ studycom.directive("studycomSidenav", function ($http) {
                             .then(function(response) {
                                 var topic = response.data;
                                 $mdDialog.hide();
-                                window.location = 'http://localhost/StudycomClient/app/#/topic/'+topic.id;
+                                window.location = 'http://localhost/StudycomClientV2/app/#/topic/'+topic.id;
                         })
 
 
